@@ -250,6 +250,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/ES6入门学习记录（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/26/ES6入门学习记录（二）/" itemprop="url">ES6入门学习记录（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T22:48:48+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/26/ES6入门学习记录（二）/" class="leancloud_visitors" data-flag-title="ES6入门学习记录（二）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h1><p>用于修改某些操作的默认行为，相当于在目标对象前假设一层操作，必须通过这层操作，就是代理，翻墙的懂的=。=<br>使用方法：<code>new Proxy(target,handler)</code>.<br>支持的拦截操作一览：</p>
+<ol>
+<li>get(target,propKey,receiver)<br>代理对象的属性读取，最后一个参数<code>receiver</code>是一个对象，可选。</li>
+<li>set(target,propKey,value,receiver)<br>代理对象属性的设置，返回一个布尔值。</li>
+<li>has(target,propKey)<br>代理<code>propKey in proxy</code>的操作，以及<code>hasOwnProperty</code>的方法，返回布尔值。</li>
+<li>deleteProperty(target,propKey)<br>代理<code>delete proxy[propKey]</code>的操作返回布尔值。</li>
+<li>ownKeys(target)<br>代理<code>Object.getOwnPropertyNames(proxy)</code> 、 <code>Object.getOwnPropertySymbols(proxy)</code> 、<code>Object.keys(proxy)</code> ，返回一个数组。该方法返回对象所有自身的属性，而 <code>Object.keys()</code> 仅返回对象可遍历的属性。</li>
+<li>getOwnPropertyDescriptor(target, propKey)<br>拦截 <code>Object.getOwnPropertyDescriptor(proxy, propKey)</code>，返回属性的描述对象。</li>
+<li>defineProperty(target, propKey, propDesc)<br>拦截 <code>Object.defineProperty(proxy, propKey,propDesc）</code> 、 <code>Object.defineProperties(proxy, propDescs)</code> ，返回一个布尔值。</li>
+<li>preventExtensions(target)<br>拦截 <code>Object.preventExtensions(proxy)</code> ，返回一个布尔值。</li>
+<li>getPrototypeOf(target)<br>拦截 <code>Object.getPrototypeOf(proxy)</code> ，返回一个对象。</li>
+<li>isExtensible(target)<br>拦截 <code>Object.isExtensible(proxy)</code> ，返回一个布尔值。</li>
+<li>setPrototypeOf(target, proto)<br>拦截 <code>Object.setPrototypeOf(proxy, proto)</code> ，返回一个布尔值。<br>如果目标对象是函数，那么还有两种额外操作可以拦截。</li>
+<li>apply(target, object, args)<br>拦截Proxy实例作为函数调用的操作，比如 <code>proxy(...args)</code> 、 <code>proxy.call(object,...args)</code> 、 <code>proxy.apply(...)</code> 。</li>
+<li>construct(target, args)<br>拦截Proxy实例作为构造函数调用的操作，比如 <code>new proxy(...args)</code> 。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/ES6入门学习记录（一）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -304,8 +483,19 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd-JavaScipt/" itemprop="url" rel="index">
-                    <span itemprop="name">FrontEnd,JavaScipt</span>
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -1120,7 +1310,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1131,7 +1321,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1142,7 +1332,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

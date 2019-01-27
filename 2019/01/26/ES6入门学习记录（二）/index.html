@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hex11o">
 <meta property="og:description" content="Proxy用于修改某些操作的默认行为，相当于在目标对象前假设一层操作，必须通过这层操作，就是代理，翻墙的懂的=。=使用方法：new Proxy(target,handler).支持的拦截操作一览：  get(target,propKey,receiver)代理对象的属性读取，最后一个参数receiver是一个对象，可选。 set(target,propKey,value,receiver)代理对象">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-26T15:15:01.039Z">
+<meta property="og:updated_time" content="2019-01-27T15:36:44.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6入门学习记录（二）">
 <meta name="twitter:description" content="Proxy用于修改某些操作的默认行为，相当于在目标对象前假设一层操作，必须通过这层操作，就是代理，翻墙的懂的=。=使用方法：new Proxy(target,handler).支持的拦截操作一览：  get(target,propKey,receiver)代理对象的属性读取，最后一个参数receiver是一个对象，可选。 set(target,propKey,value,receiver)代理对象">
@@ -378,6 +378,73 @@
 <li>apply(target, object, args)<br>拦截Proxy实例作为函数调用的操作，比如 <code>proxy(...args)</code> 、 <code>proxy.call(object,...args)</code> 、 <code>proxy.apply(...)</code> 。</li>
 <li>construct(target, args)<br>拦截Proxy实例作为构造函数调用的操作，比如 <code>new proxy(...args)</code> 。</li>
 </ol>
+<hr>
+<h1 id="Reflect概述"><a href="#Reflect概述" class="headerlink" title="Reflect概述"></a>Reflect概述</h1><ol>
+<li>将<code>Object</code>对象的一些明显属于语言内部的方法，放在<code>Reflect</code>对象上。</li>
+<li>修改某些Object方法的返回结果，让其变得更合理。比如， Object.defineProperty(obj, name, desc) 在无法定义属性时，会抛出一个错误，而 Reflect.defineProperty(obj, name, desc) 则会返回 false 。</li>
+<li>让<code>Object</code>操作变成函数行为。某些 Object 操作是命令式，比如 <code>name in obj</code> 和 <code>delete obj[name]</code>，而 <code>Reflect.has(obj,name)</code> 和 <code>Reflect.deleteProperty(obj, name)</code>让它们变成了函数行为。</li>
+<li>Reflect 对象的方法与 Proxy 对象的方法一一对应，只要是 Proxy 对象的方法，就能在 Reflect 对象上找到对应的方法。这就让 Proxy 对象可以方便地调用对应的 Reflect 方法，完成默认行为，作为修改行为的基础。<strong>也就是说，不管 Proxy 怎么修改默认行为，你总可以在Reflect 上获取默认行为。</strong></li>
+</ol>
+<hr>
+<h1 id="二进制数组"><a href="#二进制数组" class="headerlink" title="二进制数组"></a>二进制数组</h1><p>WebGL：浏览器与显卡之间通信接口，必须是二进制的，不然都要进行格式化会相对耗时。<br>二进制数组由三类对象组成：</p>
+<ol>
+<li>ArrayBuffer对象：代表内存中有段二进制数据，可以通过“视图”进行操作。</li>
+<li>TypedArray视图：共包括9种类型的视图，比如Uint8Array(无符号8位),Int16Array(16位整数),Float32Array(32位浮点数).</li>
+<li>DataView视图：自定义符合格式的视图，比如第一个字节是什么类型，第二三个是什么类型。</li>
+</ol>
+<p>简单说，ArrayBuffer对象代表原始的二进制数据，TypedArray视图用来读写简单类型的二进制数据，DataView视图用来读写复杂类型的二进制数据。</p>
+<h3 id="ArrayBuffer对象"><a href="#ArrayBuffer对象" class="headerlink" title="ArrayBuffer对象"></a>ArrayBuffer对象</h3><p><code>ArrayBUffer</code>代表存储二进制数据的一段内存，不能直接读写，只能通过视图来读写。<br>TypedArray视图的构造函数，除了接受 ArrayBuffer 实例作为参数，还可以接受普通数组作为参数，直接分配内存生成底层的ArrayBuffer实例，并同时完成对这段内存的赋值。<br><code>ArrayBuffer.prototype.byteLength</code>:返回内存区域的字节长度。<br><code>ArrayBuffer.prototype.slice()</code>:将内存区域的一部分，拷贝生成一个新的<code>ArrayBuffer</code>对象，分配新内存–拷贝。<br><code>ArrayBuffer.isView()</code>:表示参数是否为ArrayBuffer的视图实例。</p>
+<h3 id="TypedArray视图"><a href="#TypedArray视图" class="headerlink" title="TypedArray视图"></a>TypedArray视图</h3><ol>
+<li><code>TypedArray(buffer, byteOffset=0, length?)</code>:操作ArrayBuffer对象,开始位置，数据长度。</li>
+<li><code>TypedArray(length)</code>:直接分配内存生成。</li>
+<li><code>TypedArray(typedArray)</code>:接受另一个实例作为参数，赋值构建视图。</li>
+<li><code>TypedArray(arrayLikeObject)</code>:普通数组变实例。</li>
+</ol>
+<h4 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h4><p>普通数组的方法和属性适用于TypedArrray,但是没有<code>concat</code>方法。</p>
+<h4 id="字节序"><a href="#字节序" class="headerlink" title="字节序"></a>字节序</h4><p>指的是数值在内存中的表现方式。<br>x86体系的计算机都采用小端字节序（little endian），相对重要的字节排在后面的内存地址，相对不重要字节排在前面的内存地址。比如，一个占据四个字节的16进制数 0x12345678 ，决定其大小的最重要的字节是“12”，最不重要的是“78”。小端字节序将最不重要的字节排在前面，储存顺序就是 78563412。</p>
+<h4 id="BYTES-PER-ELEMENT属性：返回数据类型占据的字节数，实例也能获取。"><a href="#BYTES-PER-ELEMENT属性：返回数据类型占据的字节数，实例也能获取。" class="headerlink" title="BYTES_PER_ELEMENT属性：返回数据类型占据的字节数，实例也能获取。"></a>BYTES_PER_ELEMENT属性：返回数据类型占据的字节数，实例也能获取。</h4><h4 id="字符串与ArrayBuffer的互相转换"><a href="#字符串与ArrayBuffer的互相转换" class="headerlink" title="字符串与ArrayBuffer的互相转换"></a>字符串与ArrayBuffer的互相转换</h4><h4 id="溢出"><a href="#溢出" class="headerlink" title="溢出"></a>溢出</h4><p>处理规则：1.正向溢出：最小值加上余值，再减1；2.反向溢出：最大值减去余值，再加上1。<br><code>Uint8ClampedArray</code>规则则是大小顶边。</p>
+<h4 id="TypedArray-prototype-buffer：返回ArrayBuffer对象，只读。"><a href="#TypedArray-prototype-buffer：返回ArrayBuffer对象，只读。" class="headerlink" title="TypedArray.prototype.buffer：返回ArrayBuffer对象，只读。"></a>TypedArray.prototype.buffer：返回ArrayBuffer对象，只读。</h4><h4 id="TypedArray-prototype-byteLength，TypedArray-prototype-byteOffset，TypedArray-prototype-length"><a href="#TypedArray-prototype-byteLength，TypedArray-prototype-byteOffset，TypedArray-prototype-length" class="headerlink" title="TypedArray.prototype.byteLength，TypedArray.prototype.byteOffset，TypedArray.prototype.length"></a>TypedArray.prototype.byteLength，TypedArray.prototype.byteOffset，TypedArray.prototype.length</h4><p><code>TypedArray.prototype.set()</code>：赋值数组，整段内存赋值，第二个参数表示从对象第几个成员开始赋值参数对象。<br><code>TypedArray.prototype.subarray()</code>:参数为起始，返回一个新视图。<br><code>TypedArray.prototype.slice()</code>：参数为开始位置，可以为负数。返回一个新实例。<br><code>TypedArray.of()</code>:将参数转为一个TypedArray实例。<br><code>TypedArray.from()</code>:将可遍历数据解构转为一个TypedArray实例，接受第二个参数对每个元素进行遍历，类似<code>map</code>方法，先拷贝再处理。</p>
+<h4 id="复合视图"><a href="#复合视图" class="headerlink" title="复合视图"></a>复合视图</h4><p>同一段内存，可以存放不同类型的数据。</p>
+<h3 id="DataView视图"><a href="#DataView视图" class="headerlink" title="DataView视图"></a>DataView视图</h3><p>ArrayBuffer 对象的各种TypedArray视图，是用来向网卡、声卡之类的本机设备传送数据，所以使用本机的字节序就可以了；而 DataView 视图的设计目的，是用来处理网络设备传来的数据，所以大端字节序或小端字节序是可以自行设定的。<br><code>DataView</code>提供八个方法读取内存：<br>getInt8,getUint8,getInt16,getUint16,getInt32,getUint32,getFloat32,getFloat64.<br>默认使用大端字节序解读数据，如果需要使用小段字节序，必须在get第二个参数使用<code>true</code>.<br><code>DataView</code>提供八个方法写入内存：<br><code>set...</code>同上，第一额参数是字节序号，第二个参数为写入数据，第三个参数为写入字节的方法，大端还是小端，同上。</p>
+<h3 id="二进制数组的应用"><a href="#二进制数组的应用" class="headerlink" title="二进制数组的应用"></a>二进制数组的应用</h3><h4 id="AJAX"><a href="#AJAX" class="headerlink" title="AJAX"></a>AJAX</h4><p>如果明确知道返回的二进制数据类型，可以把返回类型（ <code>responseType</code>）设为 <code>arraybuffer</code> ；如果不知道，就设为 blob 。</p>
+<h4 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h4><p>网页 Canvas 元素输出的二进制像素数据，就是TypedArray数组。<br>它的视图类型是一种针对 Canvas 元素的专有类型 Uint8ClampedArray 。</p>
+<h4 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h4><h4 id="Fetch-API"><a href="#Fetch-API" class="headerlink" title="Fetch API"></a>Fetch API</h4><h4 id="File-API"><a href="#File-API" class="headerlink" title="File API"></a>File API</h4><hr>
+<h1 id="Set和Map数据结构"><a href="#Set和Map数据结构" class="headerlink" title="Set和Map数据结构"></a>Set和Map数据结构</h1><h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>类似于数组，但是成员的值都是唯一的，没有重复的值，返回的是一个对象。<br>可以接受一个数组或类数组作为参数，用于初始化，返回的是一个对象。<br>加入值时不会发生类型转换，NaN===NaN,两个对象不相等。</p>
+<h3 id="set实例的属性和方法"><a href="#set实例的属性和方法" class="headerlink" title="set实例的属性和方法"></a>set实例的属性和方法</h3><p>属性：constructor,size:实例的成员总数。<br>方法：操作方法和遍历方法。<br>操作方法：</p>
+<ol>
+<li>add():返回set结构本身</li>
+<li>delete()：返回布尔值，表示删除是否成功</li>
+<li>has():返回布尔值</li>
+<li>clear():清除所有成员，没有返回值</li>
+</ol>
+<p>遍历方法：</p>
+<ol>
+<li>keys():键名的遍历器；</li>
+<li>values():键值遍历器；</li>
+<li>entries():键值对的遍历器；</li>
+<li>forEach():回调函数遍历成员。</li>
+</ol>
+<p>Set没有键名，只有键值，key和value方法行为完全一致。</p>
+<h3 id="set实现并集，交集，差集。"><a href="#set实现并集，交集，差集。" class="headerlink" title="set实现并集，交集，差集。"></a>set实现并集，交集，差集。</h3><h3 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h3><p>WeakSet与Set类似，也是不重复值的集合。<br>但是，WeakSet成员只能是对象，而不能是其他类型的值，另外，对象都是弱引用，垃圾回收机制不会考虑WeakSet对对象的引用。以为着无法引用WeakSet成员，不可遍历。</p>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>JS的对象，本质是键值的集合（hash结构），但是只能用字符串当键。<br>Map结构键的范围不限于字符串，各种类型都可以当作键，即<code>值——值</code>对应。<br>map只有针对同一个对象的引用，才将其视为同一个键。也就是说引用表达相同值的对象，是两个值，内存地址不一样。<br>简单类型的值，只要两个值严格相等就会视为一个键（0，-0；NaN)。<br><code>Map {key =&gt; value, key =&gt; value}</code></p>
+<h3 id="map实例的属性与操作方法"><a href="#map实例的属性与操作方法" class="headerlink" title="map实例的属性与操作方法"></a>map实例的属性与操作方法</h3><ol>
+<li>size属性：返回Map结构的成员总数</li>
+<li>set(key,value)</li>
+<li>get(key)</li>
+<li>has(key)</li>
+<li>delete(key)</li>
+<li>clear():清楚所有成员，no return</li>
+</ol>
+<h4 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h4><p>老四样，keys,values entries,forEach,遍历顺序是插入顺序。</p>
+<h4 id="数据结构相互转换"><a href="#数据结构相互转换" class="headerlink" title="数据结构相互转换"></a>数据结构相互转换</h4><ol>
+<li>Map转数组，扩展运算符（…)。</li>
+<li>数组转Map</li>
+<li>Map转对象，需要键是字符串。</li>
+<li>对象转Map</li>
+<li>Map转JSON,1.键字符串，转为对象JSON；2.有非字符串，可选择转为数组JSON.</li>
+<li>JSON转Map，正常情况下，键名都是字符串。</li>
+</ol>
+<h4 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h4><p>WeakMap与Map基本类似，只接受对象作为键名（null除外),所指向对象，不计入垃圾回收机制.<br>WeakMap只有四个方法，get,set,has,delete.</p>
 
       
     </div>
@@ -504,7 +571,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -515,7 +582,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -564,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Proxy"><span class="nav-number">1.</span> <span class="nav-text">Proxy</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Proxy"><span class="nav-number">1.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reflect概述"><span class="nav-number">2.</span> <span class="nav-text">Reflect概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二进制数组"><span class="nav-number">3.</span> <span class="nav-text">二进制数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayBuffer对象"><span class="nav-number">3.0.1.</span> <span class="nav-text">ArrayBuffer对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TypedArray视图"><span class="nav-number">3.0.2.</span> <span class="nav-text">TypedArray视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组方法"><span class="nav-number">3.0.2.1.</span> <span class="nav-text">数组方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字节序"><span class="nav-number">3.0.2.2.</span> <span class="nav-text">字节序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BYTES-PER-ELEMENT属性：返回数据类型占据的字节数，实例也能获取。"><span class="nav-number">3.0.2.3.</span> <span class="nav-text">BYTES_PER_ELEMENT属性：返回数据类型占据的字节数，实例也能获取。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串与ArrayBuffer的互相转换"><span class="nav-number">3.0.2.4.</span> <span class="nav-text">字符串与ArrayBuffer的互相转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#溢出"><span class="nav-number">3.0.2.5.</span> <span class="nav-text">溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TypedArray-prototype-buffer：返回ArrayBuffer对象，只读。"><span class="nav-number">3.0.2.6.</span> <span class="nav-text">TypedArray.prototype.buffer：返回ArrayBuffer对象，只读。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TypedArray-prototype-byteLength，TypedArray-prototype-byteOffset，TypedArray-prototype-length"><span class="nav-number">3.0.2.7.</span> <span class="nav-text">TypedArray.prototype.byteLength，TypedArray.prototype.byteOffset，TypedArray.prototype.length</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复合视图"><span class="nav-number">3.0.2.8.</span> <span class="nav-text">复合视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataView视图"><span class="nav-number">3.0.3.</span> <span class="nav-text">DataView视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制数组的应用"><span class="nav-number">3.0.4.</span> <span class="nav-text">二进制数组的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AJAX"><span class="nav-number">3.0.4.1.</span> <span class="nav-text">AJAX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Canvas"><span class="nav-number">3.0.4.2.</span> <span class="nav-text">Canvas</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebSocket"><span class="nav-number">3.0.4.3.</span> <span class="nav-text">WebSocket</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fetch-API"><span class="nav-number">3.0.4.4.</span> <span class="nav-text">Fetch API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#File-API"><span class="nav-number">3.0.4.5.</span> <span class="nav-text">File API</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Set和Map数据结构"><span class="nav-number">4.</span> <span class="nav-text">Set和Map数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set"><span class="nav-number">4.1.</span> <span class="nav-text">Set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set实例的属性和方法"><span class="nav-number">4.1.1.</span> <span class="nav-text">set实例的属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set实现并集，交集，差集。"><span class="nav-number">4.1.2.</span> <span class="nav-text">set实现并集，交集，差集。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakSet"><span class="nav-number">4.1.3.</span> <span class="nav-text">WeakSet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map"><span class="nav-number">4.2.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map实例的属性与操作方法"><span class="nav-number">4.2.1.</span> <span class="nav-text">map实例的属性与操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历方法"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">遍历方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构相互转换"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">数据结构相互转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WeakMap"><span class="nav-number">4.2.1.3.</span> <span class="nav-text">WeakMap</span></a></li></ol></li></ol></li></ol></li></div>
             
 
           </div>

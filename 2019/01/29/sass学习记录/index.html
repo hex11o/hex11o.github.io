@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Sass,">
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="code &amp; origami">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hex11o">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta name="description" content="了解css模块化与具体操作。">
+<meta name="keywords" content="Sass">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sass学习记录">
+<meta property="og:url" content="http://yoursite.com/2019/01/29/sass学习记录/index.html">
 <meta property="og:site_name" content="Hex11o">
-<meta property="og:description" content="code &amp; origami">
+<meta property="og:description" content="了解css模块化与具体操作。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-29T10:20:05.147Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hex11o">
-<meta name="twitter:description" content="code &amp; origami">
+<meta name="twitter:title" content="sass学习记录">
+<meta name="twitter:description" content="了解css模块化与具体操作。">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/2/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/29/sass学习记录/">
 
 
 
 
 
-  <title>Hex11o</title>
+  <title>sass学习记录 | Hex11o</title>
   
 
 
@@ -141,8 +143,7 @@
   
   
 
-  <div class="container  
-  page-home">
+  <div class="container  page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -235,9 +236,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -250,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/You-dont-konw-JS学习笔记（二）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/sass学习记录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="He">
@@ -267,9 +268,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/21/You-dont-konw-JS学习笔记（二）/" itemprop="url">You dont konw JS学习笔记（二）</a></h1>
+          <h1 class="post-title" itemprop="name headline">sass学习记录</h1>
         
 
         <div class="post-meta">
@@ -281,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T20:02:37+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T12:59:25+08:00">
+                2019-01-29
               </time>
             
 
@@ -315,8 +314,8 @@
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/FrontEnd/Sass/" itemprop="url" rel="index">
+                    <span itemprop="name">Sass</span>
                   </a>
                 </span>
 
@@ -332,7 +331,7 @@
 
           
           
-             <span id="/2019/01/21/You-dont-konw-JS学习笔记（二）/" class="leancloud_visitors" data-flag-title="You dont konw JS学习笔记（二）">
+             <span id="/2019/01/29/sass学习记录/" class="leancloud_visitors" data-flag-title="sass学习记录">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -363,18 +362,28 @@
       
 
       
-        
-          <p>第一部分是说的<code>this</code>，<code>this</code>是什么，执行机制是怎么样的，能做什么；<br>第二部分是对象，对象是什么，有什么类型，对象的属性；<br>第三部分是类，这里说的类在JS里是怎么实现的，与其他语言的差别；<br>第四部分是原型，通过原型实现类“类”，原型是什么，对象之间的关系。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/21/You-dont-konw-JS学习笔记（二）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>了解css模块化与具体操作。<br><a id="more"></a></p>
+<h1 id="什么是Sass以及安装"><a href="#什么是Sass以及安装" class="headerlink" title="什么是Sass以及安装"></a>什么是Sass以及安装</h1><p>在说Sass之前，来说一下原始的CSS,你经常用到一个颜色，这时候你想要将其设置为一个变量，而CSS中原生变量定义语法是：<code>--*</code>,使用语法是<code>var(--*)</code>;<br>写某个模块的时候，每次都要添加选择器的父选择器，是不是太麻烦了；<br>两个相似的模块，就是选择器名字不同，样式大体一致，我还要去再复制一遍吗。<br>上面的问题，Sass来帮你解决，sass其实本质来说还是CSS，只是专门的编程语言，写完再编译成正常的CSS文件，使用便利，节约时间，利于系统化管理与维护。</p>
+<h2 id="安装与使用"><a href="#安装与使用" class="headerlink" title="安装与使用"></a>安装与使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>npm install -g sass</code>，说实话，命令行有点难用，懒得打字的直接下载<a href="https://sass-lang.com/install" target="_blank" rel="noopener">转换应用</a>=。=</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>SASS可以使用变量，所有变量以$开头。<br>如果变量需要在字符串中，就必须写在#{}之中。</p>
+<h4 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h4><p>允许在代码中使用算式，其实css也有<code>calc</code>….</p>
+<h4 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h4><p>选择器可以嵌套啦，以前那一长条选择器可以简化了，属性也可以嵌套，比如border下面有color,radius之类的，属性嵌套也要加:号，在嵌套的代码块，可以使用&amp;引用父元素。</p>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>标准的CSS注释 /<em> comment </em>/ ，会保留到编译后的文件。<br>单行注释 // comment，只保留在SASS源文件中，编译后被省略。<br>在/*后面加一个感叹号，表示这是”重要注释”。即使是压缩模式编译，也会保留这行，通常可以用于声明版权信息。</p>
+<h2 id="代码重用"><a href="#代码重用" class="headerlink" title="代码重用"></a>代码重用</h2><h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>允许一个选择器继承另一个选择器，使用@extend命令；</p>
+<h3 id="Mixin"><a href="#Mixin" class="headerlink" title="Mixin"></a>Mixin</h3><p>使用@mixin定义一个代码块<br>使用@include调用这个代码块<br>mixin可以制定参数和缺省值,根据需要可以再加入参数：<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">mixin</span> left(<span class="variable">$value</span>: 10px) &#123;</span><br><span class="line">　　　　<span class="attribute">float</span>: left;</span><br><span class="line">　　　　<span class="attribute">margin-right</span>: <span class="variable">$value</span>;</span><br><span class="line">　　&#125;</span><br><span class="line">　　<span class="selector-tag">div</span> &#123;</span><br><span class="line">　　　　@<span class="keyword">include</span> left(<span class="number">20px</span>);</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="颜色函数"><a href="#颜色函数" class="headerlink" title="颜色函数"></a>颜色函数</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lighten(<span class="selector-id">#cc3</span>, 10%) <span class="comment">// #d6d65c</span></span><br><span class="line">darken(<span class="selector-id">#cc3</span>, 10%) <span class="comment">// #a3a329</span></span><br><span class="line">grayscale(<span class="selector-id">#cc3</span>) <span class="comment">// #808080</span></span><br><span class="line">complement(<span class="selector-id">#cc3</span>) <span class="comment">// #33c</span></span><br></pre></td></tr></table></figure>
+<h3 id="插入文件"><a href="#插入文件" class="headerlink" title="插入文件"></a>插入文件</h3><p><code>@import</code>插入外部文件,<br><div class="note primary"><p>会发现为什么scss的文件实际都是有一个’<code>_</code>‘符号？因为<code>@import</code>根据文件名引入，在有些情况下，它会被编译为CSS的<code>@import</code>规则：<br>如果文件的扩展名是 .css。<br>如果文件名以 http:// 开头。<br>如果文件名是 url()。<br>如果 @import包含了任何媒体查询（media queries）。<br>如果上述情况都没有出现，并且扩展名是 .scss 或 .sass， 该名称的 Sass 或 SCSS 文件就被引入。 如果没有扩展名， Sass 将试着找出具有 .scss 或 .sass 扩展名的同名文件并将引入。</p>
+<p>有scss或sass文件需要引入，又不希望编译为css文件，那么加一个下划线，就能避免编译，正常引入时也不需要加这个下划线。</p>
+<p><em>注意，在同一个目录不能同时存在带下划线和不带下划线的同名文件。 例如，colors.scss 不能与 colors.scss 并存,添加下划线的文件会被忽略。</em></p></div></p>
+<h2 id="高级语法"><a href="#高级语法" class="headerlink" title="高级语法"></a>高级语法</h2><h3 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h3><p><code>@if</code>,<code>@else</code> 可以用来判断.</p>
+<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><p><code>@for</code>:<code>@for $i from..to..</code>@while<code></code>@each<code>:</code>@each` $i in ….</p>
+<h3 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@function double(<span class="variable">$n</span>) &#123;</span><br><span class="line">　　　　@return <span class="variable">$n</span> * 2;</span><br><span class="line">　　&#125;</span><br><span class="line"></span><br><span class="line">　　<span class="selector-id">#sidebar</span> &#123;</span><br><span class="line">　　　　<span class="attribute">width</span>: double(<span class="number">5px</span>);</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="所以，实际运用情况是什么样的"><a href="#所以，实际运用情况是什么样的" class="headerlink" title="所以，实际运用情况是什么样的"></a>所以，实际运用情况是什么样的</h1><p>首先，项目的css文件由Sass文件生成，Sass文件由各个模块组成<br>变量，mixin,框架，预设值放入base文件夹；<br>header,footer,section,nav放入layout文件夹；<br>blocks,buttons,components放入modules文件夹；<br>编辑的过程中，通过继承，mixin复用代码。</p>
+<p>将需要的模块（外面的也行）按顺序<code>@import</code>成主scss文件，随后编译成css即可。</p>
+
       
-    </p></div>
+    </div>
     
     
     
@@ -387,350 +396,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/You-dont-konw-JS学习笔记（一）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/21/You-dont-konw-JS学习笔记（一）/" itemprop="url">You dont konw JS学习笔记(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T09:23:57+08:00">
-                2019-01-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
-                    <span itemprop="name">FrontEnd</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Sass/" rel="tag"># Sass</a>
           
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/01/21/You-dont-konw-JS学习笔记（一）/" class="leancloud_visitors" data-flag-title="You dont konw JS学习笔记(一)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>看了大半个月的《Javascript高级程序设计》（以下简称高程），把百度学院的前端课程学到一堆设计模式时脑袋开始有点转不过来了，重新开始看书，试图了解为什么要那么做的原因。其实一开始看高程时应该要配合you dont konw JS这本书一起看的，因为初学是真的不懂JS啊, 其实高程虽然内容都提到了，但是我看高程很难抓到脉络=.=<br>推荐一个工具，可以看到代码一步步怎么运行的——<a href="http://pythontutor.com/visualize.html#mode=display" target="_blank" rel="noopener">Visualize Code</a>.<br>因为看完书很容易忘记，写一些读书笔记整理思路复习一下：<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/21/You-dont-konw-JS学习笔记（一）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/29/npm使用说明/" rel="next" title="npm使用说明">
+                <i class="fa fa-chevron-left"></i> npm使用说明
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/hexo：配置并上传到github/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/18/hexo：配置并上传到github/" itemprop="url">Hexo：配置并上传到github</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T21:50:03+08:00">
-                2019-01-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
-                    <span itemprop="name">FrontEnd</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/博客/" itemprop="url" rel="index">
-                    <span itemprop="name">博客</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/01/18/hexo：配置并上传到github/" class="leancloud_visitors" data-flag-title="Hexo：配置并上传到github">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>想要记录一下学习过程，方便自己记录和整理，决定用hexo和github配置一下自己的博客，顺便用用git，熟悉一下操作，书看再多还是得亲自操作才知道坑在哪。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/18/hexo：配置并上传到github/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -740,14 +435,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -755,6 +447,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -775,8 +471,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -852,6 +557,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Sass以及安装"><span class="nav-number">1.</span> <span class="nav-text">什么是Sass以及安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与使用"><span class="nav-number">1.1.</span> <span class="nav-text">安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">嵌套</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">注释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码重用"><span class="nav-number">1.2.</span> <span class="nav-text">代码重用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#继承"><span class="nav-number">1.2.1.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mixin"><span class="nav-number">1.2.2.</span> <span class="nav-text">Mixin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#颜色函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">颜色函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入文件"><span class="nav-number">1.2.4.</span> <span class="nav-text">插入文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级语法"><span class="nav-number">1.3.</span> <span class="nav-text">高级语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条件语句"><span class="nav-number">1.3.1.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环语句"><span class="nav-number">1.3.2.</span> <span class="nav-text">循环语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">自定义函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#所以，实际运用情况是什么样的"><span class="nav-number">2.</span> <span class="nav-text">所以，实际运用情况是什么样的</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -985,6 +706,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

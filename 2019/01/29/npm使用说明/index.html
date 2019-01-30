@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hex11o">
 <meta property="og:description" content="本文是对npm学习的归纳。在安装完node后自带的npm包管理器的使用，会用一些简单功能，看看官方文档更深入一点了解npm.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-29T03:53:37.982Z">
+<meta property="og:updated_time" content="2019-01-30T14:39:26.742Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="npm使用说明">
 <meta name="twitter:description" content="本文是对npm学习的归纳。在安装完node后自带的npm包管理器的使用，会用一些简单功能，看看官方文档更深入一点了解npm.">
@@ -377,7 +377,7 @@
 <h3 id="卸载全局安装包"><a href="#卸载全局安装包" class="headerlink" title="卸载全局安装包"></a>卸载全局安装包</h3><p><code>npm ls -g --depth=0</code>查看全局安装的包；<br><code>npm uninstall -g packagename</code>卸载该包。</p>
 <h3 id="创建Node-js模块"><a href="#创建Node-js模块" class="headerlink" title="创建Node.js模块"></a>创建Node.js模块</h3><h4 id="自动创建package-json"><a href="#自动创建package-json" class="headerlink" title="自动创建package.json"></a>自动创建package.json</h4><p><code>npm init</code>：name,version,description,entry point,test command,git repository,keywords,author,license.<br><code>npm publish</code></p>
 <h4 id="发布npm包"><a href="#发布npm包" class="headerlink" title="发布npm包"></a>发布npm包</h4><p><code>npm adduser</code>:添加用户<br><code>npm config ls</code>:查看npm配置<br><code>npm publish</code>：发布包</p>
-<h4 id="升级包并发布"><a href="#升级包并发布" class="headerlink" title="升级包并发布"></a>升级包并发布</h4><p>更改后发布需要更改版本号，可以直接在package.json修改，或者使用<code>npm version patch</code>生成。然后<code>npm publish</code>.<br>版本号的修改规则：<br>第一位：改变api，不往后兼容，major release;<br>第二位：新特性，向后兼容，minor release;<br>第三位：简单的bug修复，没有新特性,patch release.<br>对应的版本修改就是<code>npm version major</code>,<code>npm version minor</code>,<code>npm version patch</code>.</p>
+<h4 id="升级包并发布"><a href="#升级包并发布" class="headerlink" title="升级包并发布"></a>升级包并发布</h4><p>更改后发布需要更改版本号，可以直接在package.json修改，或者使用<code>npm version patch</code>生成。然后<code>npm publish</code>.<br>版本号的修改规则：<br>第一位：改变api，不往前兼容，major release;<br>第二位：新特性，向前兼容，minor release;<br>第三位：简单的bug修复，没有新特性,patch release.<br>对应的版本修改就是<code>npm version major</code>,<code>npm version minor</code>,<code>npm version patch</code>.</p>
 <h1 id="npm-CLI-command-line-interface-命令"><a href="#npm-CLI-command-line-interface-命令" class="headerlink" title="npm CLI(command line interface)命令"></a>npm CLI(command line interface)命令</h1><p>参见官方文档——<a href="https://docs.npmjs.com/cli-documentation/cli" target="_blank" rel="noopener">CLI commands</a>.</p>
 
       

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hex11o">
 <meta property="og:description" content="想要复现Chrome toggle的效果时发现了一个伪类:host()，查询MDN。  The :host() CSS pseudo-class function selects the shadow host of the shadow DOM containing the CSS it is used inside (so you can select a custom element fro">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-07T10:24:26.442Z">
+<meta property="og:updated_time" content="2019-02-07T10:36:55.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shadow DOM">
 <meta name="twitter:description" content="想要复现Chrome toggle的效果时发现了一个伪类:host()，查询MDN。  The :host() CSS pseudo-class function selects the shadow host of the shadow DOM containing the CSS it is used inside (so you can select a custom element fro">
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
                   </a>
                 </span>
 
@@ -314,8 +314,8 @@
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -367,7 +367,7 @@
 <p>The :host() CSS pseudo-class function selects the shadow host of the shadow DOM containing the CSS it is used inside (so you can select a custom element from inside its shadow DOM) — but only if the selector given as the function’s parameter matches the shadow host.</p>
 </blockquote>
 <p>翻译一下：<code>:host()</code>伪元素选择的是括号内选择器参数的<code>shadow DOM</code>元素的<code>shadow host</code>，也就是说你可以通过一个普通元素的内部shadow DOM元素选择到普通元素本身。<br>最常见的用法就是将特定的类名赋给特定的自定义元素实例，然后将该类名作为括号内的参数。<br>等等，我是来看<code>:host()</code>是什么的，怎么又蹦出了<code>shadow DOM</code>, <code>shadow host</code>和<code>自定义标签</code>……</p>
-<h1 id="shadow-DOM"><a href="#shadow-DOM" class="headerlink" title="shadow DOM"></a>shadow DOM</h1><p>Shadow DOM接口可以将一个隐藏的、独立的DOM添加到一个元素上，这个被Shadow DOM寄生的元素就是<code>shadow host</code>。<br>Shadow DOM允许将隐藏的DOM树添加到常规的DOM树中，以<code>shadow root</code>作为根节点，在根节点的下方，可以是任意元素，跟普通元素一样，。<br><em>不同的是，其内部元素不会影响到外部元素。</em></p>
+<h1 id="shadow-DOM"><a href="#shadow-DOM" class="headerlink" title="shadow DOM"></a>shadow DOM</h1><p>Shadow DOM接口可以将一个隐藏的、独立的DOM添加到一个元素上，这个被Shadow DOM寄生的元素就是<code>shadow host</code>。<br>Shadow DOM允许将隐藏的DOM树添加到常规的DOM树中，以<code>shadow root</code>作为根节点，在根节点的下方，可以是任意元素，跟普通元素一样。<br><em>不同的是，其内部元素不会影响到外部元素。</em></p>
 <h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>通过<code>element.attachShadow()</code>在host上创建一个shadow root, 有一个对象参数，属性<code>mode</code>有两个值<code>open</code>|<code>closed</code>。<br><code>open</code>表示你可以通过js找到该shadow DOM，比如通过<code>element.shadowRoot</code>属性;<br><code>closed</code>表示，你不能通过外部访问shadow DOM, 比如<code>&lt;video&gt;</code>标签。</p>
 <h1 id="自定义标签"><a href="#自定义标签" class="headerlink" title="自定义标签"></a>自定义标签</h1><p>除开h5自带的标签，开发者可以自己将HTML页面的功能封装为自定义标签。</p>
 <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>通过<code>CustomElementRegistry.define()</code>注册一个自定义标签，接收以下参数：</p>
@@ -414,8 +414,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/01/HTTP学习记录/" rel="next" title="HTTP学习记录">
-                <i class="fa fa-chevron-left"></i> HTTP学习记录
+              <a href="/2019/01/31/CSS中的transform和animatio/" rel="next" title="CSS中的transform和animatio">
+                <i class="fa fa-chevron-left"></i> CSS中的transform和animatio
               </a>
             
           </div>
@@ -423,6 +423,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/09/HTTP学习记录/" rel="prev" title="HTTP学习记录">
+                HTTP学习记录 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -510,7 +514,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

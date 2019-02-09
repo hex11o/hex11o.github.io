@@ -250,7 +250,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/07/Shadow-DOM/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/HTTP学习记录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="He">
@@ -269,7 +269,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/07/Shadow-DOM/" itemprop="url">Shadow DOM</a></h1>
+                <a class="post-title-link" href="/2019/02/09/HTTP学习记录/" itemprop="url">HTTP学习记录</a></h1>
         
 
         <div class="post-meta">
@@ -281,193 +281,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-07T18:23:41+08:00">
-                2019-02-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/02/07/Shadow-DOM/" class="leancloud_visitors" data-flag-title="Shadow DOM">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>想要复现Chrome toggle的效果时发现了一个伪类<code>:host()</code>，查询MDN。</p>
-<blockquote>
-<p>The :host() CSS pseudo-class function selects the shadow host of the shadow DOM containing the CSS it is used inside (so you can select a custom element from inside its shadow DOM) — but only if the selector given as the function’s parameter matches the shadow host.</p>
-</blockquote>
-<p>翻译一下：<code>:host()</code>伪元素选择的是括号内选择器参数的<code>shadow DOM</code>元素的<code>shadow host</code>，也就是说你可以通过一个普通元素的内部shadow DOM元素选择到普通元素本身。<br>最常见的用法就是将特定的类名赋给特定的自定义元素实例，然后将该类名作为括号内的参数。<br>等等，我是来看<code>:host()</code>是什么的，怎么又蹦出了<code>shadow DOM</code>, <code>shadow host</code>和<code>自定义标签</code>……</p>
-<h1 id="shadow-DOM"><a href="#shadow-DOM" class="headerlink" title="shadow DOM"></a>shadow DOM</h1><p>Shadow DOM接口可以将一个隐藏的、独立的DOM添加到一个元素上，这个被Shadow DOM寄生的元素就是<code>shadow host</code>。<br>Shadow DOM允许将隐藏的DOM树添加到常规的DOM树中，以<code>shadow root</code>作为根节点，在根节点的下方，可以是任意元素，跟普通元素一样，。<br><em>不同的是，其内部元素不会影响到外部元素。</em></p>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>通过<code>element.attachShadow()</code>在host上创建一个shadow root, 有一个对象参数，属性<code>mode</code>有两个值<code>open</code>|<code>closed</code>。<br><code>open</code>表示你可以通过js找到该shadow DOM，比如通过<code>element.shadowRoot</code>属性;<br><code>closed</code>表示，你不能通过外部访问shadow DOM, 比如<code>&lt;video&gt;</code>标签。</p>
-<h1 id="自定义标签"><a href="#自定义标签" class="headerlink" title="自定义标签"></a>自定义标签</h1><p>除开h5自带的标签，开发者可以自己将HTML页面的功能封装为自定义标签。</p>
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>通过<code>CustomElementRegistry.define()</code>注册一个自定义标签，接收以下参数：</p>
-<ol>
-<li>元素的名称，必需要有短横线；</li>
-<li>类对象，用来定义元素的行为；</li>
-<li>包含<code>extends</code>属性的配置对象，可选参数，指定创建的元素继承哪个内置元素。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">customElements.define(<span class="string">'word-count'</span>, WordCount, &#123; <span class="attr">extends</span>: <span class="string">'p'</span> &#125;);</span><br></pre></td></tr></table></figure>
-<p><strong>标签名称是<code>word-count</code>,类对象是<code>WordCount</code>继承自<code>&lt;p&gt;</code>标签。</strong><br>有两种自定义标签：<br>一种是独立元素，不继承其他内建HTML元素，可以直接将其写成标签形式使用。<br>还有一种继承自基本标签，创建时，必需通过<code>is</code>属性指定所需扩展的元素，例如<code>&lt;p is=&quot;word-count&quot;&gt;</code>, 或者 <code>document.createElement(&quot;p&quot;, { is: &quot;word-count&quot; })</code>。</p>
-<h1 id="host-context"><a href="#host-context" class="headerlink" title=":host-context()"></a>:host-context()</h1><p>选择的是通过后代选择器参数选择其中的<code>shadow host</code>。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我们可以用<code>shadow DOM</code>创建元素是为了将代码与其他代码进行分离，不同的功能不会混杂在一起。<br>创建的方法很简单，找到寄生的元素，建立shadow DOM结构，在<code>shadow root</code>为shadow elements建立<code>style</code>。<br>然后我们创建自定义标签在这里的目的是为了让<code>shadow DOM</code>寄生，目的同样是选择时不要影响到基本标签；<br><code>:host()</code>是通过直接选择器参数找到的寄生宿主元素。<br><code>:host-context()</code>是通过后代选择器找到的所有寄生宿主元素。<br>用途：</p>
-<ol>
-<li>创建一些自定义标签，内部通过shadow DOM组合各种标签，比如video就有一堆的shadow DOM标签。</li>
-</ol>
-<p>其它用途等我用多了再来补充。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/HTTP学习记录/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/01/HTTP学习记录/" itemprop="url">HTTP学习记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-01T10:56:01+08:00">
-                2019-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-09T21:18:41+08:00">
+                2019-02-09
               </time>
             
 
@@ -484,7 +299,7 @@
 
           
           
-             <span id="/2019/02/01/HTTP学习记录/" class="leancloud_visitors" data-flag-title="HTTP学习记录">
+             <span id="/2019/02/09/HTTP学习记录/" class="leancloud_visitors" data-flag-title="HTTP学习记录">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -606,7 +421,279 @@
 <li>HTTP不能加密，那通过与<code>SSL</code>(Secure Socket Layer，安全套接层)和<code>TLS</code>网络层协议组合使用，建立安全通信线路之后，再进行HTTP通信。<strong>SSL组合使用的HTTP被称为HTTPS.</strong></li>
 <li>内容加密：将参与通信的内容本身加密,加密处理后再发送请求。</li>
 </ol>
-<h3 id="不验证通信方的身份遭遇伪装"><a href="#不验证通信方的身份遭遇伪装" class="headerlink" title="不验证通信方的身份遭遇伪装"></a>不验证通信方的身份遭遇伪装</h3>
+<h3 id="不验证通信方的身份遭遇伪装"><a href="#不验证通信方的身份遭遇伪装" class="headerlink" title="不验证通信方的身份遭遇伪装"></a>不验证通信方的身份遭遇伪装</h3><ol>
+<li>任何人都可以发起请求有以下问题;<ul>
+<li>无法确定请求发送至目标的Web服务器是真实意图需要返回响应的服务器。</li>
+<li>无法确定响应发挥的客户端是否是真实需要接收响应的客户端。</li>
+<li>无法确定正在通信的对方是否具备访问权限。</li>
+<li>无法判断请求来自何方。</li>
+<li>无意义请求照收。（Dos攻击：Denial of Service.）</li>
+</ul>
+</li>
+<li>查明对手的证书</li>
+</ol>
+<h3 id="无法证明报文完整性，可能被篡改"><a href="#无法证明报文完整性，可能被篡改" class="headerlink" title="无法证明报文完整性，可能被篡改"></a>无法证明报文完整性，可能被篡改</h3><ul>
+<li>接收的内容在送出到接收之前可能请求或响应内容被篡改，称为中间人攻击（man in the middle attack)。</li>
+<li>如何防止篡改：常用MD5和SHA-1散列值校验方法，用来确认文件的数字签名方法，提供文件下载服务的网站会提供响应以PGP(pretty good privact)创建的数字签名以及MD5算法生成的散列值，PGP是用来证明创建文件的数字签名，MD5是由单向函数生成的散列值。可是PGP和MD5本身也被改写用户就意识不到了。 <strong>还是HTTPS必要。</strong></li>
+</ul>
+<h2 id="HTTP-加密-认证-完整性保护-HTTPS"><a href="#HTTP-加密-认证-完整性保护-HTTPS" class="headerlink" title="HTTP+加密+认证+完整性保护=HTTPS"></a>HTTP+加密+认证+完整性保护=HTTPS</h2><h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>HTTPS并非是应用层的新协议，只是HTTP通信接口部分用SSL和TLS协议代替。<br><img src="../HTTP学习记录/http-and-https.png" alt="http-and-https"></p>
+<h3 id="相互交换密钥的公开密钥加密技术"><a href="#相互交换密钥的公开密钥加密技术" class="headerlink" title="相互交换密钥的公开密钥加密技术"></a>相互交换密钥的公开密钥加密技术</h3><p>SSL是常用公共密钥加密的加密处理方式。加密算法公开，密钥保密，有密钥就能解密。</p>
+<ul>
+<li>共享密钥的困境：加密解密共用一个密钥的方式称为共享密钥加密，那么如何安全的转交密钥（通信被监听密钥就失去加密的意义）。</li>
+<li>两把密钥的公开密钥加密：使用一把非对称密钥。一把称为私钥，一把公钥。<br>使用公钥加密方式，发送密文的乙方使用对方的公开密钥进行<code>加密</code>，对方收到被加密的信息后，再使用自己的私有密钥进行<code>解密</code>；私钥对文件hash摘要就行加密，生成数字签名，接收方用公钥解密数字签名，得到hash摘要，说明确实是私钥拥有者发出，自己再查看文件hash,一致则说明文件未被修改过。</li>
+<li>HTTPS采用混合加密机制：公开密钥处理比共享密钥更复杂，所以HTTPS是使用公共密钥加密方式安全佳欢在稍后共享密钥中要使用的密钥，这个密钥安全后，使用共享密钥进行通信。</li>
+</ul>
+<h3 id="证明公开密钥正确性的证书"><a href="#证明公开密钥正确性的证书" class="headerlink" title="证明公开密钥正确性的证书"></a>证明公开密钥正确性的证书</h3><p>公开密钥还是存在问题————无法证明公开密钥本身是货真价实的公开密钥。如何证明收到的公开密钥是原本预想的服务器发行的公开密钥。也就是说如果公钥被替换，这时候假私钥拥有者就能与被替换公钥的人进行通信。<br><img src="../HTTP学习记录/certificates.png" alt="certificates"><br>证书中心（CA)用自己的私钥对服务器的公钥及一些信息进行加密，生成数字证书，接收方用CA的公钥解开数字证书，就拿到真实公钥了，也能证明数字签名是所需服务器的。</p>
+<ul>
+<li>证明组织真实性的EV SSL证书<br>用来证明通信一方的服务器是否规范，另外一个作用是可以确认对方服务器背后企业是否真实存在，有该证书的Web地址蓝是绿色的，显示流组织名称及认证机构名称。</li>
+<li>确认客户端的客户端证书<br>证明服务器正在通信的对方是预料之内的客户端。</li>
+</ul>
+<h3 id="HTTPS的安全通信机制"><a href="#HTTPS的安全通信机制" class="headerlink" title="HTTPS的安全通信机制"></a>HTTPS的安全通信机制</h3><ol>
+<li>客户端发送Client Hello报文开始SSL通信。包括客户端支持的SSL的指定版本，加密组件列表(使用的加密算法及密钥长度)；</li>
+<li>服务器可进行SSL通信时，以Server Hello报文作为应答。同样包含SSL版本及加密组件（经过筛选）。</li>
+<li>服务器发送Certificate报文。包含公开密钥证书。</li>
+<li>服务器最后发送Server Hello Done报文通知客户端，最初的SSL握手协商部分结束。（SSL第一次握手）</li>
+<li>客户端以Client Key Exchange报文作为回应。包含通信加密中使用的一种被称为Pre-master secret的随机密码串，这时候已用公开密钥进行加密。</li>
+<li>客户端发送Change Cipher Spec报文。报文提示服务器在之后的通信采用Pre-master secret密钥加密。</li>
+<li>客户端发送Finished报文。包含连接至今全部报文的整体校验值。握手协议能否成功，以服务器能够正确解密该报文作为判定标准。</li>
+<li>服务器发送Change Cipher Spec报文。</li>
+<li>服务器发送Finished报文。</li>
+<li>服务器和客户端的Finished报文交换完毕后，SSL连接建立完成。<strong>此处开始进行应用层协议通信，发送HTTP请求.</strong></li>
+<li>应用层协议通信，发送HTTP响应。</li>
+<li>最后客户端断开连接。断开连接时，发送close_notify报文。再发送TCP FIN报文来关闭与TCP的通信。<blockquote>
+<p>整理一下，第一客户端发送自己的加密版本情况；<br>第二步服务器确认加密版本及组件；<br>第三步，服务器发证书；<br>第四步，服务器说情况我了解了，证书发你了，了解一下；<br>第五步，客户端用你的公钥加密了一个Pre-master secret随机密码串发给你瞅瞅；<br>第六步，客户端说这个报文是告诉你我之后跟你说话都会用Pre-master secret密钥加密哦；<br>第七步，客户端说我也完事了，把我所有报文都加密了一哈，你看你能解密吗，可以的话我就可以跟你好好交流；<br>第八九步，服务器，我也要告诉你我也是采用Pre-master secret加密，然后我也把所有报文加密了，你也解一解；<br>第十步，yeah,我们俩SSL搭好了，安全确认，开始发送HTTP请求！</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="SSL有点慢"><a href="#SSL有点慢" class="headerlink" title="SSL有点慢"></a>SSL有点慢</h4><p>SSL通信消耗网络资源，而且要对通信进行处理。HTTPS比HTTP要慢2到100倍。<br>所以，并不是一直用HTTPS通信的，一半只在处理个人信息等敏感数据时才利用加密通信，btw,证书也要钱=.=</p>
+<h1 id="确认访问用户身份的认证"><a href="#确认访问用户身份的认证" class="headerlink" title="确认访问用户身份的认证"></a>确认访问用户身份的认证</h1><p>认证，就是核对网络这头的你到底是谁，密码，令牌，证书，生物认证，IC卡。<br>HTTP使用的认证方式：BASIC认证，DIGEST认证，SSL客户端认证，FormBase认证。</p>
+<h2 id="BASIC认证"><a href="#BASIC认证" class="headerlink" title="BASIC认证"></a>BASIC认证</h2><ol>
+<li>请求资源需要BASIC认证时，服务器会随状态码401，返回带WWW-Authenticate首部字段的响应，包含认证方式（Basic）及Request-URI安全域字符串。</li>
+<li>客户端为了通过BASIC认证，需要将用户ID及密码发送给服务器。发送字符串由用户ID和密码构成，两者中间用:连接，再经过<a href="https://zh.wikipedia.org/wiki/Base64" target="_blank" rel="noopener">Base64编码</a>处理。</li>
+<li>接收到包含首部字段Authorization请求的服务器会对认证信息的正确性进行验证，通过则返回一条包含request-URI资源的响应。</li>
+</ol>
+<p>问题：没有加密，在进行BASIC认证，一半浏览器无法实现认证注销操作。</p>
+<h2 id="DIGEST认证"><a href="#DIGEST认证" class="headerlink" title="DIGEST认证"></a>DIGEST认证</h2><p>采用质询/响应方式，不会发送明文密码。</p>
+<ol>
+<li>请求资源，状态码401带WWW-Authenticate首部字段的响应，包含认证方式，响应方式认证所需临时质询码（随机数，nonce),必需包含realm和nonce两个字段的信息，需要回送.</li>
+<li>发送摘要及由质询码计算出的响应码（response),首部字段Authentication必需包含username,realm,nonce,uri和response（经过MD5计算的密码字符串）字段信息。</li>
+<li>接收到首部字段请求的服务器，确认验证信息的正确性， 通过则返回包含Request-URI资源的响应。</li>
+</ol>
+<h2 id="SSL客户端认证"><a href="#SSL客户端认证" class="headerlink" title="SSL客户端认证"></a>SSL客户端认证</h2><p>对客户端的认证要求，我现在并不需要看。</p>
+<h2 id="基于表单验证"><a href="#基于表单验证" class="headerlink" title="基于表单验证"></a>基于表单验证</h2><p>不是在HTTP协议中定义，认证多半是基于表单认证的。</p>
+<h3 id="session管理及Cookie应用"><a href="#session管理及Cookie应用" class="headerlink" title="session管理及Cookie应用"></a>session管理及Cookie应用</h3><p>一般使用Cookie来管理Session。<br>基于表单认证本身是通过服务器端的web应用，将客户端发送的ID和密码与之前登录的信息做匹配来进行认证的。<br>HTTP是无状态协议，之前认证成功的用户状态无法通过协议层面保存。所以我们会使用Cookie来管理Session,实现状态管理功能。</p>
+<ol>
+<li>客户端将ID密码放入报文实体部分，以POST方法发送给服务器，。</li>
+<li>服务器发放用以识别用户的SessionID.通过验证从客户端发送过来的登录信息进行身份验证，将认证状态与session ID绑定记录在服务器端。<br>客户端放回响应时，在首部字段Set-Cookie内写入Session ID。<br>防止Session ID被盗，服务器需要进行有效期管理，为减轻跨站脚本攻击，Cookie内需要加上httponly属性。</li>
+<li>客户端接收到Session ID后，将其作为Cookie保存在本地。下次再发送请求时，浏览器自动发送Cookie，所以Session ID也被发送到服务器，。服务器端通过验证Session ID识别用户及认证状态。</li>
+</ol>
+<p>注意：因为没有标准化方法，服务器端怎么保存用户的密码也没有标准化。<br>安全的保存发发是，利用给密码加盐（salt：服务器随机生成一个字符串，保证长度足够长，并且是真随机。)的方式增加额外信息，再使用散列函数计算出散列值后保存。</p>
+<h1 id="基于HTTP的功能追加协议"><a href="#基于HTTP的功能追加协议" class="headerlink" title="基于HTTP的功能追加协议"></a>基于HTTP的功能追加协议</h1><p>Web用途多样性，追求的功能可通过web应用和脚本程序实现。但性能未必最优，可以创建一套新的协议，但基于HTTP的Web浏览器已经无法被抛弃了，唉。</p>
+<h2 id="消除HTTP瓶颈的SPDY"><a href="#消除HTTP瓶颈的SPDY" class="headerlink" title="消除HTTP瓶颈的SPDY"></a>消除HTTP瓶颈的SPDY</h2><h3 id="HTTP的瓶颈是什么"><a href="#HTTP的瓶颈是什么" class="headerlink" title="HTTP的瓶颈是什么"></a>HTTP的瓶颈是什么</h3><ul>
+<li>一条连接只可以发送一个请求；</li>
+<li>请求还只能从客户端开始，客户端不可以接收除响应以外的指令；</li>
+<li>请求/响应首部未经压缩就发送，首部信息越多延迟越大；</li>
+<li>发送冗长的首部，每次互相发送相同的首部造成浪费。</li>
+<li>可任意选择数据压缩格式/非强制压缩发送。</li>
+</ul>
+<h4 id="Ajax的解决办法"><a href="#Ajax的解决办法" class="headerlink" title="Ajax的解决办法"></a>Ajax的解决办法</h4><p>通过<code>XMLHttpRequest</code>的API,通过JS脚本调用就能和服务器进行HTTP通信，在加载完毕的Web页面发起请求，更新局部页面，利用Ajax实时从服务器获取类容，可能导致大量请求产生。而且并未解决HTTP协议本身的问题。</p>
+<h4 id="Comet的解决办法"><a href="#Comet的解决办法" class="headerlink" title="Comet的解决办法"></a>Comet的解决办法</h4><p>服务器有内容更新，直接给客户端返回响应。通过延迟应答（收到请求，并不响应，挂起知道服务器有内容更新），模拟实现服务器端像客户端推送的功能，同样没有解决HTTP问题。</p>
+<h3 id="SPDY"><a href="#SPDY" class="headerlink" title="SPDY"></a>SPDY</h3><h4 id="SPDY的设计与功能"><a href="#SPDY的设计与功能" class="headerlink" title="SPDY的设计与功能"></a>SPDY的设计与功能</h4><p>SPDY以在TCP/IP的应用层与运输层之间新增会话层的形式运作，控制对数据的流动，还是采用HTTP建立通信连接，规定通信中使用SSL。<br><img src="../HTTP学习记录/SPDY.png" alt="SPDY"><br>使用SPDY后获得的功能：<br>1.多路复用流；2.赋予请求优先级；3.压缩HTTP首部；4.推送功能；5.服务器提示功能。</p>
+<h4 id="消除Web瓶颈了吗"><a href="#消除Web瓶颈了吗" class="headerlink" title="消除Web瓶颈了吗"></a>消除Web瓶颈了吗</h4><p>浏览器和服务器要为SPDY做出一定程度的改动。<br>SPDY基本上只是将单个域名的通信多路复用。</p>
+<h2 id="使用浏览器进行全双工通信的WebSocket"><a href="#使用浏览器进行全双工通信的WebSocket" class="headerlink" title="使用浏览器进行全双工通信的WebSocket"></a>使用浏览器进行全双工通信的WebSocket</h2><p>一旦Web服务器与客户端之间建立起WebSocket协议的通信连接，之后所有通信都依靠这个协议进行。<br>为了实现WebSocket协议通信，在HTTP连接建立之后，需要完成一次握手的步骤。</p>
+<ul>
+<li>为了实现WebSocket通信，需要用到HTTP的Upgrade首部字段，告知服务器通信协议发生改变。</li>
+<li>对于请求，返回状态码101 Switching Protocols响应。<br>成功握手确立WebSocket连接之后，通信时不再使用HTTP的数据帧，而采用WebSocket独立的数据帧。<br><img src="../HTTP学习记录/WebSocket.png" alt="WebSocket"></li>
+</ul>
+<h3 id="WebSocket-API"><a href="#WebSocket-API" class="headerlink" title="WebSocket API"></a>WebSocket API</h3><p>JS可以调用接口，实现WebSocket协议下全双工通信。</p>
+<h2 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP/2.0"></a>HTTP/2.0</h2><p>目的是为了改善用户的速度体验。</p>
+<h2 id="Web服务器管理文件的WebDAV"><a href="#Web服务器管理文件的WebDAV" class="headerlink" title="Web服务器管理文件的WebDAV"></a>Web服务器管理文件的WebDAV</h2><p>WebDAV是一个可对Web服务器上内容进行文件复制编辑等操作的分布式文件系统。<br>增加了一些方法及与方法对应的状态码。</p>
+<h1 id="后面有涉及Web攻击技术，之后再来看"><a href="#后面有涉及Web攻击技术，之后再来看" class="headerlink" title="后面有涉及Web攻击技术，之后再来看"></a>后面有涉及Web攻击技术，之后再来看</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/07/Shadow-DOM/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/07/Shadow-DOM/" itemprop="url">Shadow DOM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-07T18:23:41+08:00">
+                2019-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/07/Shadow-DOM/" class="leancloud_visitors" data-flag-title="Shadow DOM">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>想要复现Chrome toggle的效果时发现了一个伪类<code>:host()</code>，查询MDN。</p>
+<blockquote>
+<p>The :host() CSS pseudo-class function selects the shadow host of the shadow DOM containing the CSS it is used inside (so you can select a custom element from inside its shadow DOM) — but only if the selector given as the function’s parameter matches the shadow host.</p>
+</blockquote>
+<p>翻译一下：<code>:host()</code>伪元素选择的是括号内选择器参数的<code>shadow DOM</code>元素的<code>shadow host</code>，也就是说你可以通过一个普通元素的内部shadow DOM元素选择到普通元素本身。<br>最常见的用法就是将特定的类名赋给特定的自定义元素实例，然后将该类名作为括号内的参数。<br>等等，我是来看<code>:host()</code>是什么的，怎么又蹦出了<code>shadow DOM</code>, <code>shadow host</code>和<code>自定义标签</code>……</p>
+<h1 id="shadow-DOM"><a href="#shadow-DOM" class="headerlink" title="shadow DOM"></a>shadow DOM</h1><p>Shadow DOM接口可以将一个隐藏的、独立的DOM添加到一个元素上，这个被Shadow DOM寄生的元素就是<code>shadow host</code>。<br>Shadow DOM允许将隐藏的DOM树添加到常规的DOM树中，以<code>shadow root</code>作为根节点，在根节点的下方，可以是任意元素，跟普通元素一样。<br><em>不同的是，其内部元素不会影响到外部元素。</em></p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>通过<code>element.attachShadow()</code>在host上创建一个shadow root, 有一个对象参数，属性<code>mode</code>有两个值<code>open</code>|<code>closed</code>。<br><code>open</code>表示你可以通过js找到该shadow DOM，比如通过<code>element.shadowRoot</code>属性;<br><code>closed</code>表示，你不能通过外部访问shadow DOM, 比如<code>&lt;video&gt;</code>标签。</p>
+<h1 id="自定义标签"><a href="#自定义标签" class="headerlink" title="自定义标签"></a>自定义标签</h1><p>除开h5自带的标签，开发者可以自己将HTML页面的功能封装为自定义标签。</p>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>通过<code>CustomElementRegistry.define()</code>注册一个自定义标签，接收以下参数：</p>
+<ol>
+<li>元素的名称，必需要有短横线；</li>
+<li>类对象，用来定义元素的行为；</li>
+<li>包含<code>extends</code>属性的配置对象，可选参数，指定创建的元素继承哪个内置元素。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">customElements.define(<span class="string">'word-count'</span>, WordCount, &#123; <span class="attr">extends</span>: <span class="string">'p'</span> &#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>标签名称是<code>word-count</code>,类对象是<code>WordCount</code>继承自<code>&lt;p&gt;</code>标签。</strong><br>有两种自定义标签：<br>一种是独立元素，不继承其他内建HTML元素，可以直接将其写成标签形式使用。<br>还有一种继承自基本标签，创建时，必需通过<code>is</code>属性指定所需扩展的元素，例如<code>&lt;p is=&quot;word-count&quot;&gt;</code>, 或者 <code>document.createElement(&quot;p&quot;, { is: &quot;word-count&quot; })</code>。</p>
+<h1 id="host-context"><a href="#host-context" class="headerlink" title=":host-context()"></a>:host-context()</h1><p>选择的是通过后代选择器参数选择其中的<code>shadow host</code>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我们可以用<code>shadow DOM</code>创建元素是为了将代码与其他代码进行分离，不同的功能不会混杂在一起。<br>创建的方法很简单，找到寄生的元素，建立shadow DOM结构，在<code>shadow root</code>为shadow elements建立<code>style</code>。<br>然后我们创建自定义标签在这里的目的是为了让<code>shadow DOM</code>寄生，目的同样是选择时不要影响到基本标签；<br><code>:host()</code>是通过直接选择器参数找到的寄生宿主元素。<br><code>:host-context()</code>是通过后代选择器找到的所有寄生宿主元素。<br>用途：</p>
+<ol>
+<li>创建一些自定义标签，内部通过shadow DOM组合各种标签，比如video就有一堆的shadow DOM标签。</li>
+</ol>
+<p>其它用途等我用多了再来补充。</p>
+
           
         
       
@@ -1217,7 +1304,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

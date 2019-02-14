@@ -364,255 +364,17 @@
 
       
         
-          
-            <h1 id="webpack安装"><a href="#webpack安装" class="headerlink" title="webpack安装"></a>webpack安装</h1><ol>
-<li>webpack全局安装：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure>
-<p>全局安装会导致项目的webpack锁定到指定版本,建议不要使用</p>
-<ol start="2">
-<li>项目目录安装：</li>
-</ol>
-<p>在项目目录初始化<code>npm init</code>,生成<code>package.json</code>。<br>项目目录安装：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save--dev webpack webpack-cli</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>不安装webpack-cli是使用不了webpack的</p>
-</blockquote>
-<p>保存在package.json,dev为开发模式时使用，生产环境不用。</p>
-<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>webpack是什么：JS应用程序的静态模块打包器。在webpack处理应用程序时，在内部创建一个依赖图，用于映射项目需要的每个模块，然后将所有依赖生成一个或多个bundle.</p>
-<h2 id="webpack配置文件：入口与出口"><a href="#webpack配置文件：入口与出口" class="headerlink" title="webpack配置文件：入口与出口"></a>webpack配置文件：入口与出口</h2><ol>
-<li>入口路径：</li>
-</ol>
-<blockquote>
-<p>webpack使用哪个模块，作为构建内部依赖图的开始，默认值是./src/index.js</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    entry:&#123;</span><br><span class="line">        entry:<span class="string">`./src/entry.js`</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>出口路径：</li>
-</ol>
-<blockquote>
-<p>告诉webpack在哪里输出所创建的bundles,以及如何命名这些文件，输出文件默认为<code>./dist/main.js</code>,其他生成文件默认输出目录是<code>./dist</code>.</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    output:&#123;</span><br><span class="line">        path:path.resolve(__dirname,<span class="string">'dirname'</span>),</span><br><span class="line">        filename:<span class="string">'filename'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里面用到了node，首先<code>path</code>找不到，需要在头部引入<code>path</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>);</span><br></pre></td></tr></table></figure></p>
-<p><code>require()</code>又是<code>node.js</code>的内容，见<a href="http://www.ruanyifeng.com/blog/2015/05/require.html" target="_blank" rel="noopener">requrie()源码解读</a><br>通过<code>path</code>模块的<code>resolve()</code>方法返回了<code>dirname</code>的绝对路径。</p>
-<blockquote>
-<p>输入文件在entry对象里，以键(<code>custom name</code>)值(<code>相对路径</code>)的方式写入<br>输出文件在output对象里，以键(<code>path</code>)值(<code>path.resolve(__dirname,&#39;dirname&#39;)</code>),键（<code>filename</code>)值（<code>filename相对路径</code>)。</p>
-</blockquote>
-<h2 id="loader-和plugins"><a href="#loader-和plugins" class="headerlink" title="loader 和plugins"></a>loader 和plugins</h2><ol>
-<li>loader:<br>作为开箱即用特性，webpack自身纸支持<code>JS</code>。<code>loader</code>就是让webpack能处理非JS文件，并转换为有效模块，然后添加到依赖图中，这样就能提供给应用程序使用。</li>
-<li>plugins:<br>插件可用域执行：打包优化，资源管理，注入环境变量。<br>使用插件需要require()它，然后添加到<code>plugins</code>数组中。多数都可以自定义配置。而且可以多次使用同一个插件。<br><a href="https://webpack.docschina.org/plugins" target="_blank" rel="noopener">插件列表</a></li>
-</ol>
-<h2 id="配置服务与热更新"><a href="#配置服务与热更新" class="headerlink" title="配置服务与热更新"></a>配置服务与热更新</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    devServer:&#123;</span><br><span class="line">        contentBase:path.resolve(__dirname,<span class="string">'dist'</span>),<span class="comment">//绝对路径</span></span><br><span class="line">        host:<span class="string">'192.168.1.3'</span>,<span class="comment">//IP地址</span></span><br><span class="line">        compress:<span class="literal">true</span>,<span class="comment">//服务端压缩</span></span><br><span class="line">        port:<span class="number">8080</span>,<span class="comment">//端口</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>本地安装server服务包<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure></p>
-<p>在package.json里修改<code>scripts</code>属性，将键(server):值:(‘webpack-dev-server’)写入。<br>命令行调用webpack-dev-server:<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run server</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>开发环境下安装<code>webpack-dev-server</code>便于调试，安装后需要修改webpack配置情况（服务器内容的路径，服务器IP,是否压缩，端口），并修改cli启动命令。</p>
-</blockquote>
-<h2 id="css文件打包"><a href="#css文件打包" class="headerlink" title="css文件打包"></a>css文件打包</h2><p>让webpack处理非js文件，转换为有效模块，loader的两个特征：</p>
-<ol>
-<li><code>test</code>属性：表示对应loader进行转换的某个或某些文件</li>
-<li><code>use</code>属性：进行转换时使用哪个loader.</li>
-</ol>
-<blockquote>
-<p>你看上面的引入只引入了<code>entry.js</code>,所以你需要将需要转换的<code>index.css</code>在<code>entry.js</code>内<code>import</code>,这样node在webpack在执行的时候就会将css字符串标签插入到html文件<code>&lt;head&gt;</code>中。</p>
-</blockquote>
-<p>先安装识别并转换css的loader(style-loader,css-loader)：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D style-loader css-loader</span><br></pre></td></tr></table></figure></p>
-<p>并在配置的<code>module</code>的<code>rules</code>中添加规则：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="attr">use</span>: [<span class="string">'css-loader'</span>,<span class="string">'style-loader'</span>] &#125;<span class="comment">//第一种写法</span></span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="attr">loader</span>: [<span class="string">'css-loader'</span>,<span class="string">'style-loader'</span>] &#125;<span class="comment">//第二种写法</span></span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="attr">use</span>: [&#123;</span><br><span class="line">          loader:<span class="string">'css-loader'</span>,</span><br><span class="line">          <span class="built_in">module</span>:<span class="literal">true</span>,</span><br><span class="line">          &#125;,&#123;</span><br><span class="line">              loader:<span class="string">"style-loader"</span></span><br><span class="line">          &#125;]</span><br><span class="line">      &#125;<span class="comment">//第三种写法</span></span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>对单独的module对象定义了<code>rules</code>属性，webpack编译器在遇到<code>require()/import</code>语句中被解析为<code>.css</code>路径时，打包之前使用<code>style-loader</code>和<code>css-loader</code>对其进行转换。</p>
-<h2 id="JS打包压缩"><a href="#JS打包压缩" class="headerlink" title="JS打包压缩"></a>JS打包压缩</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D uglifyjs-webpack-plugin</span><br></pre></td></tr></table></figure>
-<p>使用时require(‘uglifyjs-webpack-plugin’),然后在<code>plugins</code>里新建实例;<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> uglify(),</span><br><span class="line">],</span><br></pre></td></tr></table></figure></p>
-<p>配置里在mode直接换成<code>production</code>就好了，可能因为我看的教程版本是3.X的，4.X的webpack更新了。</p>
-<h2 id="html发布"><a href="#html发布" class="headerlink" title="html发布"></a>html发布</h2><p>安装<code>html-webpack-plugin</code>插件,不传入参数会自动产生<code>.dist/index.html</code>,其中包括使用script标签的body中所有webpack包。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D html-webpack-plugin</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> htmlPlugin(&#123;</span><br><span class="line">        <span class="comment">//压缩html文件</span></span><br><span class="line">        minify:&#123;</span><br><span class="line">            removeAttributeQuotes:<span class="literal">true</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//文件添加hash值</span></span><br><span class="line">        hash:<span class="literal">true</span>,</span><br><span class="line">        <span class="comment">//模板</span></span><br><span class="line">        template:<span class="string">'./src/index.html'</span></span><br><span class="line">    &#125;)</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
-<p><code>webpack</code>打包到发布环境.</p>
-<h2 id="图片引入"><a href="#图片引入" class="headerlink" title="图片引入"></a>图片引入</h2><p>安装<code>url-loader</code><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D url-loader</span><br></pre></td></tr></table></figure></p>
-<p>在<code>module</code>-<code>rules</code>里配置<code>loader</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test:<span class="regexp">/\.(png|jpg|gif)$/</span>,</span><br><span class="line">    use:[&#123;</span><br><span class="line">        loader:<span class="string">'url-loader'</span>,</span><br><span class="line">        <span class="comment">//图片小于limits值会被打印成base64数据</span></span><br><span class="line">        options:&#123;</span><br><span class="line">            limit:<span class="number">2000</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="css分离"><a href="#css分离" class="headerlink" title="css分离"></a>css分离</h2><p>安装<code>Extract-text-webpack-plugin</code>插件<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D extract-text-webpack-plugin@next</span><br></pre></td></tr></table></figure></p>
-<p>这里注意，如果不安装新版本在webpack4.X下会报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instead</span><br></pre></td></tr></table></figure></p>
-<p>安装好后，配置如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">"extract-text-webpack-plugin"</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: ExtractTextPlugin.extract(&#123;</span><br><span class="line">          fallback: <span class="string">"style-loader"</span>,</span><br><span class="line">          use: <span class="string">"css-loader"</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> ExtractTextPlugin(<span class="string">"styles.css"</span>),<span class="comment">//配置到的文件相对url</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="HTML中的图片打包"><a href="#HTML中的图片打包" class="headerlink" title="HTML中的图片打包"></a>HTML中的图片打包</h2><blockquote>
-<p>html中img标签无法直接打包</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D html-withimg-loader</span><br></pre></td></tr></table></figure>
-<p>配置：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;</span><br><span class="line">            test:<span class="regexp">/\.(htm|html)$/i</span>,</span><br><span class="line">            use:[<span class="string">'htm-withimg-loader'</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="less打包"><a href="#less打包" class="headerlink" title="less打包"></a>less打包</h2><p>安装less及less-loader<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D less less-loader</span><br></pre></td></tr></table></figure></p>
-<p>配置文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ExtractTextPlugin=<span class="built_in">require</span>(<span class="string">'extract-text-webpack-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;<span class="attr">test</span>:<span class="regexp">/\.less$/</span>,</span><br><span class="line">            use:ExtractTextPlugin.extract(&#123;</span><br><span class="line">                use:[&#123;</span><br><span class="line">                    loader:<span class="string">"css-loader"</span></span><br><span class="line">                &#125;,&#123;</span><br><span class="line">                    loader:<span class="string">"less-loader"</span></span><br><span class="line">                &#125;],</span><br><span class="line">                fallback:<span class="string">'style-loader'</span></span><br><span class="line">            &#125;)</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[<span class="keyword">new</span> ExtractTextPlugin(<span class="string">'css/index.css'</span>)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="sass打包"><a href="#sass打包" class="headerlink" title="sass打包"></a>sass打包</h2><p>安装sass及sass-loader<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D node-sass sass-loader</span><br></pre></td></tr></table></figure></p>
-<p>配置文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ExtractTextPlugin=<span class="built_in">require</span>(<span class="string">'extract-text-webpack-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;<span class="attr">test</span>:<span class="regexp">/\.sass$/</span>,</span><br><span class="line">            use:ExtractTextPlugin.extract(&#123;</span><br><span class="line">                use:[&#123;</span><br><span class="line">                    loader:<span class="string">"css-loader"</span></span><br><span class="line">                &#125;,&#123;</span><br><span class="line">                    loader:<span class="string">"sass-loader"</span></span><br><span class="line">                &#125;],</span><br><span class="line">                fallback:<span class="string">'style-loader'</span></span><br><span class="line">            &#125;)</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[<span class="keyword">new</span> ExtractTextPlugin(<span class="string">'css/index.css'</span>)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="css属性前缀"><a href="#css属性前缀" class="headerlink" title="css属性前缀"></a>css属性前缀</h2><p>安装postcss-loader和autoprifixer<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D postcss-loader autoprefixer</span><br></pre></td></tr></table></figure></p>
-<p>新建<code>postcss.config.js</code>文件:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">'autoprefixer'</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编写css rules:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [</span><br><span class="line">            &#123;<span class="attr">loader</span>:<span class="string">"css-loader"</span>&#125;,</span><br><span class="line">            <span class="comment">//参见loader三种方式</span></span><br><span class="line">            <span class="string">'postcss-loader'</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> ExtractTextPlugin(<span class="string">"styles.css"</span>),<span class="comment">//配置到的文件相对url</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="消除无用css"><a href="#消除无用css" class="headerlink" title="消除无用css"></a>消除无用css</h2><p>安装purifycss:<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D purifycss-webpack purify-css</span><br></pre></td></tr></table></figure></p>
-<p>引入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> glob=<span class="built_in">require</span>(<span class="string">'glob'</span>);</span><br><span class="line"><span class="keyword">const</span> PurifyCssPlugin=<span class="built_in">require</span>(<span class="string">'purify-webpack'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> PurifyCssPlugin(&#123;</span><br><span class="line">            paths:glob.sync(path.join(__dirname,<span class="string">'src/*.html'</span>))</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="babel配置"><a href="#babel配置" class="headerlink" title="babel配置"></a>babel配置</h2><p>安装babel:<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D babel-loader @babel/core @babel/preset-env webpack</span><br></pre></td></tr></table></figure></p>
-<p>配置文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/\.m?js$/</span>,</span><br><span class="line">            use:&#123;</span><br><span class="line">                loader:<span class="string">'babel-loader'</span>,</span><br><span class="line">                <span class="comment">//配置项</span></span><br><span class="line">                options:&#123;</span><br><span class="line">                    presets:[<span class="string">"@babel/preset-env"</span>]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">//排除文件夹</span></span><br><span class="line">            exclude:<span class="regexp">/(node_modules|bower_components)/</span>,</span><br><span class="line">        &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>也可以新建<code>.babelrc</code>文件，将配置用json格式书写对象，<code>&quot;presets&quot;</code>，少写点webpack配置.<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"presets"</span>:[<span class="string">"@babel/preset-env"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="调式错误"><a href="#调式错误" class="headerlink" title="调式错误"></a>调式错误</h2><p>将入口上面添加：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    devtool:<span class="string">''</span>,<span class="comment">//四种模式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>source-map<br>生成独立map文件,生成慢，包括行和列，几行第几个字符</li>
-<li>cheap-module-source-map<br>生成独立map文件，不包括列，第几行出现错误</li>
-<li>eval-source-map<br>eval在js中生成map,<strong>开发阶段</strong>，行列</li>
-<li>cheap-module-source-map<br>行，在js中生成map</li>
-</ol>
-<h2 id="开发与生产环境并存"><a href="#开发与生产环境并存" class="headerlink" title="开发与生产环境并存"></a>开发与生产环境并存</h2><p>在package.json配置命令<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"script"</span>:&#123;</span><br><span class="line">        <span class="attr">"build"</span>:<span class="string">"set type=build&amp;webpack"</span>,</span><br><span class="line">        <span class="attr">"dev"</span>:<span class="string">"set type=dev&amp;webpack"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在webpack.config.js中通过<code>process.env.type</code>值修改<code>publicPath</code>值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(process.env.type==<span class="string">"dev"</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> website=&#123;</span><br><span class="line">        publicPath:<span class="string">'http://192.168.1.3:8080/'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(process.env.type==<span class="string">"build"</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> website=&#123;</span><br><span class="line">        publicPath:<span class="string">'http://hex11o.github.com:1717/'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<div class="note warning"><p>这里出现一个问题，我使用<code>npm run server</code>时，<code>process.env.type</code>的值成为了<code>undefined</code>，因为没有在script里设置set type值，我也设置成了dev。</p></div>
-## webpack模块化配置
-新建配置模块存放文件夹`webpack_config`
-新建各模块配置js,以entry为例新建`entry_webpack.js`：
-undefined
-
-将entry暴露出来后在配置文件中引入：
-undefined
-
-<div class="note warning"><p>这里出现一个问题，其他output还需要path变量或者插件的，还有plugins是数组对象，导入时有问题，我等会研究。</p></div>
-<h2 id="引入第三方库"><a href="#引入第三方库" class="headerlink" title="引入第三方库"></a>引入第三方库</h2><p>安装到dependies后简单引入：<br><code>import $ from &#39;jquery&#39;</code><br>用插件引入：<br>插件在webpack里面，需要先引用webpack，然后调用<code>webpack.ProvidePlugin()</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</span><br><span class="line">            $:<span class="string">"jquery"</span>,</span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>插件引入的当没有用到时不会打包进去。</p>
-<h2 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h2><p>watch配置：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    watchOptions:&#123;</span><br><span class="line">        <span class="comment">//检测修改的时间频率</span></span><br><span class="line">        poll:<span class="number">1000</span>;</span><br><span class="line">        <span class="comment">//防止重复保存的编译错误</span></span><br><span class="line">        aggregateTimeout:<span class="number">500</span>,</span><br><span class="line">        <span class="comment">//不监听的目录</span></span><br><span class="line">        ignored:<span class="regexp">/node_modules/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>打包后添加banner,插件里添加:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.BannerPlugin(<span class="string">'infomation you need'</span>)</span><br></pre></td></tr></table></figure></p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p><strong>下面的已经在4.X里换成了optimization.splitChunks，所以别用这个，看更下面的</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">    <span class="comment">//入口文件</span></span><br><span class="line">    name:<span class="string">"jquery"</span>,</span><br><span class="line">    <span class="comment">//出口路径</span></span><br><span class="line">    filename:<span class="string">"assets/js/jquery.min.js"</span>,</span><br><span class="line">    <span class="comment">//最小抽离文件</span></span><br><span class="line">    minChunks:<span class="number">2</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h3 id="splitChunksPlugin"><a href="#splitChunksPlugin" class="headerlink" title="splitChunksPlugin"></a>splitChunksPlugin</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个"commons"js块,包含了所有entry项目中的共享代码。</span></span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    optimization:&#123;</span><br><span class="line">        splitChunks:&#123;</span><br><span class="line">            cacheGroups: &#123;</span><br><span class="line">                commons: &#123;</span><br><span class="line">                    name: <span class="string">'commons'</span>,</span><br><span class="line">                    chunks: <span class="string">'initial'</span>,</span><br><span class="line">                    minChunks: <span class="number">2</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建一个"vendors"块，包含所有整个应用中来自node_modules的代码</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        commons: &#123;</span><br><span class="line">          test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">          name: <span class="string">'vendors'</span>,</span><br><span class="line">          chunks: <span class="string">'all'</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>配置见<a href="https://webpack.docschina.org/plugins/split-chunks-plugin/#configuration" target="_blank" rel="noopener">官方文档</a>吧，我现在没力气弄它。。</p>
-<h2 id="集中拷贝静态资源"><a href="#集中拷贝静态资源" class="headerlink" title="集中拷贝静态资源"></a>集中拷贝静态资源</h2><p>下载插件：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D <span class="built_in">copy</span>-webpack-plugin</span><br></pre></td></tr></table></figure></p>
-<p>配置引入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CopyWebpackPlugin=<span class="built_in">require</span>(<span class="string">'copy-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> CopyWebpackPlugin([&#123;</span><br><span class="line">            <span class="keyword">from</span>:__dirname+<span class="string">'/src/public'</span>,</span><br><span class="line">            to:<span class="string">'./public'</span></span><br><span class="line">        &#125;])</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>像之前的图片我就这样拷贝好了，之前全部名字都换掉了，试一试。</p>
-<h2 id="插件（plugins"><a href="#插件（plugins" class="headerlink" title="插件（plugins)"></a>插件（plugins)</h2><p>想要使用插件，只需要<code>require()</code>它，添加到<code>plugins</code>数组中。</p>
-
-          
+          <p>学习技术胖<a href="https://www.edurt.com/my/course/167" target="_blank" rel="noopener">3.X webpack</a>配置视频教程的记录和坑,毕竟webpack已经4.x了，建议配合<a href="https://www.webpackjs.com/concepts/" target="_blank" rel="noopener">webpack官方文档</a>学习，之后loader和plugins也可以翻看官方文档自己进行配置。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/14/webpack学习记录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/设计模式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/12/设计模式/" itemprop="url">设计模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-12T09:38:38+08:00">
-                2019-02-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/02/12/设计模式/" class="leancloud_visitors" data-flag-title="设计模式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>为什么需要</p>
-
-          
-        
-      
-    </div>
+    </p></div>
     
     
     
@@ -737,188 +499,17 @@ undefined
 
       
         
-          
-            <h1 id="了解Web及网络基础"><a href="#了解Web及网络基础" class="headerlink" title="了解Web及网络基础"></a>了解Web及网络基础</h1><h2 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP/IP协议族"></a>TCP/IP协议族</h2><p>网络设备之间的通信，基于相同的规则。<br>TCP/IP是各类协议族的总称。</p>
-<h3 id="TCP-IP的分层管理"><a href="#TCP-IP的分层管理" class="headerlink" title="TCP/IP的分层管理"></a>TCP/IP的分层管理</h3><p>协议族按层次分别分为以下4层：<code>应用层</code>，<code>传输层</code>，<code>网络层</code>，<code>数据链路层</code>。</p>
-<ol>
-<li>应用层<br>决定了向用户提供应用服务时通信的活动。<br>预存了各类通用的应用服务。比如FTP（File Transfer Protocal)和DNS(Domain Name System).<br>HTTP协议也处于该层。</li>
-<li>传输层<br>对上层应用层，提供处于网络连接中两台计算机之间的数据传输。<br>有两个不同的协议：TCP(Transmission Control Protocal, 传输控制协议)和UDP(User Data Protocol, 用户数据协议)</li>
-<li>网络层<br>用来处理在网络上流动的数据包。数据包是网路传输的最小单位，规定通过怎么样的路径到达对方计算机，并把数据包传送给对方。<br>与对方计算机之间通过多台网络设备进行传输时，网络层的作用就是在众多选项内选择一条传输路线。</li>
-<li>链路层<br>处理连接网络的硬件部分。包括操作系统，硬件的设备驱动，NIC(网卡)，光纤等物理可见部分。</li>
-</ol>
-<h3 id="TCP-IP通信传输流"><a href="#TCP-IP通信传输流" class="headerlink" title="TCP/IP通信传输流"></a>TCP/IP通信传输流</h3><p>进行网络通信时，通过分层顺序与对方进行通信。__发送端从应用层往下走，接收端则往应用层往上走。<br>层与层传输数据没经过一层会被打打上该层所属信息，接收端再每一层一层去掉，称为封装。</p>
-<h2 id="与HTTP关系密切的协议：IP-TCP和DNS"><a href="#与HTTP关系密切的协议：IP-TCP和DNS" class="headerlink" title="与HTTP关系密切的协议：IP,TCP和DNS"></a>与HTTP关系密切的协议：IP,TCP和DNS</h2><h3 id="负责传输的IP协议"><a href="#负责传输的IP协议" class="headerlink" title="负责传输的IP协议"></a>负责传输的IP协议</h3><p>IP协议位于网络层，作用就是幻想传送各种数据包，而确保传送需要满足各类条件，其中两个重要条件是IP地址和MAC地址(MEdia Access Control Address)。<br>IP地址指明节点被分配到的地址，MAC地址是指网卡所属的固定地址。<br>通信双方中转时会利用下一站中转设备的MAC地址来搜索下一个中转目标，此时采用ARP协议（Address Resolution Protocol)。</p>
-<h3 id="确保可靠性的TCP协议"><a href="#确保可靠性的TCP协议" class="headerlink" title="确保可靠性的TCP协议"></a>确保可靠性的TCP协议</h3><p>TCP协议位于传输层，提供可靠的字节流服务(Byte Stream Service),为了更容易传达大数据才把数据分割，TCP能狗确认数据最终是否送达。</p>
-<h4 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h4><p>握手过程中使用了TCP的标志—-<code>SYN</code>(synchronize)和<code>ACK</code>(acknowledgement)。<br><div class="note primary"><p>发送端发送一个带有SYN标志的数据包给对方，接收端收到后回传一个SYN/ACK标志的数据包传达确认信息，最后发送端再回传一个带ACK标志的数据包，代表握手结束。</p></div></p>
-<h2 id="负责域名解析的DNS服务"><a href="#负责域名解析的DNS服务" class="headerlink" title="负责域名解析的DNS服务"></a>负责域名解析的DNS服务</h2><p>通过域名查找IP地址。</p>
-<h2 id="各种协议与HTTP协议的关系"><a href="#各种协议与HTTP协议的关系" class="headerlink" title="各种协议与HTTP协议的关系"></a>各种协议与HTTP协议的关系</h2><h2 id="URL和URI"><a href="#URL和URI" class="headerlink" title="URL和URI"></a>URL和URI</h2><p>URI是Uniform Resource Idetifier的缩写。<br>统一的格式，可标识的资源，可标识的对象。<br>URI是字符串标识某一互联网资源，而URL是资源的位置。</p>
-<h3 id="URI格式"><a href="#URI格式" class="headerlink" title="URI格式"></a>URI格式</h3><p>绝对URI的格式：协议方案名-登录信息（可选）-服务器地址-服务器端口号（可选）-文件路径 -查询字符串（可选）-片段标识符（可选）</p>
-<hr>
-<h1 id="简单HTTP协议"><a href="#简单HTTP协议" class="headerlink" title="简单HTTP协议"></a>简单HTTP协议</h1><h2 id="通过请求和相应的交换达成通信"><a href="#通过请求和相应的交换达成通信" class="headerlink" title="通过请求和相应的交换达成通信"></a>通过请求和相应的交换达成通信</h2><ol>
-<li>请求报文是由<code>请求方法</code>，<code>请求URI</code>,<code>协议版本</code>，<code>可选请求首部字段</code>和<code>内容实体</code>构成。</li>
-<li>接收请求的服务器，将请求内容处理结果以相应的形式返回,由<code>协议版本</code>，<code>状态码</code>，<code>原因短语</code>，<code>可选响应首部字段</code>，<code>资源实体</code>构成。</li>
-</ol>
-<h2 id="HTTP是不保存状态的协议"><a href="#HTTP是不保存状态的协议" class="headerlink" title="HTTP是不保存状态的协议"></a>HTTP是不保存状态的协议</h2><p>如何保存用户的状态，引入了Cookie技术。</p>
-<h2 id="请求URI定位资源"><a href="#请求URI定位资源" class="headerlink" title="请求URI定位资源"></a>请求URI定位资源</h2><p>如果不是访问特定资源而是对服务器本身发起请求，可以用*来代替请求URI.</p>
-<ul>
-<li>对服务器本身发起请求？什么意思。</li>
-</ul>
-<h2 id="告知服务器意图的HTTP方法"><a href="#告知服务器意图的HTTP方法" class="headerlink" title="告知服务器意图的HTTP方法"></a>告知服务器意图的HTTP方法</h2><p><code>GET</code>：用来请求访问已被URI识别的资源。<br><code>POST</code>:传输实体的主体，<code>POST</code>主要目的并不是获取响应的主体内容。<br><code>PUT</code>:用来传输文件，要求在请求报文主体中包含文件内容，然后保存到请求URI指定的位置。<br><code>HEAD</code>:获得报文首部，和<code>GET</code>方法一样，只是不反悔报文主体部分。用域确认URI有效性及资源更新的日期时间。<br><code>DELETE</code>:用域删除文件，与<code>PUT</code>相反。<br><code>OPTIONS</code>:查询针对请求URI指定的资源支持的方法。<br><code>TRACE</code>:追踪路径，让Web服务器端将之前的请求通信环回给客户端的方法。<br><code>CONNECT</code>:要求用隧道协议连接代理，主要使用<code>SSL</code>（Secure Sockets Layer）和<code>TLS</code>(Transport Layer Security)协议把通信内容加密后经网络隧道传输。</p>
-<h2 id="持久连接节省通信量"><a href="#持久连接节省通信量" class="headerlink" title="持久连接节省通信量"></a>持久连接节省通信量</h2><p>只要任意一端没有明确提出断开连接，则保持TCP连接状态。<br>管线化，并行发送多个请求，无需等待一个个的响应。</p>
-<h2 id="使用Cookie的状态管理"><a href="#使用Cookie的状态管理" class="headerlink" title="使用Cookie的状态管理"></a>使用Cookie的状态管理</h2><p>Cookie会根据从服务器端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值后发送出去。</p>
-<h1 id="HTTP报文内的HTTP信息"><a href="#HTTP报文内的HTTP信息" class="headerlink" title="HTTP报文内的HTTP信息"></a>HTTP报文内的HTTP信息</h1><h2 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h2><p>HTTP报文由报文首部和报文主体组成。两者由空行划分，通常不一定要有报文主体。</p>
-<h2 id="请求报文及响应报文的结构"><a href="#请求报文及响应报文的结构" class="headerlink" title="请求报文及响应报文的结构"></a>请求报文及响应报文的结构</h2><p><code>请求行</code>/<code>状态行</code>-<code>各种首部字段</code>-<code>空行</code>-<code>报文主体</code></p>
-<h2 id="编码提升传输速率"><a href="#编码提升传输速率" class="headerlink" title="编码提升传输速率"></a>编码提升传输速率</h2><h3 id="报文主体与实体主体的差异"><a href="#报文主体与实体主体的差异" class="headerlink" title="报文主体与实体主体的差异"></a>报文主体与实体主体的差异</h3><ul>
-<li>报文(message)<br>是HTTP通信中的基本单位，有1Bytes组成，通过HTTP通信传输</li>
-<li>实体(enity)<br>作为请求和响应的有效载荷数据被传输，内容有实体首部和实体主体组成。</li>
-</ul>
-<h3 id="压缩传输的内容编码"><a href="#压缩传输的内容编码" class="headerlink" title="压缩传输的内容编码"></a>压缩传输的内容编码</h3><p>编码类型：</p>
-<ul>
-<li>Gzip</li>
-<li>compress</li>
-<li>deflate</li>
-<li>identify</li>
-</ul>
-<h3 id="分割发送的分块传输编码"><a href="#分割发送的分块传输编码" class="headerlink" title="分割发送的分块传输编码"></a>分割发送的分块传输编码</h3><p>传输大容量数据时，将主体分块让浏览器逐步显示。用十六进制标记块的大小，最后一块使用”<code>0(CR+LF)</code>“标记。</p>
-<h2 id="发送多种数据的多部份对象集合"><a href="#发送多种数据的多部份对象集合" class="headerlink" title="发送多种数据的多部份对象集合"></a>发送多种数据的多部份对象集合</h2><h2 id="获取部分内容的范围请求"><a href="#获取部分内容的范围请求" class="headerlink" title="获取部分内容的范围请求"></a>获取部分内容的范围请求</h2><p>网络中断，如何恢复而不用重头开始，实现该功能需要指定下载的实体范围。</p>
-<h2 id="内容协商返回最适合内容"><a href="#内容协商返回最适合内容" class="headerlink" title="内容协商返回最适合内容"></a>内容协商返回最适合内容</h2><p>机制是客户端与服务端就响应内容交涉，提供给客户端最为适合的资源。会以响应资源的语言，字符集，编码方式作为判断的基准。<br>有三种类型：服务器驱动，客户端驱动，透明驱动。</p>
-<hr>
-<h1 id="返回结果的HTTP状态码"><a href="#返回结果的HTTP状态码" class="headerlink" title="返回结果的HTTP状态码"></a>返回结果的HTTP状态码</h1><h2 id="状态码的告知从服务端返回的请求结果"><a href="#状态码的告知从服务端返回的请求结果" class="headerlink" title="状态码的告知从服务端返回的请求结果"></a>状态码的告知从服务端返回的请求结果</h2><p>服务端返回的状态码响应类型：<br>1XX  Informational  接收的请求正在处理<br>2XX  Success        请求正常处理完毕<br>3XX  Redirection    需要进行附加操作以完成请求<br>4XX  Ckient Error   服务器无法处理请求<br>5XX  Server Error   服务器处理请求出错</p>
-<h3 id="2XX成功"><a href="#2XX成功" class="headerlink" title="2XX成功"></a>2XX成功</h3><ol>
-<li>200 OK 正常处理</li>
-<li>204 No Content 成功处理，但返回响应报文中不含实体的主体部分</li>
-<li>206 Partial Content  进行了范围请求，成功执行了这部分请求</li>
-</ol>
-<h3 id="3XX重定向"><a href="#3XX重定向" class="headerlink" title="3XX重定向"></a>3XX重定向</h3><ol>
-<li>301 Moved Permanenetly  永久性重定向，请求的资源被分配了新的URI</li>
-<li>302 Found 临时性重定向，请求资源被分配新的URI,希望用户本次能使用新的URI访问。</li>
-<li>303 See Otehr 请求资源存在另一个URI，应使用GET方法定性获取请求的 资源</li>
-<li>304 Not Modified  发送附带条件的请求时，服务器允许请求访问资源，但未满足条件。</li>
-<li>307 Temporary redirect  临时重定向</li>
-</ol>
-<h3 id="4XX客户端错误"><a href="#4XX客户端错误" class="headerlink" title="4XX客户端错误"></a>4XX客户端错误</h3><ol>
-<li>400  Bad Request 请求报文中存在语法错误</li>
-<li>401  Unauthorized 表示发送的请求需要有通过HTTP认证的认证信息。</li>
-<li>403  Forbidden 请求资源的访问被服务器拒绝了，未获得文件系统的访问授权，访问权限出现某些问题。</li>
-<li>404  Not Found 服务器没有请求的资源。</li>
-</ol>
-<h3 id="5XX服务器错误"><a href="#5XX服务器错误" class="headerlink" title="5XX服务器错误"></a>5XX服务器错误</h3><ol>
-<li>500 Internal Server Error 服务器在执行请求时发生了错误</li>
-<li>503 Service Unavailable 服务器暂时处于超负载或停机维护，无法处理请求。</li>
-</ol>
-<hr>
-<h1 id="与HTTP协作的Web服务器"><a href="#与HTTP协作的Web服务器" class="headerlink" title="与HTTP协作的Web服务器"></a>与HTTP协作的Web服务器</h1><h2 id="用单台虚拟主机实现多个域名"><a href="#用单台虚拟主机实现多个域名" class="headerlink" title="用单台虚拟主机实现多个域名"></a>用单台虚拟主机实现多个域名</h2><h2 id="通信数据转发程序：代理，网关，隧道"><a href="#通信数据转发程序：代理，网关，隧道" class="headerlink" title="通信数据转发程序：代理，网关，隧道"></a>通信数据转发程序：代理，网关，隧道</h2><h2 id="保存资源的缓存"><a href="#保存资源的缓存" class="headerlink" title="保存资源的缓存"></a>保存资源的缓存</h2><p>缓存指代理服务器或客户端本地磁盘保存的资源副本，减少对源服务器的访问。</p>
-<h3 id="缓存的有效期限"><a href="#缓存的有效期限" class="headerlink" title="缓存的有效期限"></a>缓存的有效期限</h3><h3 id="客户端的缓存"><a href="#客户端的缓存" class="headerlink" title="客户端的缓存"></a>客户端的缓存</h3><h1 id="HTTP首部"><a href="#HTTP首部" class="headerlink" title="HTTP首部"></a>HTTP首部</h1><h2 id="状态行"><a href="#状态行" class="headerlink" title="状态行"></a>状态行</h2><h2 id="首部字段"><a href="#首部字段" class="headerlink" title="首部字段"></a>首部字段</h2><h3 id="字段结构"><a href="#字段结构" class="headerlink" title="字段结构"></a>字段结构</h3><p>首部字段名：字段值</p>
-<h4 id="首部字段类型"><a href="#首部字段类型" class="headerlink" title="首部字段类型"></a>首部字段类型</h4><ol>
-<li>通用首部字段：请求和响应都会使用</li>
-<li>请求首部字段：补充老师请求的附加内容，客户端信息，响应内容相关优先级</li>
-<li>响应首部字段：响应的附加内容，要求客户端附加额外的内容信息</li>
-<li>实体首部字段：补充资源内容更新时间等与实体有福安的信息</li>
-</ol>
-<p>具体字段见维基<a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields" target="_blank" rel="noopener">Header Fields</a>词条，我现在用不到就不输入了，具体使用到时候可以再看，《图解HTTP》对各个首部字段有相关说明。</p>
-<hr>
-<h1 id="确保Web安全的HTTPS"><a href="#确保Web安全的HTTPS" class="headerlink" title="确保Web安全的HTTPS"></a>确保Web安全的HTTPS</h1><h2 id="HTTP的缺点"><a href="#HTTP的缺点" class="headerlink" title="HTTP的缺点"></a>HTTP的缺点</h2><ul>
-<li>通信使用明文，内容可能被窃听</li>
-<li>不验证通信放的身份，可能伪装</li>
-<li>无法证明报文的完整性，可能被篡改</li>
-</ul>
-<h3 id="通信使用明文被窃听"><a href="#通信使用明文被窃听" class="headerlink" title="通信使用明文被窃听"></a>通信使用明文被窃听</h3><p>HTTP本身不具备加密的功能，报文都是用明文发送<br>加密处理：</p>
-<ol>
-<li>HTTP不能加密，那通过与<code>SSL</code>(Secure Socket Layer，安全套接层)和<code>TLS</code>网络层协议组合使用，建立安全通信线路之后，再进行HTTP通信。<strong>SSL组合使用的HTTP被称为HTTPS.</strong></li>
-<li>内容加密：将参与通信的内容本身加密,加密处理后再发送请求。</li>
-</ol>
-<h3 id="不验证通信方的身份遭遇伪装"><a href="#不验证通信方的身份遭遇伪装" class="headerlink" title="不验证通信方的身份遭遇伪装"></a>不验证通信方的身份遭遇伪装</h3><ol>
-<li>任何人都可以发起请求有以下问题;<ul>
-<li>无法确定请求发送至目标的Web服务器是真实意图需要返回响应的服务器。</li>
-<li>无法确定响应发挥的客户端是否是真实需要接收响应的客户端。</li>
-<li>无法确定正在通信的对方是否具备访问权限。</li>
-<li>无法判断请求来自何方。</li>
-<li>无意义请求照收。（Dos攻击：Denial of Service.）</li>
-</ul>
-</li>
-<li>查明对手的证书</li>
-</ol>
-<h3 id="无法证明报文完整性，可能被篡改"><a href="#无法证明报文完整性，可能被篡改" class="headerlink" title="无法证明报文完整性，可能被篡改"></a>无法证明报文完整性，可能被篡改</h3><ul>
-<li>接收的内容在送出到接收之前可能请求或响应内容被篡改，称为中间人攻击（man in the middle attack)。</li>
-<li>如何防止篡改：常用MD5和SHA-1散列值校验方法，用来确认文件的数字签名方法，提供文件下载服务的网站会提供响应以PGP(pretty good privact)创建的数字签名以及MD5算法生成的散列值，PGP是用来证明创建文件的数字签名，MD5是由单向函数生成的散列值。可是PGP和MD5本身也被改写用户就意识不到了。 <strong>还是HTTPS必要。</strong></li>
-</ul>
-<h2 id="HTTP-加密-认证-完整性保护-HTTPS"><a href="#HTTP-加密-认证-完整性保护-HTTPS" class="headerlink" title="HTTP+加密+认证+完整性保护=HTTPS"></a>HTTP+加密+认证+完整性保护=HTTPS</h2><h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>HTTPS并非是应用层的新协议，只是HTTP通信接口部分用SSL和TLS协议代替。<br><img src="../HTTP学习记录/http-and-https.png" alt="http-and-https"></p>
-<h3 id="相互交换密钥的公开密钥加密技术"><a href="#相互交换密钥的公开密钥加密技术" class="headerlink" title="相互交换密钥的公开密钥加密技术"></a>相互交换密钥的公开密钥加密技术</h3><p>SSL是常用公共密钥加密的加密处理方式。加密算法公开，密钥保密，有密钥就能解密。</p>
-<ul>
-<li>共享密钥的困境：加密解密共用一个密钥的方式称为共享密钥加密，那么如何安全的转交密钥（通信被监听密钥就失去加密的意义）。</li>
-<li>两把密钥的公开密钥加密：使用一把非对称密钥。一把称为私钥，一把公钥。<br>使用公钥加密方式，发送密文的乙方使用对方的公开密钥进行<code>加密</code>，对方收到被加密的信息后，再使用自己的私有密钥进行<code>解密</code>；私钥对文件hash摘要就行加密，生成数字签名，接收方用公钥解密数字签名，得到hash摘要，说明确实是私钥拥有者发出，自己再查看文件hash,一致则说明文件未被修改过。</li>
-<li>HTTPS采用混合加密机制：公开密钥处理比共享密钥更复杂，所以HTTPS是使用公共密钥加密方式安全佳欢在稍后共享密钥中要使用的密钥，这个密钥安全后，使用共享密钥进行通信。</li>
-</ul>
-<h3 id="证明公开密钥正确性的证书"><a href="#证明公开密钥正确性的证书" class="headerlink" title="证明公开密钥正确性的证书"></a>证明公开密钥正确性的证书</h3><p>公开密钥还是存在问题————无法证明公开密钥本身是货真价实的公开密钥。如何证明收到的公开密钥是原本预想的服务器发行的公开密钥。也就是说如果公钥被替换，这时候假私钥拥有者就能与被替换公钥的人进行通信。<br><img src="../HTTP学习记录/certificates.png" alt="certificates"><br>证书中心（CA)用自己的私钥对服务器的公钥及一些信息进行加密，生成数字证书，接收方用CA的公钥解开数字证书，就拿到真实公钥了，也能证明数字签名是所需服务器的。</p>
-<ul>
-<li>证明组织真实性的EV SSL证书<br>用来证明通信一方的服务器是否规范，另外一个作用是可以确认对方服务器背后企业是否真实存在，有该证书的Web地址蓝是绿色的，显示流组织名称及认证机构名称。</li>
-<li>确认客户端的客户端证书<br>证明服务器正在通信的对方是预料之内的客户端。</li>
-</ul>
-<h3 id="HTTPS的安全通信机制"><a href="#HTTPS的安全通信机制" class="headerlink" title="HTTPS的安全通信机制"></a>HTTPS的安全通信机制</h3><ol>
-<li>客户端发送Client Hello报文开始SSL通信。包括客户端支持的SSL的指定版本，加密组件列表(使用的加密算法及密钥长度)；</li>
-<li>服务器可进行SSL通信时，以Server Hello报文作为应答。同样包含SSL版本及加密组件（经过筛选）。</li>
-<li>服务器发送Certificate报文。包含公开密钥证书。</li>
-<li>服务器最后发送Server Hello Done报文通知客户端，最初的SSL握手协商部分结束。（SSL第一次握手）</li>
-<li>客户端以Client Key Exchange报文作为回应。包含通信加密中使用的一种被称为Pre-master secret的随机密码串，这时候已用公开密钥进行加密。</li>
-<li>客户端发送Change Cipher Spec报文。报文提示服务器在之后的通信采用Pre-master secret密钥加密。</li>
-<li>客户端发送Finished报文。包含连接至今全部报文的整体校验值。握手协议能否成功，以服务器能够正确解密该报文作为判定标准。</li>
-<li>服务器发送Change Cipher Spec报文。</li>
-<li>服务器发送Finished报文。</li>
-<li>服务器和客户端的Finished报文交换完毕后，SSL连接建立完成。<strong>此处开始进行应用层协议通信，发送HTTP请求.</strong></li>
-<li>应用层协议通信，发送HTTP响应。</li>
-<li>最后客户端断开连接。断开连接时，发送close_notify报文。再发送TCP FIN报文来关闭与TCP的通信。<blockquote>
-<p>整理一下，第一客户端发送自己的加密版本情况；<br>第二步服务器确认加密版本及组件；<br>第三步，服务器发证书；<br>第四步，服务器说情况我了解了，证书发你了，了解一下；<br>第五步，客户端用你的公钥加密了一个Pre-master secret随机密码串发给你瞅瞅；<br>第六步，客户端说这个报文是告诉你我之后跟你说话都会用Pre-master secret密钥加密哦；<br>第七步，客户端说我也完事了，把我所有报文都加密了一哈，你看你能解密吗，可以的话我就可以跟你好好交流；<br>第八九步，服务器，我也要告诉你我也是采用Pre-master secret加密，然后我也把所有报文加密了，你也解一解；<br>第十步，yeah,我们俩SSL搭好了，安全确认，开始发送HTTP请求！</p>
-</blockquote>
-</li>
-</ol>
-<h4 id="SSL有点慢"><a href="#SSL有点慢" class="headerlink" title="SSL有点慢"></a>SSL有点慢</h4><p>SSL通信消耗网络资源，而且要对通信进行处理。HTTPS比HTTP要慢2到100倍。<br>所以，并不是一直用HTTPS通信的，一半只在处理个人信息等敏感数据时才利用加密通信，btw,证书也要钱=.=</p>
-<h1 id="确认访问用户身份的认证"><a href="#确认访问用户身份的认证" class="headerlink" title="确认访问用户身份的认证"></a>确认访问用户身份的认证</h1><p>认证，就是核对网络这头的你到底是谁，密码，令牌，证书，生物认证，IC卡。<br>HTTP使用的认证方式：BASIC认证，DIGEST认证，SSL客户端认证，FormBase认证。</p>
-<h2 id="BASIC认证"><a href="#BASIC认证" class="headerlink" title="BASIC认证"></a>BASIC认证</h2><ol>
-<li>请求资源需要BASIC认证时，服务器会随状态码401，返回带WWW-Authenticate首部字段的响应，包含认证方式（Basic）及Request-URI安全域字符串。</li>
-<li>客户端为了通过BASIC认证，需要将用户ID及密码发送给服务器。发送字符串由用户ID和密码构成，两者中间用:连接，再经过<a href="https://zh.wikipedia.org/wiki/Base64" target="_blank" rel="noopener">Base64编码</a>处理。</li>
-<li>接收到包含首部字段Authorization请求的服务器会对认证信息的正确性进行验证，通过则返回一条包含request-URI资源的响应。</li>
-</ol>
-<p>问题：没有加密，在进行BASIC认证，一半浏览器无法实现认证注销操作。</p>
-<h2 id="DIGEST认证"><a href="#DIGEST认证" class="headerlink" title="DIGEST认证"></a>DIGEST认证</h2><p>采用质询/响应方式，不会发送明文密码。</p>
-<ol>
-<li>请求资源，状态码401带WWW-Authenticate首部字段的响应，包含认证方式，响应方式认证所需临时质询码（随机数，nonce),必需包含realm和nonce两个字段的信息，需要回送.</li>
-<li>发送摘要及由质询码计算出的响应码（response),首部字段Authentication必需包含username,realm,nonce,uri和response（经过MD5计算的密码字符串）字段信息。</li>
-<li>接收到首部字段请求的服务器，确认验证信息的正确性， 通过则返回包含Request-URI资源的响应。</li>
-</ol>
-<h2 id="SSL客户端认证"><a href="#SSL客户端认证" class="headerlink" title="SSL客户端认证"></a>SSL客户端认证</h2><p>对客户端的认证要求，我现在并不需要看。</p>
-<h2 id="基于表单验证"><a href="#基于表单验证" class="headerlink" title="基于表单验证"></a>基于表单验证</h2><p>不是在HTTP协议中定义，认证多半是基于表单认证的。</p>
-<h3 id="session管理及Cookie应用"><a href="#session管理及Cookie应用" class="headerlink" title="session管理及Cookie应用"></a>session管理及Cookie应用</h3><p>一般使用Cookie来管理Session。<br>基于表单认证本身是通过服务器端的web应用，将客户端发送的ID和密码与之前登录的信息做匹配来进行认证的。<br>HTTP是无状态协议，之前认证成功的用户状态无法通过协议层面保存。所以我们会使用Cookie来管理Session,实现状态管理功能。</p>
-<ol>
-<li>客户端将ID密码放入报文实体部分，以POST方法发送给服务器，。</li>
-<li>服务器发放用以识别用户的SessionID.通过验证从客户端发送过来的登录信息进行身份验证，将认证状态与session ID绑定记录在服务器端。<br>客户端放回响应时，在首部字段Set-Cookie内写入Session ID。<br>防止Session ID被盗，服务器需要进行有效期管理，为减轻跨站脚本攻击，Cookie内需要加上httponly属性。</li>
-<li>客户端接收到Session ID后，将其作为Cookie保存在本地。下次再发送请求时，浏览器自动发送Cookie，所以Session ID也被发送到服务器，。服务器端通过验证Session ID识别用户及认证状态。</li>
-</ol>
-<p>注意：因为没有标准化方法，服务器端怎么保存用户的密码也没有标准化。<br>安全的保存发发是，利用给密码加盐（salt：服务器随机生成一个字符串，保证长度足够长，并且是真随机。)的方式增加额外信息，再使用散列函数计算出散列值后保存。</p>
-<h1 id="基于HTTP的功能追加协议"><a href="#基于HTTP的功能追加协议" class="headerlink" title="基于HTTP的功能追加协议"></a>基于HTTP的功能追加协议</h1><p>Web用途多样性，追求的功能可通过web应用和脚本程序实现。但性能未必最优，可以创建一套新的协议，但基于HTTP的Web浏览器已经无法被抛弃了，唉。</p>
-<h2 id="消除HTTP瓶颈的SPDY"><a href="#消除HTTP瓶颈的SPDY" class="headerlink" title="消除HTTP瓶颈的SPDY"></a>消除HTTP瓶颈的SPDY</h2><h3 id="HTTP的瓶颈是什么"><a href="#HTTP的瓶颈是什么" class="headerlink" title="HTTP的瓶颈是什么"></a>HTTP的瓶颈是什么</h3><ul>
-<li>一条连接只可以发送一个请求；</li>
-<li>请求还只能从客户端开始，客户端不可以接收除响应以外的指令；</li>
-<li>请求/响应首部未经压缩就发送，首部信息越多延迟越大；</li>
-<li>发送冗长的首部，每次互相发送相同的首部造成浪费。</li>
-<li>可任意选择数据压缩格式/非强制压缩发送。</li>
-</ul>
-<h4 id="Ajax的解决办法"><a href="#Ajax的解决办法" class="headerlink" title="Ajax的解决办法"></a>Ajax的解决办法</h4><p>通过<code>XMLHttpRequest</code>的API,通过JS脚本调用就能和服务器进行HTTP通信，在加载完毕的Web页面发起请求，更新局部页面，利用Ajax实时从服务器获取类容，可能导致大量请求产生。而且并未解决HTTP协议本身的问题。</p>
-<h4 id="Comet的解决办法"><a href="#Comet的解决办法" class="headerlink" title="Comet的解决办法"></a>Comet的解决办法</h4><p>服务器有内容更新，直接给客户端返回响应。通过延迟应答（收到请求，并不响应，挂起知道服务器有内容更新），模拟实现服务器端像客户端推送的功能，同样没有解决HTTP问题。</p>
-<h3 id="SPDY"><a href="#SPDY" class="headerlink" title="SPDY"></a>SPDY</h3><h4 id="SPDY的设计与功能"><a href="#SPDY的设计与功能" class="headerlink" title="SPDY的设计与功能"></a>SPDY的设计与功能</h4><p>SPDY以在TCP/IP的应用层与运输层之间新增会话层的形式运作，控制对数据的流动，还是采用HTTP建立通信连接，规定通信中使用SSL。<br><img src="../HTTP学习记录/SPDY.png" alt="SPDY"><br>使用SPDY后获得的功能：<br>1.多路复用流；2.赋予请求优先级；3.压缩HTTP首部；4.推送功能；5.服务器提示功能。</p>
-<h4 id="消除Web瓶颈了吗"><a href="#消除Web瓶颈了吗" class="headerlink" title="消除Web瓶颈了吗"></a>消除Web瓶颈了吗</h4><p>浏览器和服务器要为SPDY做出一定程度的改动。<br>SPDY基本上只是将单个域名的通信多路复用。</p>
-<h2 id="使用浏览器进行全双工通信的WebSocket"><a href="#使用浏览器进行全双工通信的WebSocket" class="headerlink" title="使用浏览器进行全双工通信的WebSocket"></a>使用浏览器进行全双工通信的WebSocket</h2><p>一旦Web服务器与客户端之间建立起WebSocket协议的通信连接，之后所有通信都依靠这个协议进行。<br>为了实现WebSocket协议通信，在HTTP连接建立之后，需要完成一次握手的步骤。</p>
-<ul>
-<li>为了实现WebSocket通信，需要用到HTTP的Upgrade首部字段，告知服务器通信协议发生改变。</li>
-<li>对于请求，返回状态码101 Switching Protocols响应。<br>成功握手确立WebSocket连接之后，通信时不再使用HTTP的数据帧，而采用WebSocket独立的数据帧。<br><img src="../HTTP学习记录/WebSocket.png" alt="WebSocket"></li>
-</ul>
-<h3 id="WebSocket-API"><a href="#WebSocket-API" class="headerlink" title="WebSocket API"></a>WebSocket API</h3><p>JS可以调用接口，实现WebSocket协议下全双工通信。</p>
-<h2 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP/2.0"></a>HTTP/2.0</h2><p>目的是为了改善用户的速度体验。</p>
-<h2 id="Web服务器管理文件的WebDAV"><a href="#Web服务器管理文件的WebDAV" class="headerlink" title="Web服务器管理文件的WebDAV"></a>Web服务器管理文件的WebDAV</h2><p>WebDAV是一个可对Web服务器上内容进行文件复制编辑等操作的分布式文件系统。<br>增加了一些方法及与方法对应的状态码。</p>
-<h1 id="后面有涉及Web攻击技术，之后再来看"><a href="#后面有涉及Web攻击技术，之后再来看" class="headerlink" title="后面有涉及Web攻击技术，之后再来看"></a>后面有涉及Web攻击技术，之后再来看</h1>
-          
+          <p>本文是我学习《图解HTTP》的记录，初步了解一下HTTP吧，有个大概印象。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/09/HTTP学习记录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -1076,34 +667,17 @@ undefined
 
       
         
-          
-            <p>想要复现Chrome toggle的效果时发现了一个伪类<code>:host()</code>，查询MDN。</p>
-<blockquote>
-<p>The :host() CSS pseudo-class function selects the shadow host of the shadow DOM containing the CSS it is used inside (so you can select a custom element from inside its shadow DOM) — but only if the selector given as the function’s parameter matches the shadow host.</p>
-</blockquote>
-<p>翻译一下：<code>:host()</code>伪元素选择的是括号内选择器参数的<code>shadow DOM</code>元素的<code>shadow host</code>，也就是说你可以通过一个普通元素的内部shadow DOM元素选择到普通元素本身。<br>最常见的用法就是将特定的类名赋给特定的自定义元素实例，然后将该类名作为括号内的参数。<br>等等，我是来看<code>:host()</code>是什么的，怎么又蹦出了<code>shadow DOM</code>, <code>shadow host</code>和<code>自定义标签</code>……</p>
-<h1 id="shadow-DOM"><a href="#shadow-DOM" class="headerlink" title="shadow DOM"></a>shadow DOM</h1><p>Shadow DOM接口可以将一个隐藏的、独立的DOM添加到一个元素上，这个被Shadow DOM寄生的元素就是<code>shadow host</code>。<br>Shadow DOM允许将隐藏的DOM树添加到常规的DOM树中，以<code>shadow root</code>作为根节点，在根节点的下方，可以是任意元素，跟普通元素一样。<br><em>不同的是，其内部元素不会影响到外部元素。</em></p>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>通过<code>element.attachShadow()</code>在host上创建一个shadow root, 有一个对象参数，属性<code>mode</code>有两个值<code>open</code>|<code>closed</code>。<br><code>open</code>表示你可以通过js找到该shadow DOM，比如通过<code>element.shadowRoot</code>属性;<br><code>closed</code>表示，你不能通过外部访问shadow DOM, 比如<code>&lt;video&gt;</code>标签。</p>
-<h1 id="自定义标签"><a href="#自定义标签" class="headerlink" title="自定义标签"></a>自定义标签</h1><p>除开h5自带的标签，开发者可以自己将HTML页面的功能封装为自定义标签。</p>
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>通过<code>CustomElementRegistry.define()</code>注册一个自定义标签，接收以下参数：</p>
-<ol>
-<li>元素的名称，必需要有短横线；</li>
-<li>类对象，用来定义元素的行为；</li>
-<li>包含<code>extends</code>属性的配置对象，可选参数，指定创建的元素继承哪个内置元素。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">customElements.define(<span class="string">'word-count'</span>, WordCount, &#123; <span class="attr">extends</span>: <span class="string">'p'</span> &#125;);</span><br></pre></td></tr></table></figure>
-<p><strong>标签名称是<code>word-count</code>,类对象是<code>WordCount</code>继承自<code>&lt;p&gt;</code>标签。</strong><br>有两种自定义标签：<br>一种是独立元素，不继承其他内建HTML元素，可以直接将其写成标签形式使用。<br>还有一种继承自基本标签，创建时，必需通过<code>is</code>属性指定所需扩展的元素，例如<code>&lt;p is=&quot;word-count&quot;&gt;</code>, 或者 <code>document.createElement(&quot;p&quot;, { is: &quot;word-count&quot; })</code>。</p>
-<h1 id="host-context"><a href="#host-context" class="headerlink" title=":host-context()"></a>:host-context()</h1><p>选择的是通过后代选择器参数选择其中的<code>shadow host</code>。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我们可以用<code>shadow DOM</code>创建元素是为了将代码与其他代码进行分离，不同的功能不会混杂在一起。<br>创建的方法很简单，找到寄生的元素，建立shadow DOM结构，在<code>shadow root</code>为shadow elements建立<code>style</code>。<br>然后我们创建自定义标签在这里的目的是为了让<code>shadow DOM</code>寄生，目的同样是选择时不要影响到基本标签；<br><code>:host()</code>是通过直接选择器参数找到的寄生宿主元素。<br><code>:host-context()</code>是通过后代选择器找到的所有寄生宿主元素。<br>用途：</p>
-<ol>
-<li>创建一些自定义标签，内部通过shadow DOM组合各种标签，比如video就有一堆的shadow DOM标签。</li>
-</ol>
-<p>其它用途等我用多了再来补充。</p>
-
-          
+          <p>想要复现Chrome toggle的效果时发现了一个伪类<code>:host()</code>，查询MDN。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/07/Shadow-DOM/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -1147,7 +721,7 @@ undefined
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/31/CSS中的transform和animatio/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/30/正则表达式学习记录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="He">
@@ -1166,7 +740,7 @@ undefined
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/31/CSS中的transform和animatio/" itemprop="url">CSS中的transform和animatio</a></h1>
+                <a class="post-title-link" href="/2019/01/30/正则表达式学习记录/" itemprop="url">正则表达式学习记录</a></h1>
         
 
         <div class="post-meta">
@@ -1178,8 +752,8 @@ undefined
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-31T19:06:42+08:00">
-                2019-01-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-30T12:08:19+08:00">
+                2019-01-30
               </time>
             
 
@@ -1212,8 +786,19 @@ undefined
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/JavaScript/RegExp/" itemprop="url" rel="index">
+                    <span itemprop="name">RegExp</span>
                   </a>
                 </span>
 
@@ -1229,7 +814,7 @@ undefined
 
           
           
-             <span id="/2019/01/31/CSS中的transform和animatio/" class="leancloud_visitors" data-flag-title="CSS中的transform和animatio">
+             <span id="/2019/01/30/正则表达式学习记录/" class="leancloud_visitors" data-flag-title="正则表达式学习记录">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1261,10 +846,178 @@ undefined
 
       
         
-          <p>重修tansform和animation记录=。=<br>
+          <p>这篇文章是我学习<a href="https://juejin.im/post/59cc61176fb9a00a437b290b" target="_blank" rel="noopener">JavaScript 正则表达式迷你书</a>的简单记录，之前粗看正则时就是一堆匹配规则丢在你脸上，其实每个知识模块都是这样，人又不是计算机，不能对信息一视同仁，有划分还是利于理解和记忆的，之后学习过程也要注意主动去划分重点，不要囫囵吞枣。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/01/31/CSS中的transform和animatio/#more" rel="contents">
+            <a class="btn" href="/2019/01/30/正则表达式学习记录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/sass学习记录/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/29/sass学习记录/" itemprop="url">sass学习记录</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T12:59:25+08:00">
+                2019-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/Sass/" itemprop="url" rel="index">
+                    <span itemprop="name">Sass</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/29/sass学习记录/" class="leancloud_visitors" data-flag-title="sass学习记录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>了解css模块化与具体操作。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/29/sass学习记录/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1352,7 +1105,7 @@ undefined
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1363,7 +1116,7 @@ undefined
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1374,7 +1127,7 @@ undefined
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

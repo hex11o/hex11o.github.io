@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="npm,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="本文是对npm学习的归纳。在安装完node后自带的npm包管理器的使用，会用一些简单功能，看看官方文档更深入一点了解npm.">
-<meta name="keywords" content="npm">
+<meta name="description" content="这篇记录只是涉及到git你单人本地的部分，分支及多人合作的后面再写。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="npm使用说明">
-<meta property="og:url" content="http://yoursite.com/2019/01/29/npm使用说明/index.html">
+<meta property="og:title" content="git学习记录">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/git学习记录(一)/index.html">
 <meta property="og:site_name" content="Hex11o">
-<meta property="og:description" content="本文是对npm学习的归纳。在安装完node后自带的npm包管理器的使用，会用一些简单功能，看看官方文档更深入一点了解npm.">
+<meta property="og:description" content="这篇记录只是涉及到git你单人本地的部分，分支及多人合作的后面再写。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-30T14:39:26.742Z">
+<meta property="og:updated_time" content="2019-02-14T14:34:40.906Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="npm使用说明">
-<meta name="twitter:description" content="本文是对npm学习的归纳。在安装完node后自带的npm包管理器的使用，会用一些简单功能，看看官方文档更深入一点了解npm.">
+<meta name="twitter:title" content="git学习记录">
+<meta name="twitter:description" content="这篇记录只是涉及到git你单人本地的部分，分支及多人合作的后面再写。">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/29/npm使用说明/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/git学习记录(一)/">
 
 
 
 
 
-  <title>npm使用说明 | Hex11o</title>
+  <title>git学习记录 | Hex11o</title>
   
 
 
@@ -251,7 +250,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/npm使用说明/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/git学习记录(一)/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="He">
@@ -268,7 +267,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">npm使用说明</h1>
+          <h1 class="post-title" itemprop="name headline">git学习记录</h1>
         
 
         <div class="post-meta">
@@ -280,8 +279,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T09:54:40+08:00">
-                2019-01-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T21:27:09+08:00">
+                2019-02-14
               </time>
             
 
@@ -291,39 +290,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
-                    <span itemprop="name">FrontEnd</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -331,7 +297,7 @@
 
           
           
-             <span id="/2019/01/29/npm使用说明/" class="leancloud_visitors" data-flag-title="npm使用说明">
+             <span id="/2019/02/14/git学习记录(一)/" class="leancloud_visitors" data-flag-title="git学习记录">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -362,23 +328,56 @@
       
 
       
-        <p>本文是对npm学习的归纳。<br>在安装完node后自带的npm包管理器的使用，会用一些简单功能，看看官方文档更深入一点了解npm.<br><a id="more"></a></p>
-<h1 id="简单说点别的：vi"><a href="#简单说点别的：vi" class="headerlink" title="简单说点别的：vi"></a>简单说点别的：vi</h1><p>在看<a href="https://youtu.be/JDSfqFFbNYQ?list=PLQso55XhxkgBMeiYmFEHzz1axDUBjTLC6&amp;t=67" target="_blank" rel="noopener">npm视频</a>时发现作者用了个vi命令，能看出新建了个文件并可以打开编辑，于是我好奇查了一下vi是什么，原来是<strong>Unix编辑器</strong>，这里简单说一下，具体操作见编辑过程链接，不在此赘述：</p>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p><code>vi filename.filetype</code>新建一个文件并打开，编辑时有两个模式，一个是命令模式，一个是输入模式。</p>
+        <p>这篇记录只是涉及到git你单人本地的部分，分支及多人合作的后面再写。<br><a id="more"></a></p>
+<h1 id="Git的存储方式"><a href="#Git的存储方式" class="headerlink" title="Git的存储方式"></a>Git的存储方式</h1><p>git通过对文件生成快照，提交更新时，如果文件快照没有修改，则只保留一个链接指向之前存储的文件。</p>
+<blockquote>
+<p>校验机制为SHA-1散列（hash）————由40个十六制字符串构成。</p>
+</blockquote>
+<h1 id="Git三种状态-committed-modified-staged"><a href="#Git三种状态-committed-modified-staged" class="headerlink" title="Git三种状态(committed||modified||staged)"></a>Git三种状态(committed||modified||staged)</h1><p>项目的三个工作区域(工作目录，暂存区域，Git仓库)</p>
 <ol>
-<li>命令模式：默认模式，也就是打开文档就处于这个模式，命令是大小写敏感的，大多数命令输入时是不会显示在屏幕上的，有些命令会显示在最后一行：：/？</li>
-<li>输入模式：文本创建的模式，返回命令模式就按<code>Esc</code>.</li>
+<li>工作目录：对项目某个版本独立提取出来的内容</li>
+<li>暂存区域：保存下次将提交的文件列表信息；</li>
+<li>Git仓库：保存项目的元数据和对象数据库的地方。</li>
 </ol>
-<h2 id="编辑过程"><a href="#编辑过程" class="headerlink" title="编辑过程"></a>编辑过程</h2><p>具体操作及命令说明可参见<a href="https://staff.washington.edu/rells/R110/" target="_blank" rel="noopener">Using vi</a></p>
-<h2 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h2><p>在命令模式下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ZZ    //Write (if there were changes), then quit</span><br><span class="line">:wq   //Write, then quit</span><br><span class="line">:q    //Quit (will only work if file has not been changed)</span><br><span class="line">:q!   //Quit without saving changes to file</span><br></pre></td></tr></table></figure></p>
-<h1 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h1><h2 id="NPM的locally和globally"><a href="#NPM的locally和globally" class="headerlink" title="NPM的locally和globally"></a>NPM的locally和globally</h2><p>如果只是自己模块需要，比如require，那么就使用locally。<code>npm install pkgname</code><br>如果是在cmd里使用，那就使用globally。<code>npm install -g pkgname</code></p>
-<h2 id="通过package-json安装依赖包"><a href="#通过package-json安装依赖包" class="headerlink" title="通过package.json安装依赖包"></a>通过package.json安装依赖包</h2><p>如果文件夹里有package.json文件，在命令行输入<code>npm install</code>，那么npm会找寻package.json中的依赖包，并将其全部下载。</p>
-<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>该文件有两个必需键值：<code>name</code>和<code>version</code>。<br>添加node中已有的安装包到package.json的dependicies，使用<code>npm install packagename --save</code></p>
-<h3 id="卸载全局安装包"><a href="#卸载全局安装包" class="headerlink" title="卸载全局安装包"></a>卸载全局安装包</h3><p><code>npm ls -g --depth=0</code>查看全局安装的包；<br><code>npm uninstall -g packagename</code>卸载该包。</p>
-<h3 id="创建Node-js模块"><a href="#创建Node-js模块" class="headerlink" title="创建Node.js模块"></a>创建Node.js模块</h3><h4 id="自动创建package-json"><a href="#自动创建package-json" class="headerlink" title="自动创建package.json"></a>自动创建package.json</h4><p><code>npm init</code>：name,version,description,entry point,test command,git repository,keywords,author,license.<br><code>npm publish</code></p>
-<h4 id="发布npm包"><a href="#发布npm包" class="headerlink" title="发布npm包"></a>发布npm包</h4><p><code>npm adduser</code>:添加用户<br><code>npm config ls</code>:查看npm配置<br><code>npm publish</code>：发布包</p>
-<h4 id="升级包并发布"><a href="#升级包并发布" class="headerlink" title="升级包并发布"></a>升级包并发布</h4><p>更改后发布需要更改版本号，可以直接在package.json修改，或者使用<code>npm version patch</code>生成。然后<code>npm publish</code>.<br>版本号的修改规则：<br>第一位：改变api，不往前兼容，major release;<br>第二位：新特性，向前兼容，minor release;<br>第三位：简单的bug修复，没有新特性,patch release.<br>对应的版本修改就是<code>npm version major</code>,<code>npm version minor</code>,<code>npm version patch</code>.</p>
-<h1 id="npm-CLI-command-line-interface-命令"><a href="#npm-CLI-command-line-interface-命令" class="headerlink" title="npm CLI(command line interface)命令"></a>npm CLI(command line interface)命令</h1><p>参见官方文档——<a href="https://docs.npmjs.com/cli-documentation/cli" target="_blank" rel="noopener">CLI commands</a>.</p>
+<blockquote>
+<p>GUI（graphics user interface）</p>
+</blockquote>
+<h1 id="Git配置与帮助"><a href="#Git配置与帮助" class="headerlink" title="Git配置与帮助"></a>Git配置与帮助</h1><p><code>git config --list</code> //配置信息<br><code>git config &lt;key&gt;</code>  //某项配置</p>
+<p>//获取帮助命令<br><code>git help &lt;verb&gt;</code><br><code>git &lt;verb&gt; -help</code><br><code>man git-&lt;verb&gt;</code></p>
+<h1 id="Git基础–获取Git仓库"><a href="#Git基础–获取Git仓库" class="headerlink" title="Git基础–获取Git仓库"></a>Git基础–获取Git仓库</h1><ol>
+<li><p>现有目录中初始化仓库</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init//创建一个名为.git的子目录，包含常见初始化Git仓库的所有必需文件。</span><br><span class="line">git add//实现对指定文件的跟踪</span><br><span class="line">git commit//提交</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>克隆现有仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone [url] //需要更改目录名称则在末尾添加自命名</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="Git基础–记录每次更新到仓库"><a href="#Git基础–记录每次更新到仓库" class="headerlink" title="Git基础–记录每次更新到仓库"></a>Git基础–记录每次更新到仓库</h1><ol>
+<li><p>检查文件状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git status //工作目录状态</span><br><span class="line">git add &lt;filename&gt;//添加 内容到下一次提交中</span><br><span class="line">```   </span><br><span class="line">2. 状态简览</span><br></pre></td></tr></table></figure>
+<p> git status -s     </p>
+<pre><code>M README           //修改了，未放入暂存区
+</code></pre><p> MM Rakefile         //暂存后又修改了<br> A  lib/git.rb       //新添加到暂存<br> M  lib/simplegit.rb //修改，放入咱出去<br> ?? LICENSE.txt      //未跟踪</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">3. 忽略文件</span><br><span class="line">    创建.gitignore文件，列出需要忽略的文件模式</span><br><span class="line">    $ cat .gitignore</span><br><span class="line">    *.[oa]  //忽略所有以.o||.a结尾的文件</span><br><span class="line">    *~      //忽略所有以~结尾的文件。</span><br><span class="line">4.  查看已暂存和未暂存的修改</span><br></pre></td></tr></table></figure>
+<p> git diff //尚未暂存的改变<br> git diff –staged||–cached  //查看已暂存的改变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5. 提交更新</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>git commit  //提交时记录的是交暂存区的快照<br>git commit -m “commit”//添加注释<br>git commit -a //跳过暂存区域<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6. 移除文件</span><br><span class="line">从已跟踪文件清单中移除</span><br></pre></td></tr></table></figure></p>
+<p>git rm //暂存连带工作目录中删除指定文件<br>git rm -staged||–cached //仅从暂存区域移除，类似.gitignore<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7. 移动文件</span><br></pre></td></tr></table></figure></p>
+<pre><code>git mv file_from file_to
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># Git基础--查看提交历史</span><br><span class="line">1. git log</span><br></pre></td></tr></table></figure>
+<p>git log -p //-p显示每次提交的内容差异<br>        –stat //提交的简略统计信息<br>        –pretty= //指定用不同格式展示提交历史，online,short ,full,full,format:””<br>        –shortstat //，饿哦从更新的文件修改统计信息<br>        –name-only //已修改的文件清单<br>        –name-status //新增，修改，删除的文件清单<br>        –abbrev-commit //hash前几个字符<br>        –relative-date //较短时间显示（2 days ago）<br>        –graph //显示ascll图形表示的分支合并历史<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">2. format, 定制要显示的记录格式</span><br><span class="line">%H 提交对象的完整哈希字串   %h 简短哈希字串</span><br><span class="line"></span><br><span class="line">%T 树对象的完整哈希字串     %t 简短哈希字串</span><br><span class="line"></span><br><span class="line">%P 父对象的完整哈希字串     %p 简短哈希字串</span><br><span class="line"></span><br><span class="line">%an 作者的名字  %ae 作者的电子邮件地址</span><br><span class="line"></span><br><span class="line">%ad 作者修订日期（可以用--date=定制格式） %ar 作者修订日期，按多久以前的方式显示</span><br><span class="line"></span><br><span class="line">%cn/ce/cd/cr 提交者的名字/电邮/提交日期/提交日期，按多久之前的方式</span><br><span class="line"></span><br><span class="line">%s 提交说明</span><br><span class="line"></span><br><span class="line">//作者指实际做出修改的人，提交者指的是最后将工作陈国提交到仓库的人</span><br><span class="line"></span><br><span class="line">3. 限制输出的选项</span><br></pre></td></tr></table></figure></p>
+<p>git log -(n)  最近的n条提交<br>        –since,–after 显示指定时间之后的提交<br>        –until,–before 显示指定时间之前的提交<br>        –author 显示指定作者相关的提交<br>        –committer 显示指定提交者相关的提交<br>        –grep 显示含指定关键字的提交<br>        -S  显示添加或移除了某关键字的提交<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># Git基础--撤销操作</span><br></pre></td></tr></table></figure></p>
+<p>git commit –amend //文件未修改，修改的只是提交信息||第二次提交代替第一次提交的结果<br>            –rest HEAD filename //取消暂存的文件</p>
+<pre><code>撤销对文件的修改
+    git checkout -- [file]
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># Git基础--远程仓库</span><br><span class="line">1. `git remote -v` //显示读写远程仓库使用的git保存的简写与对应的URL</span><br><span class="line"></span><br><span class="line">2. 添加远程仓库</span><br><span class="line">`git remote add [shortname] [url]`</span><br><span class="line">3. 抓取远程仓库//抓取并不会自动合并</span><br><span class="line">`git fetch [shortname]||[url]`</span><br><span class="line">4. 拉取远程仓库//自动尝试合并到当前所在分支</span><br><span class="line">`git pull [remote-name]`</span><br><span class="line">5. 推送到远程仓库</span><br><span class="line">`git push [remote-name] [branch-name]`</span><br><span class="line">6. 查看远程仓库</span><br><span class="line">`git remote show [remote-name]`</span><br><span class="line">7. 远程仓库移除与重命名</span><br></pre></td></tr></table></figure>
+<p>git remote rename [before] [after]<br>git remote rm//移除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># Git基础--打标签</span><br><span class="line">`git tag` 列出标签</span><br><span class="line">创建标签：</span><br><span class="line">1. 附注标签</span><br></pre></td></tr></table></figure></p>
+<p>git tag -a v1.4 -m ‘my version 1.4’//-m选项指定一条将储存在标签中的信息<br>git show v1.4//看到标签信息与提交信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. 轻量标签</span><br></pre></td></tr></table></figure></p>
+<p>git tag v1.4<br>git show//不会有额外标签信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 后期打标签</span><br></pre></td></tr></table></figure></p>
+<p>git tag -a v1.2 [部分校验]<br><code>`</code></p>
+<h1 id="Git基础–创建别名"><a href="#Git基础–创建别名" class="headerlink" title="Git基础–创建别名"></a>Git基础–创建别名</h1><p><code>git config --global alias.[别名] [git命令]</code></p>
 
       
     </div>
@@ -394,12 +393,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/npm/" rel="tag"># npm</a>
-          
-        </div>
-      
 
       
       
@@ -409,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/28/ES6入门学习记录（三）/" rel="next" title="ES6入门学习记录（三）">
-                <i class="fa fa-chevron-left"></i> ES6入门学习记录（三）
+              <a href="/2019/02/14/webpack学习记录/" rel="next" title="webpack学习记录">
+                <i class="fa fa-chevron-left"></i> webpack学习记录
               </a>
             
           </div>
@@ -418,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/29/sass学习记录/" rel="prev" title="sass学习记录">
-                sass学习记录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单说点别的：vi"><span class="nav-number">1.</span> <span class="nav-text">简单说点别的：vi</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.1.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑过程"><span class="nav-number">1.2.</span> <span class="nav-text">编辑过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#退出"><span class="nav-number">1.3.</span> <span class="nav-text">退出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#npm"><span class="nav-number">2.</span> <span class="nav-text">npm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NPM的locally和globally"><span class="nav-number">2.1.</span> <span class="nav-text">NPM的locally和globally</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过package-json安装依赖包"><span class="nav-number">2.2.</span> <span class="nav-text">通过package.json安装依赖包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#package-json"><span class="nav-number">2.2.1.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载全局安装包"><span class="nav-number">2.2.2.</span> <span class="nav-text">卸载全局安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Node-js模块"><span class="nav-number">2.2.3.</span> <span class="nav-text">创建Node.js模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自动创建package-json"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">自动创建package.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布npm包"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">发布npm包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#升级包并发布"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">升级包并发布</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#npm-CLI-command-line-interface-命令"><span class="nav-number">3.</span> <span class="nav-text">npm CLI(command line interface)命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git的存储方式"><span class="nav-number">1.</span> <span class="nav-text">Git的存储方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git三种状态-committed-modified-staged"><span class="nav-number">2.</span> <span class="nav-text">Git三种状态(committed||modified||staged)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git配置与帮助"><span class="nav-number">3.</span> <span class="nav-text">Git配置与帮助</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础–获取Git仓库"><span class="nav-number">4.</span> <span class="nav-text">Git基础–获取Git仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础–记录每次更新到仓库"><span class="nav-number">5.</span> <span class="nav-text">Git基础–记录每次更新到仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础–创建别名"><span class="nav-number">6.</span> <span class="nav-text">Git基础–创建别名</span></a></li></ol></div>
             
 
           </div>

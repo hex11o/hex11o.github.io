@@ -250,6 +250,412 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/webpack学习记录/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/14/webpack学习记录/" itemprop="url">webpack学习记录</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T18:00:43+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/14/webpack学习记录/" class="leancloud_visitors" data-flag-title="webpack学习记录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="webpack安装"><a href="#webpack安装" class="headerlink" title="webpack安装"></a>webpack安装</h1><ol>
+<li>webpack全局安装：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack -g</span><br></pre></td></tr></table></figure>
+<p>全局安装会导致项目的webpack锁定到指定版本,建议不要使用</p>
+<ol start="2">
+<li>项目目录安装：</li>
+</ol>
+<p>在项目目录初始化<code>npm init</code>,生成<code>package.json</code>。<br>项目目录安装：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save--dev webpack webpack-cli</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>不安装webpack-cli是使用不了webpack的</p>
+</blockquote>
+<p>保存在package.json,dev为开发模式时使用，生产环境不用。</p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>webpack是什么：JS应用程序的静态模块打包器。在webpack处理应用程序时，在内部创建一个依赖图，用于映射项目需要的每个模块，然后将所有依赖生成一个或多个bundle.</p>
+<h2 id="webpack配置文件：入口与出口"><a href="#webpack配置文件：入口与出口" class="headerlink" title="webpack配置文件：入口与出口"></a>webpack配置文件：入口与出口</h2><ol>
+<li>入口路径：</li>
+</ol>
+<blockquote>
+<p>webpack使用哪个模块，作为构建内部依赖图的开始，默认值是./src/index.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    entry:&#123;</span><br><span class="line">        entry:<span class="string">`./src/entry.js`</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>出口路径：</li>
+</ol>
+<blockquote>
+<p>告诉webpack在哪里输出所创建的bundles,以及如何命名这些文件，输出文件默认为<code>./dist/main.js</code>,其他生成文件默认输出目录是<code>./dist</code>.</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    output:&#123;</span><br><span class="line">        path:path.resolve(__dirname,<span class="string">'dirname'</span>),</span><br><span class="line">        filename:<span class="string">'filename'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面用到了node，首先<code>path</code>找不到，需要在头部引入<code>path</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">'path'</span>);</span><br></pre></td></tr></table></figure></p>
+<p><code>require()</code>又是<code>node.js</code>的内容，见<a href="http://www.ruanyifeng.com/blog/2015/05/require.html" target="_blank" rel="noopener">requrie()源码解读</a><br>通过<code>path</code>模块的<code>resolve()</code>方法返回了<code>dirname</code>的绝对路径。</p>
+<blockquote>
+<p>输入文件在entry对象里，以键(<code>custom name</code>)值(<code>相对路径</code>)的方式写入<br>输出文件在output对象里，以键(<code>path</code>)值(<code>path.resolve(__dirname,&#39;dirname&#39;)</code>),键（<code>filename</code>)值（<code>filename相对路径</code>)。</p>
+</blockquote>
+<h2 id="loader-和plugins"><a href="#loader-和plugins" class="headerlink" title="loader 和plugins"></a>loader 和plugins</h2><ol>
+<li>loader:<br>作为开箱即用特性，webpack自身纸支持<code>JS</code>。<code>loader</code>就是让webpack能处理非JS文件，并转换为有效模块，然后添加到依赖图中，这样就能提供给应用程序使用。</li>
+<li>plugins:<br>插件可用域执行：打包优化，资源管理，注入环境变量。<br>使用插件需要require()它，然后添加到<code>plugins</code>数组中。多数都可以自定义配置。而且可以多次使用同一个插件。<br><a href="https://webpack.docschina.org/plugins" target="_blank" rel="noopener">插件列表</a></li>
+</ol>
+<h2 id="配置服务与热更新"><a href="#配置服务与热更新" class="headerlink" title="配置服务与热更新"></a>配置服务与热更新</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    devServer:&#123;</span><br><span class="line">        contentBase:path.resolve(__dirname,<span class="string">'dist'</span>),<span class="comment">//绝对路径</span></span><br><span class="line">        host:<span class="string">'192.168.1.3'</span>,<span class="comment">//IP地址</span></span><br><span class="line">        compress:<span class="literal">true</span>,<span class="comment">//服务端压缩</span></span><br><span class="line">        port:<span class="number">8080</span>,<span class="comment">//端口</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本地安装server服务包<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>在package.json里修改<code>scripts</code>属性，将键(server):值:(‘webpack-dev-server’)写入。<br>命令行调用webpack-dev-server:<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run server</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>开发环境下安装<code>webpack-dev-server</code>便于调试，安装后需要修改webpack配置情况（服务器内容的路径，服务器IP,是否压缩，端口），并修改cli启动命令。</p>
+</blockquote>
+<h2 id="css文件打包"><a href="#css文件打包" class="headerlink" title="css文件打包"></a>css文件打包</h2><p>让webpack处理非js文件，转换为有效模块，loader的两个特征：</p>
+<ol>
+<li><code>test</code>属性：表示对应loader进行转换的某个或某些文件</li>
+<li><code>use</code>属性：进行转换时使用哪个loader.</li>
+</ol>
+<blockquote>
+<p>你看上面的引入只引入了<code>entry.js</code>,所以你需要将需要转换的<code>index.css</code>在<code>entry.js</code>内<code>import</code>,这样node在webpack在执行的时候就会将css字符串标签插入到html文件<code>&lt;head&gt;</code>中。</p>
+</blockquote>
+<p>先安装识别并转换css的loader(style-loader,css-loader)：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D style-loader css-loader</span><br></pre></td></tr></table></figure></p>
+<p>并在配置的<code>module</code>的<code>rules</code>中添加规则：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="attr">use</span>: [<span class="string">'css-loader'</span>,<span class="string">'style-loader'</span>] &#125;<span class="comment">//第一种写法</span></span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="attr">loader</span>: [<span class="string">'css-loader'</span>,<span class="string">'style-loader'</span>] &#125;<span class="comment">//第二种写法</span></span><br><span class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="attr">use</span>: [&#123;</span><br><span class="line">          loader:<span class="string">'css-loader'</span>,</span><br><span class="line">          <span class="built_in">module</span>:<span class="literal">true</span>,</span><br><span class="line">          &#125;,&#123;</span><br><span class="line">              loader:<span class="string">"style-loader"</span></span><br><span class="line">          &#125;]</span><br><span class="line">      &#125;<span class="comment">//第三种写法</span></span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>对单独的module对象定义了<code>rules</code>属性，webpack编译器在遇到<code>require()/import</code>语句中被解析为<code>.css</code>路径时，打包之前使用<code>style-loader</code>和<code>css-loader</code>对其进行转换。</p>
+<h2 id="JS打包压缩"><a href="#JS打包压缩" class="headerlink" title="JS打包压缩"></a>JS打包压缩</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D uglifyjs-webpack-plugin</span><br></pre></td></tr></table></figure>
+<p>使用时require(‘uglifyjs-webpack-plugin’),然后在<code>plugins</code>里新建实例;<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> uglify(),</span><br><span class="line">],</span><br></pre></td></tr></table></figure></p>
+<p>配置里在mode直接换成<code>production</code>就好了，可能因为我看的教程版本是3.X的，4.X的webpack更新了。</p>
+<h2 id="html发布"><a href="#html发布" class="headerlink" title="html发布"></a>html发布</h2><p>安装<code>html-webpack-plugin</code>插件,不传入参数会自动产生<code>.dist/index.html</code>,其中包括使用script标签的body中所有webpack包。<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D html-webpack-plugin</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">plugins:[</span><br><span class="line">    <span class="keyword">new</span> htmlPlugin(&#123;</span><br><span class="line">        <span class="comment">//压缩html文件</span></span><br><span class="line">        minify:&#123;</span><br><span class="line">            removeAttributeQuotes:<span class="literal">true</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">//文件添加hash值</span></span><br><span class="line">        hash:<span class="literal">true</span>,</span><br><span class="line">        <span class="comment">//模板</span></span><br><span class="line">        template:<span class="string">'./src/index.html'</span></span><br><span class="line">    &#125;)</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p><code>webpack</code>打包到发布环境.</p>
+<h2 id="图片引入"><a href="#图片引入" class="headerlink" title="图片引入"></a>图片引入</h2><p>安装<code>url-loader</code><br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D url-loader</span><br></pre></td></tr></table></figure></p>
+<p>在<code>module</code>-<code>rules</code>里配置<code>loader</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test:<span class="regexp">/\.(png|jpg|gif)$/</span>,</span><br><span class="line">    use:[&#123;</span><br><span class="line">        loader:<span class="string">'url-loader'</span>,</span><br><span class="line">        <span class="comment">//图片小于limits值会被打印成base64数据</span></span><br><span class="line">        options:&#123;</span><br><span class="line">            limit:<span class="number">2000</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="css分离"><a href="#css分离" class="headerlink" title="css分离"></a>css分离</h2><p>安装<code>Extract-text-webpack-plugin</code>插件<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D extract-text-webpack-plugin@next</span><br></pre></td></tr></table></figure></p>
+<p>这里注意，如果不安装新版本在webpack4.X下会报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instead</span><br></pre></td></tr></table></figure></p>
+<p>安装好后，配置如下<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">"extract-text-webpack-plugin"</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: ExtractTextPlugin.extract(&#123;</span><br><span class="line">          fallback: <span class="string">"style-loader"</span>,</span><br><span class="line">          use: <span class="string">"css-loader"</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> ExtractTextPlugin(<span class="string">"styles.css"</span>),<span class="comment">//配置到的文件相对url</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="HTML中的图片打包"><a href="#HTML中的图片打包" class="headerlink" title="HTML中的图片打包"></a>HTML中的图片打包</h2><blockquote>
+<p>html中img标签无法直接打包</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D html-withimg-loader</span><br></pre></td></tr></table></figure>
+<p>配置：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;</span><br><span class="line">            test:<span class="regexp">/\.(htm|html)$/i</span>,</span><br><span class="line">            use:[<span class="string">'htm-withimg-loader'</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="less打包"><a href="#less打包" class="headerlink" title="less打包"></a>less打包</h2><p>安装less及less-loader<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D less less-loader</span><br></pre></td></tr></table></figure></p>
+<p>配置文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ExtractTextPlugin=<span class="built_in">require</span>(<span class="string">'extract-text-webpack-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;<span class="attr">test</span>:<span class="regexp">/\.less$/</span>,</span><br><span class="line">            use:ExtractTextPlugin.extract(&#123;</span><br><span class="line">                use:[&#123;</span><br><span class="line">                    loader:<span class="string">"css-loader"</span></span><br><span class="line">                &#125;,&#123;</span><br><span class="line">                    loader:<span class="string">"less-loader"</span></span><br><span class="line">                &#125;],</span><br><span class="line">                fallback:<span class="string">'style-loader'</span></span><br><span class="line">            &#125;)</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[<span class="keyword">new</span> ExtractTextPlugin(<span class="string">'css/index.css'</span>)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="sass打包"><a href="#sass打包" class="headerlink" title="sass打包"></a>sass打包</h2><p>安装sass及sass-loader<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D node-sass sass-loader</span><br></pre></td></tr></table></figure></p>
+<p>配置文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ExtractTextPlugin=<span class="built_in">require</span>(<span class="string">'extract-text-webpack-plugin'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;<span class="attr">test</span>:<span class="regexp">/\.sass$/</span>,</span><br><span class="line">            use:ExtractTextPlugin.extract(&#123;</span><br><span class="line">                use:[&#123;</span><br><span class="line">                    loader:<span class="string">"css-loader"</span></span><br><span class="line">                &#125;,&#123;</span><br><span class="line">                    loader:<span class="string">"sass-loader"</span></span><br><span class="line">                &#125;],</span><br><span class="line">                fallback:<span class="string">'style-loader'</span></span><br><span class="line">            &#125;)</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[<span class="keyword">new</span> ExtractTextPlugin(<span class="string">'css/index.css'</span>)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="css属性前缀"><a href="#css属性前缀" class="headerlink" title="css属性前缀"></a>css属性前缀</h2><p>安装postcss-loader和autoprifixer<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D postcss-loader autoprefixer</span><br></pre></td></tr></table></figure></p>
+<p>新建<code>postcss.config.js</code>文件:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">'autoprefixer'</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编写css rules:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        use: [</span><br><span class="line">            &#123;<span class="attr">loader</span>:<span class="string">"css-loader"</span>&#125;,</span><br><span class="line">            <span class="comment">//参见loader三种方式</span></span><br><span class="line">            <span class="string">'postcss-loader'</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> ExtractTextPlugin(<span class="string">"styles.css"</span>),<span class="comment">//配置到的文件相对url</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="消除无用css"><a href="#消除无用css" class="headerlink" title="消除无用css"></a>消除无用css</h2><p>安装purifycss:<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D purifycss-webpack purify-css</span><br></pre></td></tr></table></figure></p>
+<p>引入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> glob=<span class="built_in">require</span>(<span class="string">'glob'</span>);</span><br><span class="line"><span class="keyword">const</span> PurifyCssPlugin=<span class="built_in">require</span>(<span class="string">'purify-webpack'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> PurifyCssPlugin(&#123;</span><br><span class="line">            paths:glob.sync(path.join(__dirname,<span class="string">'src/*.html'</span>))</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="babel配置"><a href="#babel配置" class="headerlink" title="babel配置"></a>babel配置</h2><p>安装babel:<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D babel-loader @babel/core @babel/preset-env webpack</span><br></pre></td></tr></table></figure></p>
+<p>配置文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    <span class="built_in">module</span>:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">        &#123;</span><br><span class="line">            test:<span class="regexp">/\.m?js$/</span>,</span><br><span class="line">            use:&#123;</span><br><span class="line">                loader:<span class="string">'babel-loader'</span>,</span><br><span class="line">                <span class="comment">//配置项</span></span><br><span class="line">                options:&#123;</span><br><span class="line">                    presets:[<span class="string">"@babel/preset-env"</span>]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">//排除文件夹</span></span><br><span class="line">            exclude:<span class="regexp">/(node_modules|bower_components)/</span>,</span><br><span class="line">        &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以新建<code>.babelrc</code>文件，将配置用json格式书写对象，<code>&quot;presets&quot;</code>，少写点webpack配置.<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"presets"</span>:[<span class="string">"@babel/preset-env"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="调式错误"><a href="#调式错误" class="headerlink" title="调式错误"></a>调式错误</h2><p>将入口上面添加：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    devtool:<span class="string">''</span>,<span class="comment">//四种模式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>source-map<br>生成独立map文件,生成慢，包括行和列，几行第几个字符</li>
+<li>cheap-module-source-map<br>生成独立map文件，不包括列，第几行出现错误</li>
+<li>eval-source-map<br>eval在js中生成map,<strong>开发阶段</strong>，行列</li>
+<li>cheap-module-source-map<br>行，在js中生成map</li>
+</ol>
+<h2 id="开发与生产环境并存"><a href="#开发与生产环境并存" class="headerlink" title="开发与生产环境并存"></a>开发与生产环境并存</h2><p>在package.json配置命令<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"script"</span>:&#123;</span><br><span class="line">        <span class="attr">"build"</span>:<span class="string">"set type=build&amp;webpack"</span>,</span><br><span class="line">        <span class="attr">"dev"</span>:<span class="string">"set type=dev&amp;webpack"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在webpack.config.js中通过<code>process.env.type</code>值修改<code>publicPath</code>值。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(process.env.type==<span class="string">"dev"</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> website=&#123;</span><br><span class="line">        publicPath:<span class="string">'http://192.168.1.3:8080/'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(process.env.type==<span class="string">"build"</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> website=&#123;</span><br><span class="line">        publicPath:<span class="string">'http://hex11o.github.com:1717/'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<div class="note warning"><p>这里出现一个问题，我使用<code>npm run server</code>时，<code>process.env.type</code>的值成为了<code>undefined</code>，因为没有在script里设置set type值，我也设置成了dev。</p></div>
+## webpack模块化配置
+新建配置模块存放文件夹`webpack_config`
+新建各模块配置js,以entry为例新建`entry_webpack.js`：
+undefined
+
+将entry暴露出来后在配置文件中引入：
+undefined
+
+<div class="note warning"><p>这里出现一个问题，其他output还需要path变量或者插件的，还有plugins是数组对象，导入时有问题，我等会研究。</p></div>
+<h2 id="引入第三方库"><a href="#引入第三方库" class="headerlink" title="引入第三方库"></a>引入第三方库</h2><p>安装到dependies后简单引入：<br><code>import $ from &#39;jquery&#39;</code><br>用插件引入：<br>插件在webpack里面，需要先引用webpack，然后调用<code>webpack.ProvidePlugin()</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</span><br><span class="line">            $:<span class="string">"jquery"</span>,</span><br><span class="line">        &#125;),</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>插件引入的当没有用到时不会打包进去。</p>
+<h2 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h2><p>watch配置：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    watchOptions:&#123;</span><br><span class="line">        <span class="comment">//检测修改的时间频率</span></span><br><span class="line">        poll:<span class="number">1000</span>;</span><br><span class="line">        <span class="comment">//防止重复保存的编译错误</span></span><br><span class="line">        aggregateTimeout:<span class="number">500</span>,</span><br><span class="line">        <span class="comment">//不监听的目录</span></span><br><span class="line">        ignored:<span class="regexp">/node_modules/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打包后添加banner,插件里添加:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.BannerPlugin(<span class="string">'infomation you need'</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p><strong>下面的已经在4.X里换成了optimization.splitChunks，所以别用这个，看更下面的</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">    <span class="comment">//入口文件</span></span><br><span class="line">    name:<span class="string">"jquery"</span>,</span><br><span class="line">    <span class="comment">//出口路径</span></span><br><span class="line">    filename:<span class="string">"assets/js/jquery.min.js"</span>,</span><br><span class="line">    <span class="comment">//最小抽离文件</span></span><br><span class="line">    minChunks:<span class="number">2</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="splitChunksPlugin"><a href="#splitChunksPlugin" class="headerlink" title="splitChunksPlugin"></a>splitChunksPlugin</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个"commons"js块,包含了所有entry项目中的共享代码。</span></span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    optimization:&#123;</span><br><span class="line">        splitChunks:&#123;</span><br><span class="line">            cacheGroups: &#123;</span><br><span class="line">                commons: &#123;</span><br><span class="line">                    name: <span class="string">'commons'</span>,</span><br><span class="line">                    chunks: <span class="string">'initial'</span>,</span><br><span class="line">                    minChunks: <span class="number">2</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建一个"vendors"块，包含所有整个应用中来自node_modules的代码</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        commons: &#123;</span><br><span class="line">          test: <span class="regexp">/[\\/]node_modules[\\/]/</span>,</span><br><span class="line">          name: <span class="string">'vendors'</span>,</span><br><span class="line">          chunks: <span class="string">'all'</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>配置见<a href="https://webpack.docschina.org/plugins/split-chunks-plugin/#configuration" target="_blank" rel="noopener">官方文档</a>吧，我现在没力气弄它。。</p>
+<h2 id="集中拷贝静态资源"><a href="#集中拷贝静态资源" class="headerlink" title="集中拷贝静态资源"></a>集中拷贝静态资源</h2><p>下载插件：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D <span class="built_in">copy</span>-webpack-plugin</span><br></pre></td></tr></table></figure></p>
+<p>配置引入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CopyWebpackPlugin=<span class="built_in">require</span>(<span class="string">'copy-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> CopyWebpackPlugin([&#123;</span><br><span class="line">            <span class="keyword">from</span>:__dirname+<span class="string">'/src/public'</span>,</span><br><span class="line">            to:<span class="string">'./public'</span></span><br><span class="line">        &#125;])</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>像之前的图片我就这样拷贝好了，之前全部名字都换掉了，试一试。</p>
+<h2 id="插件（plugins"><a href="#插件（plugins" class="headerlink" title="插件（plugins)"></a>插件（plugins)</h2><p>想要使用插件，只需要<code>require()</code>它，添加到<code>plugins</code>数组中。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/设计模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/设计模式/" itemprop="url">设计模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-12T09:38:38+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/12/设计模式/" class="leancloud_visitors" data-flag-title="设计模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>为什么需要</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/HTTP学习记录/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -896,353 +1302,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/30/正则表达式学习记录/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/30/正则表达式学习记录/" itemprop="url">正则表达式学习记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-30T12:08:19+08:00">
-                2019-01-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
-                    <span itemprop="name">FrontEnd</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/JavaScript/RegExp/" itemprop="url" rel="index">
-                    <span itemprop="name">RegExp</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/01/30/正则表达式学习记录/" class="leancloud_visitors" data-flag-title="正则表达式学习记录">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>这篇文章是我学习<a href="https://juejin.im/post/59cc61176fb9a00a437b290b" target="_blank" rel="noopener">JavaScript 正则表达式迷你书</a>的简单记录，之前粗看正则时就是一堆匹配规则丢在你脸上，其实每个知识模块都是这样，人又不是计算机，不能对信息一视同仁，有划分还是利于理解和记忆的，之后学习过程也要注意主动去划分重点，不要囫囵吞枣。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/30/正则表达式学习记录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/sass学习记录/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/29/sass学习记录/" itemprop="url">sass学习记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T12:59:25+08:00">
-                2019-01-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
-                    <span itemprop="name">FrontEnd</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/Sass/" itemprop="url" rel="index">
-                    <span itemprop="name">Sass</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/01/29/sass学习记录/" class="leancloud_visitors" data-flag-title="sass学习记录">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>了解css模块化与具体操作。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/29/sass学习记录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1293,7 +1352,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1304,7 +1363,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1315,7 +1374,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hex11o">
 <meta property="og:description" content="这篇记录只是涉及到git单人本地的部分，分支及多人合作的后面再写。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-14T14:41:42.872Z">
+<meta property="og:updated_time" content="2019-02-14T15:56:03.341Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git学习记录(一)">
 <meta name="twitter:description" content="这篇记录只是涉及到git单人本地的部分，分支及多人合作的后面再写。">
@@ -410,8 +410,8 @@
 <p>git remote rename [before] [after]<br>git remote rm//移除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># Git基础--打标签</span><br><span class="line">`git tag` 列出标签</span><br><span class="line">创建标签：</span><br><span class="line">1. 附注标签</span><br></pre></td></tr></table></figure></p>
 <p>git tag -a v1.4 -m ‘my version 1.4’//-m选项指定一条将储存在标签中的信息<br>git show v1.4//看到标签信息与提交信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. 轻量标签</span><br></pre></td></tr></table></figure></p>
 <p>git tag v1.4<br>git show//不会有额外标签信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 后期打标签</span><br></pre></td></tr></table></figure></p>
-<p>git tag -a v1.2 [部分校验]<br><code>`</code></p>
-<h1 id="Git基础–创建别名"><a href="#Git基础–创建别名" class="headerlink" title="Git基础–创建别名"></a>Git基础–创建别名</h1><p><code>git config --global alias.[别名] [git命令]</code></p>
+<p>git tag -a v1.2 [部分校验]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># Git基础--创建别名</span><br><span class="line">`git config --global alias.[别名] [git命令]`</span><br><span class="line"></span><br><span class="line"># 本地仓库提交到github</span><br><span class="line">github创建一个空项目</span><br><span class="line">```cmd</span><br><span class="line">git init //初始化本地仓库</span><br><span class="line">git add. //添加全部修改文件</span><br><span class="line">git commit -m  //提交到本地仓库</span><br><span class="line">git remote addd origin 远程仓库地址</span><br><span class="line">git push -u origin master //创建一个上传流(-u)，仅初次推送时需要</span><br></pre></td></tr></table></figure></p>
+<p>多人协作，一定要先pull再push</p>
 
       
     </div>
@@ -451,6 +451,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/猪年折个猪/" rel="prev" title="猪年折个猪">
+                猪年折个猪 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -527,7 +531,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -538,7 +542,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -549,7 +553,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -598,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git的存储方式"><span class="nav-number">1.</span> <span class="nav-text">Git的存储方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git三种状态-committed-modified-staged"><span class="nav-number">2.</span> <span class="nav-text">Git三种状态(committed||modified||staged)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git配置与帮助"><span class="nav-number">3.</span> <span class="nav-text">Git配置与帮助</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础–获取Git仓库"><span class="nav-number">4.</span> <span class="nav-text">Git基础–获取Git仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础–记录每次更新到仓库"><span class="nav-number">5.</span> <span class="nav-text">Git基础–记录每次更新到仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础–创建别名"><span class="nav-number">6.</span> <span class="nav-text">Git基础–创建别名</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git的存储方式"><span class="nav-number">1.</span> <span class="nav-text">Git的存储方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git三种状态-committed-modified-staged"><span class="nav-number">2.</span> <span class="nav-text">Git三种状态(committed||modified||staged)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git配置与帮助"><span class="nav-number">3.</span> <span class="nav-text">Git配置与帮助</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础–获取Git仓库"><span class="nav-number">4.</span> <span class="nav-text">Git基础–获取Git仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git基础–记录每次更新到仓库"><span class="nav-number">5.</span> <span class="nav-text">Git基础–记录每次更新到仓库</span></a></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hex11o">
 <meta property="og:description" content="这篇记录只是涉及到git单人本地的部分，分支及多人合作的后面再写。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-18T01:38:13.528Z">
+<meta property="og:updated_time" content="2019-02-18T11:04:03.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git学习记录(一)">
 <meta name="twitter:description" content="这篇记录只是涉及到git单人本地的部分，分支及多人合作的后面再写。">
@@ -391,7 +391,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git status //工作目录状态</span><br><span class="line">git add &lt;filename&gt;//添加 内容到下一次提交中</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>状态简览</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git status -s     </span><br><span class="line">    M README           //修改了，未放入暂存区</span><br><span class="line">MM Rakefile         //暂存后又修改了</span><br><span class="line">A  lib/git.rb       //新添加到暂存</span><br><span class="line">M  lib/simplegit.rb //修改，放入咱出去</span><br><span class="line">?? LICENSE.txt      //未跟踪</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git status -s     </span><br><span class="line">    M README        //修改了，未放入暂存区</span><br><span class="line">MM Rakefile         //暂存后又修改了</span><br><span class="line">A  lib/git.rb       //新添加到暂存</span><br><span class="line">M  lib/simplegit.rb //修改，放入咱出去</span><br><span class="line">?? LICENSE.txt      //未跟踪</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>忽略文件<br> 创建.gitignore文件，列出需要忽略的文件模式<br> $ cat .gitignore<br> <em>.[oa]  //忽略所有以.o||.a结尾的文件
  </em>~      //忽略所有以~结尾的文件。</p>
@@ -448,7 +448,7 @@
 </li>
 </ol>
 <h1 id="Git基础–创建别名"><a href="#Git基础–创建别名" class="headerlink" title="Git基础–创建别名"></a>Git基础–创建别名</h1><p><code>git config --global alias.[别名] [git命令]</code></p>
-<h1 id="本地仓库提交到github"><a href="#本地仓库提交到github" class="headerlink" title="本地仓库提交到github"></a>本地仓库提交到github</h1><p>github创建一个空项目<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init //初始化本地仓库</span><br><span class="line">git add. //添加全部修改文件</span><br><span class="line">git commit -m  //提交到本地仓库</span><br><span class="line">git remote add origin 远程仓库地址</span><br><span class="line">git push -u origin master //创建一个上传流(-u)，仅初次推送时需要</span><br></pre></td></tr></table></figure></p>
+<h1 id="本地仓库提交到github"><a href="#本地仓库提交到github" class="headerlink" title="本地仓库提交到github"></a>本地仓库提交到github</h1><p>github创建一个空项目<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init //初始化本地仓库</span><br><span class="line">git add. //添加全部修改文件</span><br><span class="line">git commit -m  //提交到本地仓库</span><br><span class="line">git remote add origin [远程仓库地址]</span><br><span class="line">git push -u origin master //创建一个上传流(-u)，仅初次推送时需要</span><br></pre></td></tr></table></figure></p>
 <p>多人协作，一定要先pull再push</p>
 
       

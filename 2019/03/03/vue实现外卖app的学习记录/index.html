@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,vue-cli,vue-router,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="学习vue的过程：先看了vue官网文档，初步了解了Vue,Vue-router,Vuex是干什么的，按官方文档写了小实例，然后看慕课网上的vue构建饿了么视频，看实际项目是怎么构建的,先总结一下我初学全家桶的总结，然后说实际构建过程中学到的东西和自己的一些经验。">
+<meta name="keywords" content="vue,vue-cli,vue-router">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue实现外卖app的学习记录">
+<meta property="og:url" content="http://yoursite.com/2019/03/03/vue实现外卖app的学习记录/index.html">
+<meta property="og:site_name" content="Hex11o">
+<meta property="og:description" content="学习vue的过程：先看了vue官网文档，初步了解了Vue,Vue-router,Vuex是干什么的，按官方文档写了小实例，然后看慕课网上的vue构建饿了么视频，看实际项目是怎么构建的,先总结一下我初学全家桶的总结，然后说实际构建过程中学到的东西和自己的一些经验。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-02T16:51:48.996Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue实现外卖app的学习记录">
+<meta name="twitter:description" content="学习vue的过程：先看了vue官网文档，初步了解了Vue,Vue-router,Vuex是干什么的，按官方文档写了小实例，然后看慕课网上的vue构建饿了么视频，看实际项目是怎么构建的,先总结一下我初学全家桶的总结，然后说实际构建过程中学到的东西和自己的一些经验。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"display":"always","offset":15,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/03/vue实现外卖app的学习记录/">
+
+
+
+
+
+  <title>vue实现外卖app的学习记录 | Hex11o</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hex11o</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/vue实现外卖app的学习记录/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue实现外卖app的学习记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-03T00:49:10+08:00">
+                2019-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/03/vue实现外卖app的学习记录/" class="leancloud_visitors" data-flag-title="vue实现外卖app的学习记录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>学习vue的过程：先看了vue官网文档，初步了解了Vue,Vue-router,Vuex是干什么的，按官方文档写了小实例，然后看慕课网上的vue构建饿了么视频，看实际项目是怎么构建的,先总结一下我初学全家桶的总结，然后说实际构建过程中学到的东西和自己的一些经验。<br><a id="more"></a></p>
+<h1 id="初入Vue"><a href="#初入Vue" class="headerlink" title="初入Vue"></a>初入Vue</h1><ul>
+<li>我学习html,css,js后，将百度技术学院的题做了做，设计到了一些静态页面，在JS里转来转去，终于知道了原型，闭包，了解了一下ES6,ES7，然后做的东西大部分的是通过JS基础实现的一些小需求，后面了解npm, webpack,git，然后过了一遍http的书，准备开始接触vue。</li>
+</ul>
+<p>之前不知道什么是框架，那到底什么是框架啊：</p>
+<ul>
+<li>简单来说，按这么一套规则来结构化你做的事，提升你编写代码的效率与规范化你的代码，包装好了一些功能，并且能扩展很多功能。</li>
+</ul>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p>我理解的Vue, <code>vue.js</code>是一个160KB，4040行的js文件=。=，里面一堆function,我现在是很难看它，等等吧，先知道它在干什么。</p>
+<h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><p>项目中引用vue.js,就可以使用Vue了，new Vue()创建了一个vue实例,然后传入后面说的el,data,methods,props,watch,钩子函数等等，你可以对这个实例进行一系列指令，所有<code>v-</code>开头的都是Vue的特性，会在渲染DOM上有特定的行为。<br>vue自带的指令有：<code>v-bind</code>,<code>v-if</code>,<code>v-else</code>,<code>v-else-if</code>,<code>v-show</code>,<code>v-for</code>,<code>v-on</code>,<code>v-model</code>,<code>v-once</code>,<code>v-html</code>,</p>
+<p>vue的组件化：每个组件都是有<code>预定义选项</code>的<code>Vue实例</code>。</p>
+<ol>
+<li>Vue实例创建时，响应式系统里就加入了<code>data</code>对象中所有属性，这些属性值发生改变，视图就会响应改变。</li>
+<li>vue有一些实例属性和方法，都有前缀<code>$</code>,与用户属性进行区分。</li>
+<li>每个实例创建时都会经过一系列过程，这些过程中就可以添加生命周期钩子函数，生命周期：1.beforeCreate,2.created,2.1有el属性吗（没有就等实例的$mount(el)方法）;2.2有template属性吗？render template:el外层做为template 3.beforeMount,创建vm.$el并且把el换掉 4.mounted 5.数据改变前：beforeUpdate 6.虚拟DOM重新渲染：updated 7.beforeDestory($destory()方法调用时) 8.destroyed(把watchers，子组件，时间监听全拆了)。</li>
+<li>计算属性缓存和方法，侦听属性的差别，计算属性的setter</li>
+<li>元素复用, 通过<code>key</code>值属性不同改变</li>
+<li><code>v-if`</code>v-show<code>的差异，</code>v-show`一次渲染，终身切换。</li>
+<li><code>v-for</code>,<code>v-if</code>优先级，<code>v-for</code>的更高，每次<code>v-if</code>都会执行，所以双方结合的实现内容。</li>
+<li>内联语句调用方法，传入参数，特殊参数<code>$event</code>，事件修饰符:<code>.stop</code>,<code>.prevent</code>,<code>.capture</code>,<code>.self</code>,<code>.once</code>,<code>.passive</code>,内联符的顺序问题。</li>
+<li>按键修饰符，kebab-case (page-down)，自定义修饰符别名;系统修饰符.ctrl,.shfit,.alt,.meta(功能键)；.exact修饰符（exactly listed key ）</li>
+<li><code>v-model</code>在<input>,<textarea>,</textarea><select>上的双向绑定，会忽略初始值————选择实例数据；修饰符：.lazy,.number,.trim。</select></li>
+</ol>
+<ul>
+<li>text和textarea元素使用value属性和input事件</li>
+<li>checkbox和radio使用checked属性和change事件</li>
+<li>select字段将value作为prop并将change作为事件</li>
+</ul>
+<h3 id="深入组件"><a href="#深入组件" class="headerlink" title="深入组件"></a>深入组件</h3><ol>
+<li>自定义事件，自定义事件的触发:<code>$emit(&#39;eventName&#39;)</code>,可以用第二个参数传入特定值，通过<code>$event</code>访问到抛出的值。</li>
+<li>动态组件，通过<code>:is=“component”</code>绑定组件选项对象，HTML中有些标签对于哪些标签可以出现在内部是有规定的，这时候就不能自定义组件直接往里塞了，要用<code>is</code>来灌入。</li>
+<li>组件命名，kebab-case(my-component),PascalCase(MyComponent),引用和使用。</li>
+<li>Prop:Prop就是从标签中传入的数据,父到子是单向下行绑定的，子改变这个属性会发出警告，你需要改变值可以在子组件里再转换一下props(比如data return,或者computed),可以指定类型(可多个)，可选是否必需，设置默认值，自定义验证函数(validator (value){}验证失败会产生警告)</li>
+<li>非Prop的特性，只传向一个组件，但组件并没有prop定义的特性，可以将特性直接添加上去。</li>
+<li><code>style</code>特性和<code>class</code>会自动合并，其他的会被替换掉。</li>
+<li>事件名不存在大小写转换，触发和监听名称需要完全一致，而v-on在DOM模板会被转换为全小写（HTML大小写不敏感），用kebab-case就对了。</li>
+<li>自定义组件v-model的问题，v-model默认利用value的prop和input事件，单选框， 复选框的输控件value值目的可能不同。用model选项避免冲突，就是将有冲突的值写在model属性里。</li>
+<li>组件监听原生事件添加<code>.native</code>修饰符，组件的时间监听可以通过<code>$listners</code>对象保存。</li>
+<li>prop双向绑定：子组件触发<code>update:propname</code>事件修改<code>propname</code>属性值，然后父组件监听事件并传入<code>$event</code>值，实现数据跳转，即子组件的——-等会再来——–.sync</li>
+<li>插槽的备用内容，具名插槽：<code>template</code>使用<code>v-slot</code>包裹插槽，模板内用<code>slot name</code>插口，没有包裹的内容默认为<code>default</code>。</li>
+<li>模板作用域问题，模板根节点的数据是在父级作用域中编译的，子模版的所有内容是在子作用域编译的，也就是子模板是无法直接访问父级作用域的数据。</li>
+<li>插槽prop：插槽访问子组件的数据，<code>slot</code>绑定子组件特性，在父级作用域定义提供的插槽prop的名字。</li>
+<li>默认插槽的简写：组件标签直接当作插槽的模板，<code>v-slot</code>用在组件标签上，<strong>不能与具名插槽混用</strong>。</li>
+<li><code>v-slot:</code>的简写<code>#</code>,一定要带上插槽名字，没有的话就写<code>default</code>。</li>
+<li>动态组件,在具名组件外添加<code>&lt;keep-alive&gt;</code>，保存动态切换的状态，避免反复渲染。</li>
+<li>访问根实例<code>$root</code>和父组件<code>$parent</code>,访问子组件(子组件通过<code>ref</code>赋予name引用，通过<code>$ref.name</code>引用),<strong>$ref不是响应式的</strong>。</li>
+<li>父组件暴露供后代组件的数据和方法，通过<code>provide</code>属性，在后代组件通过<code>inject</code>属性接收需要的数据和方法。</li>
+</ol>
+<h3 id="过渡和动画"><a href="#过渡和动画" class="headerlink" title="过渡和动画"></a>过渡和动画</h3><ol>
+<li>进入/离开的过渡，有六个默认class,<code>v-enter</code>,<code>v-enter-active</code>,<code>v-enter-to</code>,<code>v-leave</code>,<code>v-leave-active</code>,<code>v-leave-to</code>,tansition可以添加name，<code>v</code>切换至相应<code>name</code>。</li>
+</ol>
+<h1 id="项目学习记录"><a href="#项目学习记录" class="headerlink" title="项目学习记录"></a>项目学习记录</h1><h2 id="数据的配置与调用"><a href="#数据的配置与调用" class="headerlink" title="数据的配置与调用"></a>数据的配置与调用</h2><ol>
+<li><p>配置mock,配置文件里引入json数据，设置服务器提供的数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; seller, goods, ratings &#125; = <span class="built_in">require</span>(<span class="string">'./data.json'</span>)</span><br><span class="line"></span><br><span class="line">devServer: &#123;</span><br><span class="line">  before (app) &#123;</span><br><span class="line">    app.get(<span class="string">'/api/seller'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">      res.json(&#123;</span><br><span class="line">        errno: <span class="number">0</span>,</span><br><span class="line">        data: seller</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>封装axios,配置api,调用相关api得到服务器提供的相关数据进行处理</p>
+</li>
+</ol>
+<h2 id="动态挂载弹窗"><a href="#动态挂载弹窗" class="headerlink" title="动态挂载弹窗"></a>动态挂载弹窗</h2><p>全屏的弹窗适合动态挂载,而不是声明式写死。<br>cube-ui的<code>createAPI</code>,可以将组件通过该方法会在Vue的prototype上增加一个<code>$create{camelize(component.name)}</code>的方法，这样就可以在其他组件里直接通过这个方法实例化组件，传入的参数有config(Object,组件配置)，renderFn(Function,可选参数,用于生成VNode子节点)，single(Boolean,是否单例)。</p>
+<h3 id="config可配置的参数"><a href="#config可配置的参数" class="headerlink" title="config可配置的参数"></a>config可配置的参数</h3><ol>
+<li><code>$props</code>:传递给组件的props。 </li>
+<li><code>$events</code>:组件的Events事件回调。</li>
+</ol>
+<h1 id="vue实例选项"><a href="#vue实例选项" class="headerlink" title="vue实例选项"></a>vue实例选项</h1><p>Vue就是一个构造函数。<br>构造的时候可以传入哪些参数：</p>
+<h2 id="选项-数据"><a href="#选项-数据" class="headerlink" title="选项/数据"></a>选项/数据</h2><ol>
+<li>data: 生成实例时的数据对象，会将data的属性转换为getter/setter,从而能双向响应，通过<code>vm.$data</code>访问到原始数据，组件定义时，申明为一个返回函数，避免数据共享.</li>
+<li>props: 用来接收父组件的数据。</li>
+<li>propsData: 只是方便测试向用<code>new</code>创建的<code>实例</code>传递props</li>
+<li>computed： 经过计算之后的属性对象。</li>
+<li>methods：通过实例能访问的方法。</li>
+<li>watch: 实例生成时，立即调用$watch(),遍历watch对象的每一个属性，发生变化时立即执行回调函数，或方法名，或含选项的对象。</li>
+</ol>
+<h2 id="选项-DOM"><a href="#选项-DOM" class="headerlink" title="选项/DOM"></a>选项/DOM</h2><ol>
+<li>el: 挂载在DOM元素，后续需要挂的话用<code>vm.$mount()</code>挂载。</li>
+<li>template: vue实例的结构模板，如果标签中间还有内容，可以用插槽<code>&lt;slot&gt;</code>将其置入。</li>
+<li>render: 接收一个<code>createElement</code>方法作为第一个参数来创建<code>VNode</code>,这里是建立虚拟DOM,。</li>
+<li>renderErr: 开发环境使用，<code>render</code>函数不行时，提供另一种输出，<code>render</code>失败返回的对象作为第二个参数传入renderErr。</li>
+</ol>
+<h2 id="选项-生命钩子"><a href="#选项-生命钩子" class="headerlink" title="选项/生命钩子"></a>选项/生命钩子</h2><ol>
+<li>beforeCreate：实例初始化后，观测(data observer)，配置(event/watcher)之前调用。</li>
+<li>created: 实例创建完成,观测，运算，配置完成，还没挂载。</li>
+<li>beforeMount: 实例挂载之前，<code>render</code>函数调用，生成虚拟DOM，<em>服务器端不被调用</em>.</li>
+<li>mounted: <code>el</code>被<code>vm.$el</code>替换，挂载到实例后调用，子组件可以往后稍稍，如果真需要视图全部渲染，用<code>this.$nextTick()</code>替换</li>
+<li>beforeUpdate: 发生在虚拟DOM打补丁之前，适合更新前访问现在的DOM,比如移除添加的事件监听。</li>
+<li>updated: 数据更改后虚拟DOM重新渲染之后。</li>
+<li>actived: <code>keep-alive</code>组件激活时调用，<code>动态组件</code>：切换不重复渲染。</li>
+<li>deactived: keep-alive组件停用时调用。</li>
+<li>beforeDestory: 实例销毁之前调用.</li>
+<li>destoryed: 实例销毁之后调用。</li>
+<li>errorCaptured: 子孙组件发生错误时调用，接收三个参数：错误对象，发生错误的组件，错误来源信息。</li>
+</ol>
+<h2 id="选项-资源"><a href="#选项-资源" class="headerlink" title="选项/资源"></a>选项/资源</h2><ol>
+<li>directive: 可用指令的hash表。</li>
+<li>filtes: 可用过滤器的hash表。</li>
+<li>components: 可用组件的哈希表。</li>
+</ol>
+<h2 id="选项-组合"><a href="#选项-组合" class="headerlink" title="选项/组合"></a>选项/组合</h2><ol>
+<li>parent: 实例的父实例，<code>this.$parent</code>访问父实例。</li>
+<li>mixins: array<object>,混入一个<code>对象数组</code>，逻辑会合并，钩子会执行两次。</object></li>
+<li>extends: Object|Function, 扩展另一个组件。</li>
+<li>provide/inject: <code>provide</code>是一个对象或返回对象的函数，包含给子孙使用的属性,<code>inject</code>是<code>provide</code>提供的<code>属性名</code>或<code>属性数组</code></li>
+</ol>
+<h2 id="选项-其他"><a href="#选项-其他" class="headerlink" title="选项/其他"></a>选项/其他</h2><ol>
+<li>name：模板自身递归调用？？那不是炸刚了么。</li>
+<li>delimiters: 改变纯文本插入分隔符：[‘${‘,’}’]</li>
+<li>functional: 使组件无data和无this.</li>
+<li>model：使<code>v-model</code>时定制prop和event.<strong>这里看不懂</strong></li>
+<li>inheritAttrs: 未被作为props给子组件的特性，设置<code>false</code>会将其去掉，否则会作为普通attrs应用到子组件根元素上。</li>
+<li>comments: 设置为<code>true</code>时，保留渲染模板中的HTML注释，默认舍弃。</li>
+</ol>
+<hr>
+<h2 id="实例-属性"><a href="#实例-属性" class="headerlink" title="实例/属性"></a>实例/属性</h2><ol>
+<li>$data</li>
+<li>$props</li>
+<li>$el</li>
+<li>$options: 当前实例的初始化选项</li>
+<li>$parents: 父组件</li>
+<li>$root: 根组件</li>
+<li>$children: 直接子组件，数组</li>
+<li>$slots: 插槽的内容，具名插槽有对应属性，<code>default</code>属性有所有匿名插槽。</li>
+<li>$scopedSlots: 访问作用域插槽。</li>
+<li>$refs: 注册过<code>ref</code>特性的所有DOM元素和组件实例。</li>
+<li>$attrs: 父作用域中不作为prop被是被的特性绑定，除开<code>class</code>和<code>style</code>。</li>
+<li>$listeners: 父作用域中的@事件监听器对象。</li>
+</ol>
+<h2 id="实例方法-数据"><a href="#实例方法-数据" class="headerlink" title="实例方法/数据"></a>实例方法/数据</h2><ol>
+<li>$watch(exporfn,callback,{options}):第一个参数为键路径或计算属性的函数，第二个参数为回调函数，第三个参数为对象选项：deep,immediate</li>
+<li>$set(target,key,value)</li>
+<li>$delete(target,key)</li>
+</ol>
+<h2 id="实例方法-事件"><a href="#实例方法-事件" class="headerlink" title="实例方法/事件"></a>实例方法/事件</h2><ol>
+<li>$on(event,callback)</li>
+<li>$one(event,callback):自定义事件，只触发一次。</li>
+<li>$off([event,callback])：事件和函数双向组合移除，没有参数全部移除。</li>
+<li>$emit(eventName,[..args])</li>
+</ol>
+<h2 id="实例生命周期"><a href="#实例生命周期" class="headerlink" title="实例生命周期"></a>实例生命周期</h2><ol>
+<li>$mount()</li>
+<li>$forceUpdate()</li>
+<li>$nextTick([callback]):下次DOM更新</li>
+<li>$destory()</li>
+</ol>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>v-text,v-html,v-show,v-if,v-else,v-else-if,v-for,v-on,v-bind,v-model,v-slot,v-pre,v-cloak,v-once</p>
+<h2 id="特殊特性"><a href="#特殊特性" class="headerlink" title="特殊特性"></a>特殊特性</h2><ol>
+<li>key: 新旧对比辨识VNodes.</li>
+<li>ref: 用来给元素或子组件注册引用信息，会注册在父组件的$refs对象上。</li>
+<li>is：动态组件基于DOM内模板限制来工作。</li>
+</ol>
+<h2 id="内置组件"><a href="#内置组件" class="headerlink" title="内置组件"></a>内置组件</h2><ol>
+<li>component</li>
+<li>transition </li>
+<li>transition-group: 作为多个元素/组件的过渡效果，默认渲染<code>span</code>,可以通过<code>tag</code>属性配置哪个元素应该被渲染，子节点必需有<code>独立的key</code>。</li>
+<li>keep-alive: 会缓存不活动的组件实例，而不是销毁他们，设置include，exclude,max设置缓存条件。</li>
+<li>slot： 作为组件模板之中的内容分发插槽。</li>
+</ol>
+<hr>
+<h2 id="全局config"><a href="#全局config" class="headerlink" title="全局config"></a>全局config</h2><ol>
+<li>silent:boolean 取消所有日志和警告</li>
+<li>optionMergeStrategies: 自定义合并策略的选项。</li>
+<li>keyCodes： 自定义键位别名</li>
+</ol>
+<h2 id="全局API"><a href="#全局API" class="headerlink" title="全局API"></a>全局API</h2><ol>
+<li>extend(options): 使用构造器，创建一个包含组件选项的对象构造器。</li>
+<li>nextTick([callback,context]): 下次更新DOM结束后执行延迟回调。</li>
+<li>set</li>
+<li>delete</li>
+<li>directive：自定义指令，自定义指令的生命钩子(bind, inserted, update, componentUpdated, unbind)</li>
+<li>filter(‘id’,[definition]): 注册or获取全局过滤器</li>
+<li>component</li>
+<li>use</li>
+<li>mixin</li>
+<li>observable</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue-vue-cli-vue-router/" rel="tag"># vue,vue-cli,vue-router</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/27/stylus学习记录/" rel="next" title="stylus学习记录">
+                <i class="fa fa-chevron-left"></i> stylus学习记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">He</p>
+              <p class="site-description motion-element" itemprop="description">code & origami</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hex11o" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.flickr.com/photos/hex2" target="_blank" title="Flickr">
+                      
+                        <i class="fa fa-fw fa-flickr"></i>Flickr</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初入Vue"><span class="nav-number">1.</span> <span class="nav-text">初入Vue</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue"><span class="nav-number">1.1.</span> <span class="nav-text">Vue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#start"><span class="nav-number">1.1.1.</span> <span class="nav-text">start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入组件"><span class="nav-number">1.1.2.</span> <span class="nav-text">深入组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过渡和动画"><span class="nav-number">1.1.3.</span> <span class="nav-text">过渡和动画</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目学习记录"><span class="nav-number">2.</span> <span class="nav-text">项目学习记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据的配置与调用"><span class="nav-number">2.1.</span> <span class="nav-text">数据的配置与调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态挂载弹窗"><span class="nav-number">2.2.</span> <span class="nav-text">动态挂载弹窗</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#config可配置的参数"><span class="nav-number">2.2.1.</span> <span class="nav-text">config可配置的参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue实例选项"><span class="nav-number">3.</span> <span class="nav-text">vue实例选项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#选项-数据"><span class="nav-number">3.1.</span> <span class="nav-text">选项/数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项-DOM"><span class="nav-number">3.2.</span> <span class="nav-text">选项/DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项-生命钩子"><span class="nav-number">3.3.</span> <span class="nav-text">选项/生命钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项-资源"><span class="nav-number">3.4.</span> <span class="nav-text">选项/资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项-组合"><span class="nav-number">3.5.</span> <span class="nav-text">选项/组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项-其他"><span class="nav-number">3.6.</span> <span class="nav-text">选项/其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例-属性"><span class="nav-number">3.7.</span> <span class="nav-text">实例/属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例方法-数据"><span class="nav-number">3.8.</span> <span class="nav-text">实例方法/数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例方法-事件"><span class="nav-number">3.9.</span> <span class="nav-text">实例方法/事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例生命周期"><span class="nav-number">3.10.</span> <span class="nav-text">实例生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令"><span class="nav-number">3.11.</span> <span class="nav-text">指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊特性"><span class="nav-number">3.12.</span> <span class="nav-text">特殊特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内置组件"><span class="nav-number">3.13.</span> <span class="nav-text">内置组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局config"><span class="nav-number">3.14.</span> <span class="nav-text">全局config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局API"><span class="nav-number">3.15.</span> <span class="nav-text">全局API</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">He</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("pdmPqv4t1QXER0EDxCs4jil7-gzGzoHsz", "ezxiAvqw3Bn7PxcvgDJSv8ux");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

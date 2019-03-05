@@ -250,6 +250,177 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/vuex学习记录/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/vuex学习记录/" itemprop="url">vuex学习记录</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T21:30:04+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/26/vuex学习记录/" class="leancloud_visitors" data-flag-title="vuex学习记录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>项目文件夹下安装：<br><code>npm i --save vuex</code></p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>Vuex仅仅包含一个store实例。</p>
+<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p>Vue组件中获得Vuex状态：</p>
+<ol>
+<li>计算属性<br><code>store.state.count</code><br>问题：依赖全局状态单例。在每个需要使用state的组件中都需要频繁导入。</li>
+<li>组件注入<br>通过<code>store</code>属性，将根组件注入到子组件中，子组件通过<code>this.$store</code>访问。</li>
+<li><code>mapState</code>辅助函数<br>组件需要获取多个状态，单个赋值太麻烦，可以使用辅助函数来生成计算属性。</li>
+</ol>
+<ul>
+<li>箭头函数</li>
+<li>字符串</li>
+<li>局部状态（this）必需使用常规函数,箭头函数的this指向</li>
+<li>字符串数组属性</li>
+<li>对象展开运算：辅助函数返回的是对象，与局部计算属性混合</li>
+</ul>
+<h2 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h2><p>需求情况，对store中的state派生一些状态，进行多次复用，相当于vue的computed对data的处理。<br>getters能接收其他getters作为第二个参数。<br>暴露为<code>store.getters</code>对象。<br>getters能返回函数实现给getter传参。<br><code>mapGetters</code>辅助函数.</p>
+<h2 id="mutions"><a href="#mutions" class="headerlink" title="mutions"></a>mutions</h2><p>更改store中state的唯一方法就是提交mutation, 每个mutation都有一个事件类型和一个回调函数。<br>要调用事件，需要使用<code>store.commit</code>方法。<br>可以传入额外参数。</p>
+<ol>
+<li>提前初始化好所需属性</li>
+<li>添加新书性，应该使用<code>Vue.set</code>或者以新对象替换老对象,(扩展对象)。</li>
+<li>mutation必需是同步函数，因为mutation触发时，回调函数还没有被调用。</li>
+<li><code>mapMutations()</code>将<code>this.$store.commit(&#39;mutation&#39;)</code>映射为<code>this.mutation()</code>,支持载荷.</li>
+</ol>
+<h2 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h2><p>action函数接收一个与store实例具有相同方法和属性的<code>context</code>对象，所以我可以调用<code>context.commit</code>提交mutation以及获取state和getters.<br>actions通过<code>store.dispatch</code>触发.<br><code>store.dispatch</code>可以处理返回的<code>promise</code>,返回的也是promise.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">  actionA (&#123; commit &#125;) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        commit(<span class="string">'someMutation'</span>)</span><br><span class="line">        resolve()</span><br><span class="line">      &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  actionB (&#123; dispatch, commit &#125;) &#123;</span><br><span class="line">    <span class="keyword">return</span> dispatch(<span class="string">'actionA'</span>).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      commit(<span class="string">'someOtherMutation'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">  <span class="keyword">async</span> actionA (&#123; commit &#125;) &#123;</span><br><span class="line">    commit(<span class="string">'gotData'</span>, <span class="keyword">await</span> getData())</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">async</span> actionB (&#123; dispatch, commit &#125;) &#123;</span><br><span class="line">    <span class="keyword">await</span> dispatch(<span class="string">'actionA'</span>) <span class="comment">// 等待 actionA 完成</span></span><br><span class="line">    commit(<span class="string">'gotOtherData'</span>, <span class="keyword">await</span> getOtherData())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="modules"><a href="#modules" class="headerlink" title="modules"></a>modules</h2><p>单一状态树，store对象会变得特别臃肿。<br>利用模块对store进行分割,嵌套。</p>
+<h3 id="模块的内部状态"><a href="#模块的内部状态" class="headerlink" title="模块的内部状态"></a>模块的内部状态</h3><ol>
+<li>内部的mutation和getter，第一个参数是模块局部状态对象。</li>
+<li>内部的action, 局部状态<code>state</code>通过<code>context.state</code>暴露出来，根节点为<code>context.rootstate</code>.</li>
+</ol>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>默认情况，模块内部的action，mutation和getter是注册在全局命名空间的，这样多个模块能对同一mutation和action做反应。</p>
+<ol>
+<li><p>可以添加<code>namespaced:true</code>使其成为带命名空间的模块,注册之后，所有getter,actions,mutation都会自动根据模块注册的路径调整命名。</p>
+<blockquote>
+<p>注意，state本身就是嵌套的。</p>
+</blockquote>
+</li>
+<li><p>嵌套模块继承父模块的命名空间。</p>
+</li>
+</ol>
+<h4 id="带命名空间的模块访问全局内容"><a href="#带命名空间的模块访问全局内容" class="headerlink" title="带命名空间的模块访问全局内容"></a>带命名空间的模块访问全局内容</h4><p>通过<code>rootState</code>和<code>rootGetter</code>作为第三四个参数传入getter,同时通过<code>context</code>对象传入action。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/vue-cube-ui构建饿了么/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -835,174 +1006,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/git学习记录(一)/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/14/git学习记录(一)/" itemprop="url">git学习记录(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T21:27:09+08:00">
-                2019-02-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
-                    <span itemprop="name">FrontEnd</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/FrontEnd/学习记录/" itemprop="url" rel="index">
-                    <span itemprop="name">学习记录</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/02/14/git学习记录(一)/" class="leancloud_visitors" data-flag-title="git学习记录(一)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>这篇记录只是涉及到git单人本地的部分，分支及多人合作的后面再写。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/14/git学习记录(一)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1053,7 +1056,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1075,7 +1078,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

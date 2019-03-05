@@ -353,34 +353,17 @@
 
       
         
-          
-            <h1 id="事情起因，群里有人发图："><a href="#事情起因，群里有人发图：" class="headerlink" title="事情起因，群里有人发图："></a>事情起因，群里有人发图：</h1><p><img src="../关于中文翻译名词的吐槽/BFC-wrong.png" alt=""><br>那位朋友说规则第三点测试不对，想问解释。<br>然后我测试了一下,内部元素的margin box左边肯定是不会挤掉BFC的padding的，更不可能串到border-box的左边去。(你transform倒是可以=.=)<br>我就去看了<a href="https://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="noopener">W3C的原文</a>：</p>
-<blockquote>
-<p>In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). </p>
-</blockquote>
-<p>哪里有说border-box?只是提到内部元素盒子会靠到包含块(containing block)的左边,并没有说靠在包含块的border-box上啊。<br>继续看W3C对<a href="https://www.w3.org/TR/CSS2/visuren.html#block-boxes" target="_blank" rel="noopener">containing box</a>的定义：</p>
-<blockquote>
-<p>The position and size of an element’s box(es) are sometimes calculated relative to a certain rectangle, called the containing block of the element.</p>
-</blockquote>
-<p>我翻译一下：元素盒子的位置和大小又是是通过特定的方形确定的，称为元素的包含块。</p>
-<h1 id="关键是：这个包含块是内部元素的-而并不是BFC的。"><a href="#关键是：这个包含块是内部元素的-而并不是BFC的。" class="headerlink" title="关键是：这个包含块是内部元素的,而并不是BFC的。"></a><strong>关键是：这个包含块是内部元素的,而并不是BFC的。</strong></h1><p>下面简单说下包含块的方形由什么决定，仔细看的可以点上面的链接看原文：</p>
-<ol>
-<li>根元素(html)的包含块是视窗的框框;</li>
-<li>如果元素的<code>position</code>是<code>relative</code>或者<code>static</code>,那么包含块就是最近祖元素的<code>content edge</code>(这个不知道是什么的去看盒模型);</li>
-<li>如果元素的<code>position</code>是<code>fixed</code>,包含块是视窗的框框;</li>
-<li>如果元素的<code>position</code>是<code>absolute</code>，那么包含块是通过<code>position</code>不为<code>static</code>的最近祖元素按以下规则继续判断：<ol>
-<li>如果祖元素是行内元素，那么包含块就是行内元素的padding box的bounding box，如果行内元素跨越多行，那么包含块就是<code>undefined</code>;</li>
-<li>其他情况：包含块都是祖元素的<code>padding edge</code>。</li>
-</ol>
-</li>
-</ol>
-<hr>
-<p>有什么问题，直接去看W3C的定义，中文语境太模糊了，翻译水平差的坑越带越深。</p>
-
-          
+          <p>网上有些多年留下的翻译错误，不停的被转发，真是误人子弟一刚。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/05/关于中文翻译名词的吐槽/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     

@@ -250,292 +250,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/06/Event-loop-in-Node/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/06/Event-loop-in-Node/" itemprop="url">Event loop in Node</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T00:22:42+08:00">
-                2019-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/06/Event-loop-in-Node/" class="leancloud_visitors" data-flag-title="Event loop in Node">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Node的Event-Loop分为6个阶段"><a href="#Node的Event-Loop分为6个阶段" class="headerlink" title="Node的Event Loop分为6个阶段"></a>Node的Event Loop分为6个阶段</h1><p>按照顺序反复运行</p>
-<h2 id="timers"><a href="#timers" class="headerlink" title="timers"></a>timers</h2><p>timers阶段会执行<code>setTimeout</code>和<code>setInterval</code>回调,并且由<em>poll阶段</em>控制</p>
-<h2 id="I-O阶段"><a href="#I-O阶段" class="headerlink" title="I/O阶段"></a>I/O阶段</h2><p>处理一些上一轮循环中少数未执行的I/O回调</p>
-<h2 id="idle-prepare"><a href="#idle-prepare" class="headerlink" title="idle, prepare"></a>idle, prepare</h2><p>阶段内部实现？？？</p>
-<h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><p>在这个阶段系统做两件事：</p>
-<ol>
-<li>回到timer阶段执行回调</li>
-<li>执行I/O回调</li>
-</ol>
-<p>进入该阶段没有设定timer的话，会发生以下两件事情：</p>
-<ul>
-<li>如果poll队列不为空，会遍历回调队列并同步执行，直到队列为空或者达到系统限制</li>
-<li>如果poll队列为空</li>
-</ul>
-<ol>
-<li>如果有<code>setImmediate</code>回调需要执行，poll阶段会停止并进入到check阶段执行回调</li>
-<li>如果没有,会等待回调加入到队列中并立即执行回调</li>
-</ol>
-<h2 id="check"><a href="#check" class="headerlink" title="check"></a>check</h2><p>执行<code>setImmediate</code></p>
-<h2 id="close-callbacks"><a href="#close-callbacks" class="headerlink" title="close callbacks"></a>close callbacks</h2><p>执行close事件</p>
-<h1 id="process-nextTick"><a href="#process-nextTick" class="headerlink" title="process.nextTick"></a>process.nextTick</h1><p>在每个阶段完成后，如果存在<code>nextTick</code>队列，就会清空队列中所有回调函数，并且优先于其他<code>microtask</code>执行。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/vue-cli学习记录/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="He">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hex11o">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/06/vue-cli学习记录/" itemprop="url">vue-cli学习记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T20:37:35+08:00">
-                2019-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/03/06/vue-cli学习记录/" class="leancloud_visitors" data-flag-title="vue-cli学习记录">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>学习vue-cli的记录<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/06/vue-cli学习记录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/关于中文翻译名词的吐槽/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -871,7 +585,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/vue-cube-ui构建饿了么/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/猪年折个猪/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="He">
@@ -890,7 +604,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/20/vue-cube-ui构建饿了么/" itemprop="url">vue+cube-ui构建饿了么</a></h1>
+                <a class="post-title-link" href="/2019/02/14/猪年折个猪/" itemprop="url">猪年折个猪</a></h1>
         
 
         <div class="post-meta">
@@ -902,8 +616,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T09:45:25+08:00">
-                2019-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T22:48:20+08:00">
+                2019-02-14
               </time>
             
 
@@ -913,6 +627,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Origami/" itemprop="url" rel="index">
+                    <span itemprop="name">Origami</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Origami/仿折/" itemprop="url" rel="index">
+                    <span itemprop="name">仿折</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -920,7 +667,7 @@
 
           
           
-             <span id="/2019/02/20/vue-cube-ui构建饿了么/" class="leancloud_visitors" data-flag-title="vue+cube-ui构建饿了么">
+             <span id="/2019/02/14/猪年折个猪/" class="leancloud_visitors" data-flag-title="猪年折个猪">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -952,47 +699,185 @@
 
       
         
-          
-            <h1 id="搭建脚手架"><a href="#搭建脚手架" class="headerlink" title="搭建脚手架"></a>搭建脚手架</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm i -g @vue/cli</span><br><span class="line">vue create [filename]</span><br></pre></td></tr></table></figure>
-<p>初始化完成后，项目文件：<br><code>.browserslistrc</code>: 不同浏览器的css前缀，给postcss的prefixer插件使用<br><code>.eslintrc.js</code>: eslint的配置，插件，配置<br><code>.gitignore</code>: git上传时忽略文件<br><code>.babel.config.js</code>: 浏览器兼容js<br><code>postcss.config.js</code>: postcss的配置<br><code>package-lock.json</code>: 版本控制的配置</p>
-<h1 id="安装cube-ui"><a href="#安装cube-ui" class="headerlink" title="安装cube-ui"></a>安装cube-ui</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue add cube-ui</span><br></pre></td></tr></table></figure>
-<p>初始化选项有是否后编译，引入接口，定制主体，适配移动rem，vw输出<br>安装完成，项目添加以及修改文件：</p>
-<ul>
-<li><code>src/cube-ui.js</code>: 引入vue,导出模块，vue注册模块</li>
-<li><code>src/theme.styl</code>: 配置模块默认样式，主要是颜色</li>
-<li><code>vue.config.js</code>: <em>是一个可选的配置文件，如果项目的根目录存在这个文件，就会被<code>@vue/cli-service</code>自动加载，导出一个包含选项的对象，内容很多，看官方文档去。</em></li>
-<li><code>.browerslistrc</code>: 浏览器同上</li>
-<li><code>src/main.js</code>: <code>cube-ui</code>导入</li>
-<li><code>package.json</code>,<code>package-lock.json</code></li>
-</ul>
-<blockquote>
-<p>随后自己修改了<code>vue.config.js</code>的<code>devServer</code>属性，见批注，导入了JSON数据，然后通过<code>before</code>对请求进行了处理，返回了处理后的JSON数据。</p>
-</blockquote>
-<h1 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h1><ul>
-<li>公用的图标，样式<br>./src/common/fonts<br>./src/common/stylus<blockquote>
-<p>stylus有点像scss 的变量，混入之类的，好吧，我查了之后也是预处理工具=.=</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>index.html<br>修改viewport：viewport</li>
-<li>创建各个组件</li>
-</ul>
-<ol>
-<li>支持的support-ico<br>导入UI库自带样式，然后通过绑定class，传入参数（size,和类型）来加载组件库里的图片</li>
-</ol>
-<ul>
-<li>修改chainWebpack,将相对路径设置为绝对路径，这个还要自己设置每个相对路径？？？</li>
-<li>配置的过程中设置默认值，避免报错，深层的通过v-if判断渲染</li>
-<li>eslint的配置:vscode的setting.json</li>
-<li>axios封装</li>
-</ul>
-<p>backdrop-filter: 为一个元素后面区域添加图形效果。比如模糊，颜色偏移。</p>
-
-          
+          <p>日本折纸协会<a href="http://origami.gr.jp/index-e.html" target="_blank" rel="noopener">JOAS</a>每年的八月份会有一次折纸侦探团大会，去年是第二十四届。<br>每年除开会出一本大会书籍之外，还有设计比赛，去年是第十二届，有两个主题比赛项目：一个是”风”，还一个一般是来年的生肖。<br>日本的猪年的猪跟中国的猪不一样，他们是野猪=.=<br><a href="http://www.origamihouse.jp/wod2018/boar.html" target="_blank" rel="noopener">全部的创作作品</a>;<br>丰村高志老师的作品只做展示，不参赛，下面是他的原作：<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/14/猪年折个猪/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/07/Shadow-DOM/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/07/Shadow-DOM/" itemprop="url">Shadow DOM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-07T18:23:41+08:00">
+                2019-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/07/Shadow-DOM/" class="leancloud_visitors" data-flag-title="Shadow DOM">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>想要复现Chrome toggle的效果时发现了一个伪类<code>:host()</code>，查询MDN。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/07/Shadow-DOM/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
     
     
     
@@ -1026,10 +911,6 @@
   </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
 
 
           </div>
@@ -1073,7 +954,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ES6,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这部分比较关键，有Iterator和for..of循环，Generator函数，Promise对象，异步操作和Async函数，以及class.">
+<meta name="keywords" content="ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6入门学习记录（三）">
+<meta property="og:url" content="http://yoursite.com/2019/01/28/ES6入门学习记录（三）/index.html">
+<meta property="og:site_name" content="Hex11o">
+<meta property="og:description" content="这部分比较关键，有Iterator和for..of循环，Generator函数，Promise对象，异步操作和Async函数，以及class.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-30T03:19:39.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6入门学习记录（三）">
+<meta name="twitter:description" content="这部分比较关键，有Iterator和for..of循环，Generator函数，Promise对象，异步操作和Async函数，以及class.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"display":"always","offset":15,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/28/ES6入门学习记录（三）/">
+
+
+
+
+
+  <title>ES6入门学习记录（三） | Hex11o</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hex11o</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/28/ES6入门学习记录（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6入门学习记录（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-28T09:09:19+08:00">
+                2019-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/28/ES6入门学习记录（三）/" class="leancloud_visitors" data-flag-title="ES6入门学习记录（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这部分比较关键，有Iterator和for..of循环，Generator函数，Promise对象，异步操作和Async函数，以及class.<br><a id="more"></a></p>
+<h1 id="Iterator和for…of循环"><a href="#Iterator和for…of循环" class="headerlink" title="Iterator和for…of循环"></a>Iterator和for…of循环</h1><h2 id="Iterator概念"><a href="#Iterator概念" class="headerlink" title="Iterator概念"></a>Iterator概念</h2><p>1.为各种数据结狗提供一个统一简便的访问接口；2.使得数据结构的成员能够按某种次序排列；3.ES6创建了新的遍历命令<code>for...of</code>循环，Iterator主要供它消费。<br>遍历过程：</p>
+<ol>
+<li>创建一个指针对象，指向当前数据结构的起始位置。</li>
+<li>第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。</li>
+<li>不断调用next方法，直到指向数据结构的结束位置。</li>
+</ol>
+<p>每一次调用<code>next</code>方法，都会返回数据结构的当前成员信息，包含<code>value</code>和<code>done</code>两个属性的对象。</p>
+<h3 id="数据结构默认Iterator接口"><a href="#数据结构默认Iterator接口" class="headerlink" title="数据结构默认Iterator接口"></a>数据结构默认Iterator接口</h3><p>三类数据结构原生具备的：Array，Array-like Object,Set&amp;Map.</p>
+<h3 id="调用Iterator接口的场合"><a href="#调用Iterator接口的场合" class="headerlink" title="调用Iterator接口的场合"></a>调用Iterator接口的场合</h3><ol>
+<li>结构赋值：进行结构赋值时，会默认调用Symbol.iterator方法。</li>
+<li>扩展运算符：同上。</li>
+<li>yield*:跟一个可遍历结构，就会调用该结构遍历器接口。</li>
+</ol>
+<h2 id="for…of循环"><a href="#for…of循环" class="headerlink" title="for…of循环"></a>for…of循环</h2><p><code>for...of</code>循环可以使用的范围包括数组、Set和Map结构、某些类似数组的对象（比如arguments对象、DOM NodeList对象）、Generator对象，以及字符串。</p>
+<h3 id="数组的遍历器接口"><a href="#数组的遍历器接口" class="headerlink" title="数组的遍历器接口"></a>数组的遍历器接口</h3><p><strong>只会返回具有数字索引的属性</strong></p>
+<hr>
+<h1 id="Generator函数"><a href="#Generator函数" class="headerlink" title="Generator函数"></a>Generator函数</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>Generator是ES6提供的一种异步变成解决方案。</p>
+<ol>
+<li>从语法上可以将其理解为状态机，封装了多个内部状态；</li>
+<li>执行generator函数会发挥一个遍历器对象，可以一次遍历内部每个状态；</li>
+<li>形式上是一个普通函数，两个特征：一：<code>function</code>关键字和函数名之间有一个星号（*）；二：函数体内部使用<code>yield</code>语句，定义不同的内部状态。</li>
+</ol>
+<p>调用Generator函数后，该函数并不会执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象，即遍历器对象。</p>
+<h2 id="yield语句"><a href="#yield语句" class="headerlink" title="yield语句"></a>yield语句</h2><p>上面返回的遍历器对象，next方法运行逻辑：</p>
+<ol>
+<li>遇到yield，暂停操作，将yield后面表达式的值，作为返回对象的value属性值。</li>
+<li>没有遇到yield,一直运行到函数结束，直到return，返回return表达式(<strong>调用next才会执行求值</strong>)的值，作为value属性值。</li>
+<li>如果没有return,返回对象value属性值为undefined.</li>
+</ol>
+<p>注意：1.yield不能用在普通函数中；2.yield用在表达式中需要加括号。3.yield句本身没有返回值，<code>next</code>方法可以带一个参数，作为上一个yiled语句的返回值。</p>
+<h3 id="Generator-prototype-throw"><a href="#Generator-prototype-throw" class="headerlink" title="Generator.prototype.throw()"></a>Generator.prototype.throw()</h3><p>可以在函数体外抛出错误，在Generator函数体内捕获。<br><strong>throw方法被捕获之后，会执行下一条yield语句。</strong><br><strong>Generator执行过程中抛出错误，没被内部捕获，就不会再执行下去，之后调用next方法，会返回{value:undefined，done:true}</strong></p>
+<h3 id="Generator-prototype-return"><a href="#Generator-prototype-return" class="headerlink" title="Generator.prototype.return()"></a>Generator.prototype.return()</h3><p>返回给定值，终结遍历。<br>如果内部有<code>try...finally</code>代码块，那么<code>return</code>会推迟到<code>finally</code>执行完再执行。</p>
+<h3 id="yield-语句"><a href="#yield-语句" class="headerlink" title="yield*语句"></a>yield*语句</h3><p>在generator函数内部调用另一个generator函数，默认情况下是没有效果的。<br>可以用yield<em> 函数调用。
+</em>利用yield<em>遍历二叉树</em></p>
+<h3 id="作为对象属性"><a href="#作为对象属性" class="headerlink" title="作为对象属性"></a>作为对象属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">* myGeneratorMethod() &#123;</span><br><span class="line">···</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="generator的this"><a href="#generator的this" class="headerlink" title="generator的this"></a>generator的<code>this</code></h3><p>Generator函数不是普通构造函数，返回的总是遍历器对象，而不是<code>this</code>对象，这时候<code>this</code>为默认规则即指向<code>window</code>。<br>不能跟<code>new</code>一起用。<br><div class="note "><p>1.怎么绑在对象上；2.怎么执行new;<br>tips:prototype</p></div></p>
+<h3 id="generator与状态机"><a href="#generator与状态机" class="headerlink" title="generator与状态机"></a>generator与状态机</h3><p>每运行一次改变一次状态。</p>
+<h3 id="generator与协程"><a href="#generator与协程" class="headerlink" title="generator与协程"></a>generator与协程</h3><p>协程（coroutine)，协作的线程或协作的函数。</p>
+<ol>
+<li><p>协程与子例程的差异</p>
+<blockquote>
+<p>传统子例程采用堆栈式执行方式，只有子函数完全执行完毕，才结束执行父函数。可以并行执行，交换执行权的线程成为协程。</p>
+</blockquote>
+</li>
+<li><p>协程与普通线程的差异</p>
+<blockquote>
+<p>普通线程是抢先式，协程是自己分配。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ol>
+<li>异步操作的同步化表达</li>
+<li><p>控制流管理<br>one by one可以按顺序排列，多个任务并列执行可以采取数组的写法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">parallelTasks</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> [resultA, resultB] = <span class="keyword">yield</span> [</span><br><span class="line">    taskA(),</span><br><span class="line">    taskB()</span><br><span class="line">    ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署iterator接口</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">iterEntries</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> keys = <span class="built_in">Object</span>.keys(obj);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>; i &lt; keys.length; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> key = keys[i];  </span><br><span class="line">        <span class="keyword">yield</span> [key, obj[key]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> myObj = &#123; <span class="attr">foo</span>: <span class="number">3</span>, <span class="attr">bar</span>: <span class="number">7</span> &#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> iterEntries(myObj)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>作为数据结构</p>
+</li>
+</ol>
+<hr>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><p>Promise新建后立即执行，然后then方法制定的回调函数将在当前脚本所有同步任务完成后执行。</p>
+<h1 id="异步操作和Async函数"><a href="#异步操作和Async函数" class="headerlink" title="异步操作和Async函数"></a>异步操作和Async函数</h1><p><em>先跳过generator函数和promise对象，弄清异步的问题方便理解generator和promise</em><br>ES6之前，异步变成方法：</p>
+<ul>
+<li>回调函数 //callback</li>
+<li>事件监听 //addEventListener</li>
+<li>发布/订阅</li>
+<li>Promise对象</li>
+</ul>
+<h2 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h2><h1 id="class"><a href="#class" class="headerlink" title="class"></a>class</h1><p>class是一构造方法语法糖，其中定方法不需要加function关键字，方法之间也不需要逗号。<br>类方法的原型就是该类。<br>类原型的方法都是不可枚举的，ES5原型方法默认可枚举。<br>类属性名可采用表达式。</p>
+<h2 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a>constructor方法</h2><p>是类的默认方法，使用<code>new</code>命令生成对象实例时，自动调用该方法，默认返回实例对象<code>this</code>。</p>
+<h2 id="类的实例对象"><a href="#类的实例对象" class="headerlink" title="类的实例对象"></a>类的实例对象</h2><p>生成类的实例都西昂需要使用<code>new</code>,不能像函数那样调用<code>class</code>.</p>
+<h2 id="Class表达式"><a href="#Class表达式" class="headerlink" title="Class表达式"></a>Class表达式</h2><p>用表达式定义时，类的名字是变量名,class后面的名字只在class内部可用，代指当前类（getClassName()可获取)。<br>采用表达式，可以写出立即执行的Class.</p>
+<h2 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h2><p>一种做法是在命名前加区分，并不保险，只是约定而已。<br>第二是将私有方法移出模块，在模块内部在通过作用域绑定该方法。<br>第三是利用Symbol值的唯一性，将私有方法命名为一个Symbol值。</p>
+<h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><p>类和模块的内部，默认就是严格模式。</p>
+<h2 id="name属性：函数的特性被Class继承，包括name属性"><a href="#name属性：函数的特性被Class继承，包括name属性" class="headerlink" title="name属性：函数的特性被Class继承，包括name属性"></a>name属性：函数的特性被Class继承，包括name属性</h2><h2 id="Class的继承"><a href="#Class的继承" class="headerlink" title="Class的继承"></a>Class的继承</h2><p><code>class sub extends sup {}</code>，继承<code>sup</code>类的所有属性和方法。<br><code>super(arg)</code>表示父类的构造函数，用来新建父类的this对象，子类必须在constructor里调用super方法，<strong>因为子类没有自己的this对象</strong>，而是继承父类this对象，对其加工。<br>如果子类没有定义<code>constructor</code>方法，就会被默认添加。</p>
+<h2 id="类的prototype属性和proto属性"><a href="#类的prototype属性和proto属性" class="headerlink" title="类的prototype属性和proto属性"></a>类的prototype属性和<strong>proto</strong>属性</h2><h2 id="Extends的继承目标"><a href="#Extends的继承目标" class="headerlink" title="Extends的继承目标"></a>Extends的继承目标</h2><p>只要目标有prototype属性，就能被继承。<br>特殊情况：</p>
+<ol>
+<li>子类继承Object类<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">extends</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">A.__proto__ === <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line">A.prototype.__proto__ === <span class="built_in">Object</span>.prototype <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>就是构造函数Object的赋值，实例就是Object的实例</p>
+<ol start="2">
+<li>不存在任何继承<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">A.__proto__ === <span class="built_in">Function</span>.prototype <span class="comment">// true</span></span><br><span class="line">A.prototype.__proto__ === <span class="built_in">Object</span>.prototype <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>作为基类就是普通函数，直接继承Function.prototype,调用后返回一个对象，实例的原型对象的原型指向Object.prototype.</p>
+<ol start="3">
+<li>子类继承null<br>类似第二种，原型对象原型指向undefined.</li>
+</ol>
+<h2 id="super关键字"><a href="#super关键字" class="headerlink" title="super关键字"></a>super关键字</h2><ol>
+<li>作为函数调用，代表父类的构造函数；</li>
+<li>作为对象调用，代表父类。</li>
+</ol>
+<p><em>对象总是继承其他对象</em></p>
+<h2 id="实例的proto属性"><a href="#实例的proto属性" class="headerlink" title="实例的proto属性"></a>实例的<strong>proto</strong>属性</h2><p>子类的原型的原型===父类的原型</p>
+<h2 id="原生构造函数的继承"><a href="#原生构造函数的继承" class="headerlink" title="原生构造函数的继承"></a>原生构造函数的继承</h2><p>ES6为什么可以继承原生构造函数。（tips:this）<br>发现Object钩爪函数的行为，发现不是通过<code>new Object()</code>这种形式调用，规定忽略参数。</p>
+<h2 id="Class的gnerator方法"><a href="#Class的gnerator方法" class="headerlink" title="Class的gnerator方法"></a>Class的gnerator方法</h2><h2 id="Class的静态方法"><a href="#Class的静态方法" class="headerlink" title="Class的静态方法"></a>Class的静态方法</h2><p>类中定义的方法，都会被实例继承。如果在一个方法前加上staric关键字，就表示该方法不会被实例继承，而是通过类来调用，称为“静态方法”。<br>可以被子类继承。</p>
+<h2 id="Class的实例和静态属性"><a href="#Class的实例和静态属性" class="headerlink" title="Class的实例和静态属性"></a>Class的实例和静态属性</h2><ol>
+<li>类的实例属性<br>类的实例属性可以用等式，写入类的定义之中。</li>
+<li>类的静态属性<br>同方法一样加上static.</li>
+</ol>
+<h2 id="new-target属性"><a href="#new-target属性" class="headerlink" title="new.target属性"></a>new.target属性</h2><p>返回<code>new</code>命令作用于的那个构造函数，如果构造函数不是通过new调用的，返回undefined。<br><strong>子类继承父类时，会返回子类</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/26/ES6入门学习记录（二）/" rel="next" title="ES6入门学习记录（二）">
+                <i class="fa fa-chevron-left"></i> ES6入门学习记录（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/30/正则表达式学习记录/" rel="prev" title="正则表达式学习记录">
+                正则表达式学习记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">He</p>
+              <p class="site-description motion-element" itemprop="description">code & origami</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hex11o" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.flickr.com/photos/hex2" target="_blank" title="Flickr">
+                      
+                        <i class="fa fa-fw fa-flickr"></i>Flickr</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Iterator和for…of循环"><span class="nav-number">1.</span> <span class="nav-text">Iterator和for…of循环</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator概念"><span class="nav-number">1.1.</span> <span class="nav-text">Iterator概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构默认Iterator接口"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据结构默认Iterator接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用Iterator接口的场合"><span class="nav-number">1.1.2.</span> <span class="nav-text">调用Iterator接口的场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for…of循环"><span class="nav-number">1.2.</span> <span class="nav-text">for…of循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组的遍历器接口"><span class="nav-number">1.2.1.</span> <span class="nav-text">数组的遍历器接口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Generator函数"><span class="nav-number">2.</span> <span class="nav-text">Generator函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">2.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yield语句"><span class="nav-number">2.2.</span> <span class="nav-text">yield语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator-prototype-throw"><span class="nav-number">2.2.1.</span> <span class="nav-text">Generator.prototype.throw()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator-prototype-return"><span class="nav-number">2.2.2.</span> <span class="nav-text">Generator.prototype.return()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield-语句"><span class="nav-number">2.2.3.</span> <span class="nav-text">yield*语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作为对象属性"><span class="nav-number">2.2.4.</span> <span class="nav-text">作为对象属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator的this"><span class="nav-number">2.2.5.</span> <span class="nav-text">generator的this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator与状态机"><span class="nav-number">2.2.6.</span> <span class="nav-text">generator与状态机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generator与协程"><span class="nav-number">2.2.7.</span> <span class="nav-text">generator与协程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">2.2.8.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise"><span class="nav-number">3.</span> <span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步操作和Async函数"><span class="nav-number">4.</span> <span class="nav-text">异步操作和Async函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念-1"><span class="nav-number">4.1.</span> <span class="nav-text">基本概念</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#class"><span class="nav-number">5.</span> <span class="nav-text">class</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#constructor方法"><span class="nav-number">5.1.</span> <span class="nav-text">constructor方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的实例对象"><span class="nav-number">5.2.</span> <span class="nav-text">类的实例对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class表达式"><span class="nav-number">5.3.</span> <span class="nav-text">Class表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#私有方法"><span class="nav-number">5.4.</span> <span class="nav-text">私有方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#严格模式"><span class="nav-number">5.5.</span> <span class="nav-text">严格模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#name属性：函数的特性被Class继承，包括name属性"><span class="nav-number">5.6.</span> <span class="nav-text">name属性：函数的特性被Class继承，包括name属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class的继承"><span class="nav-number">5.7.</span> <span class="nav-text">Class的继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的prototype属性和proto属性"><span class="nav-number">5.8.</span> <span class="nav-text">类的prototype属性和proto属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extends的继承目标"><span class="nav-number">5.9.</span> <span class="nav-text">Extends的继承目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#super关键字"><span class="nav-number">5.10.</span> <span class="nav-text">super关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例的proto属性"><span class="nav-number">5.11.</span> <span class="nav-text">实例的proto属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生构造函数的继承"><span class="nav-number">5.12.</span> <span class="nav-text">原生构造函数的继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class的gnerator方法"><span class="nav-number">5.13.</span> <span class="nav-text">Class的gnerator方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class的静态方法"><span class="nav-number">5.14.</span> <span class="nav-text">Class的静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class的实例和静态属性"><span class="nav-number">5.15.</span> <span class="nav-text">Class的实例和静态属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-target属性"><span class="nav-number">5.16.</span> <span class="nav-text">new.target属性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">He</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("pdmPqv4t1QXER0EDxCs4jil7-gzGzoHsz", "ezxiAvqw3Bn7PxcvgDJSv8ux");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

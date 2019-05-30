@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="RegExp,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这篇文章是我学习JavaScript 正则表达式迷你书的简单记录，之前粗看正则时就是一堆匹配规则丢在你脸上，其实每个知识模块都是这样，人又不是计算机，不能对信息一视同仁，有划分还是利于理解和记忆的，之后学习过程也要注意主动去划分重点，不要囫囵吞枣。">
+<meta name="keywords" content="RegExp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式学习记录">
+<meta property="og:url" content="http://yoursite.com/2019/01/30/正则表达式学习记录/index.html">
+<meta property="og:site_name" content="Hex11o">
+<meta property="og:description" content="这篇文章是我学习JavaScript 正则表达式迷你书的简单记录，之前粗看正则时就是一堆匹配规则丢在你脸上，其实每个知识模块都是这样，人又不是计算机，不能对信息一视同仁，有划分还是利于理解和记忆的，之后学习过程也要注意主动去划分重点，不要囫囵吞枣。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-30T03:19:39.920Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式学习记录">
+<meta name="twitter:description" content="这篇文章是我学习JavaScript 正则表达式迷你书的简单记录，之前粗看正则时就是一堆匹配规则丢在你脸上，其实每个知识模块都是这样，人又不是计算机，不能对信息一视同仁，有划分还是利于理解和记忆的，之后学习过程也要注意主动去划分重点，不要囫囵吞枣。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"display":"always","offset":15,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/30/正则表达式学习记录/">
+
+
+
+
+
+  <title>正则表达式学习记录 | Hex11o</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hex11o</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/30/正则表达式学习记录/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="He">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hex11o">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">正则表达式学习记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-30T12:08:19+08:00">
+                2019-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/" itemprop="url" rel="index">
+                    <span itemprop="name">FrontEnd</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/FrontEnd/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/01/30/正则表达式学习记录/" class="leancloud_visitors" data-flag-title="正则表达式学习记录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章是我学习<a href="https://juejin.im/post/59cc61176fb9a00a437b290b" target="_blank" rel="noopener">JavaScript 正则表达式迷你书</a>的简单记录，之前粗看正则时就是一堆匹配规则丢在你脸上，其实每个知识模块都是这样，人又不是计算机，不能对信息一视同仁，有划分还是利于理解和记忆的，之后学习过程也要注意主动去划分重点，不要囫囵吞枣。<br><a id="more"></a></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
+<li>字符匹配攻略</li>
+<li>位置匹配攻略</li>
+<li>括号的作用</li>
+<li>回溯法原理</li>
+<li>拆分</li>
+<li>构建</li>
+<li>编程</li>
+</ol>
+<h1 id="字符匹配"><a href="#字符匹配" class="headerlink" title="字符匹配"></a>字符匹配</h1><p><strong>正则表达式是模式匹配，要么匹配字符，要么匹配位置。</strong></p>
+<h2 id="两种模糊匹配"><a href="#两种模糊匹配" class="headerlink" title="两种模糊匹配"></a>两种模糊匹配</h2><h3 id="横向模糊匹配"><a href="#横向模糊匹配" class="headerlink" title="横向模糊匹配"></a>横向模糊匹配</h3><p>指的是匹配的字符串长度不是固定，实现方法是使用量词<code>{m,n}</code>，最少m次，最多n次。</p>
+<h4 id="范围表示法"><a href="#范围表示法" class="headerlink" title="范围表示法"></a>范围表示法</h4><p>纵向需要匹配的字符特别多时可以使用，<code>-</code>表示范围，如果需要匹配<code>-</code>字符，可以将其放在开头，结尾，或者转义。<br>排除字符组，在字符组第一位放<code>^</code>，表示求反。<br>字符组简写形式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\d   <span class="comment">//表示[0-9],digit</span></span><br><span class="line">\D   <span class="comment">//表示[^0-9]</span></span><br><span class="line">\w   <span class="comment">//表示[0-9a-zA-Z_],数字，大小写字母，下划线;word</span></span><br><span class="line">\W   <span class="comment">//表示[^0-9a-zA-Z_]</span></span><br><span class="line">\s   <span class="comment">//表示[ \t\v\n\r\f]。空白符，包括空格，水平制表，垂直制表，换行，回车，换页，space</span></span><br><span class="line">\S   <span class="comment">//表示非空白符</span></span><br><span class="line">.    <span class="comment">//表示[^\n\r\u2028\u2029].除开换行，回车，行分隔符和段分隔符。</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="纵向模糊匹配"><a href="#纵向模糊匹配" class="headerlink" title="纵向模糊匹配"></a>纵向模糊匹配</h3><p>指的是正则匹配的字符串某一位字符有哪些可能，用<code>[abc]</code>表示纵向。</p>
+<h4 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h4><p>简写形式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;m,&#125;  <span class="comment">//至少m次</span></span><br><span class="line">&#123;m&#125;   <span class="comment">//刚好m次</span></span><br><span class="line">？    <span class="comment">//等价于&#123;0，1&#125;</span></span><br><span class="line">+     <span class="comment">//等价于&#123;1，&#125;</span></span><br><span class="line">*     <span class="comment">//等价于&#123;0，&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="贪婪匹配与惰性匹配"><a href="#贪婪匹配与惰性匹配" class="headerlink" title="贪婪匹配与惰性匹配"></a>贪婪匹配与惰性匹配</h5><p>横向默认是贪婪匹配，也就是说会去匹配更多的字符，在量词后添加<code>？</code>实现惰性匹配，只匹配量词要求最少的。</p>
+<h3 id="多选分支"><a href="#多选分支" class="headerlink" title="多选分支"></a>多选分支</h3><p><code>|</code>符号,支持多个子匹配模式任选其一。</p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><ol>
+<li>匹配16进制颜色</li>
+<li>匹配时间</li>
+<li>匹配日期</li>
+<li>系统文件路径</li>
+<li>匹配id</li>
+</ol>
+<h1 id="位置匹配"><a href="#位置匹配" class="headerlink" title="位置匹配"></a>位置匹配</h1><p>位置就是字符之间的位置。<br>ES5中，有6个锚可以匹配位置：<br><code>^</code>： 多行匹配中匹配行开头<br><code>$</code>：多行匹配匹配结尾<br><code>\b</code>：单词边界<code>\w</code>和<code>\W</code>之间，<code>\w</code>和<code>^</code>,<code>$</code>之间<br><code>\B</code>：非单词边界<br><code>(?=p)</code>：匹配p字符前面的位置<br><code>(?!p)</code>：匹配非p字符前面的位置<br><strong>符之间的位置可以写成多个</strong></p>
+<h2 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h2><ol>
+<li>不匹配任何东西的正则</li>
+<li>数字千位分隔符表示法</li>
+<li>验证密码问题</li>
+</ol>
+<h1 id="括号的作用"><a href="#括号的作用" class="headerlink" title="括号的作用"></a>括号的作用</h1><h2 id="分组，分支结构"><a href="#分组，分支结构" class="headerlink" title="分组，分支结构"></a>分组，分支结构</h2><h2 id="分组引用"><a href="#分组引用" class="headerlink" title="分组引用"></a>分组引用</h2><p>可以进行数据提取，以及替换。</p>
+<h3 id="提取数据"><a href="#提取数据" class="headerlink" title="提取数据"></a>提取数据</h3><p>match返回一个数组，第一个元素是整体匹配结果(<code>string</code>)，然后是各个分组匹配的内容(<code>string</code>)，然后是匹配下标（<code>index:num</code>），最后是输出的文本(<code>input:string</code>)。<br>可以用构造函数的全局属性<code>$1</code>至<code>$9</code>获取各分组匹配结果。</p>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><p>利用匹配结果分组数据改写元数据。</p>
+<h3 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h3><p>在正则本身里引用分组，但只能引用之前出现的分组，即反向引用。<br><code>\1</code>,<code>\2</code>,<code>\3</code>代表各分组匹配的字符。<br><strong>匹配的序号以左括号为准</strong><br>问题：</p>
+<ol>
+<li><code>\10</code>表示什么，要匹配<code>\1</code>和<code>0</code>要如何表示</li>
+<li>引用不存在的分组会怎么样</li>
+<li>分词后面有量词会怎么样</li>
+</ol>
+<h3 id="非捕获括号"><a href="#非捕获括号" class="headerlink" title="非捕获括号"></a>非捕获括号</h3><p>如果只用括号的分组作用，而不需要引用它，可以使用非捕获括号<code>(?:p)</code>和<code>(?:p1|p2|p3)</code>.</p>
+<h3 id="练习-2"><a href="#练习-2" class="headerlink" title="练习"></a>练习</h3><ol>
+<li>模拟字符串trim方法</li>
+<li>将每个单词首字母转换为大写</li>
+<li>驼峰化</li>
+<li>中划线化</li>
+<li>html转义和反转义</li>
+<li>匹配成对标签</li>
+</ol>
+<h1 id="回溯法原理"><a href="#回溯法原理" class="headerlink" title="回溯法原理"></a>回溯法原理</h1><h1 id="拆分"><a href="#拆分" class="headerlink" title="拆分"></a>拆分</h1><p>JS正则表达式的结构：<br>字符字面量，字符组，量词，锚，分组，选择分支，反向引用<br>设计到的操作符，按优先级排序：</p>
+<ol>
+<li>转义符 <code>\</code></li>
+<li>括号和方括号 <code>()</code>,<code>(?:)</code>,<code>(?=)</code>,<code>(?!)</code>,<code>[]</code></li>
+<li>量词限定符 </li>
+<li>位置和序列 <code>^</code>,<code>$</code>,<code>\元字符</code>,<code>一般字符</code></li>
+<li>管道符 <code>|</code></li>
+</ol>
+<h2 id="元字符转义问题"><a href="#元字符转义问题" class="headerlink" title="元字符转义问题"></a>元字符转义问题</h2><p>正则里用到的元字符<br>^,$,.,[],{},(),\,/,!,=,?,:,-</p>
+<h3 id="练习-3"><a href="#练习-3" class="headerlink" title="练习"></a>练习</h3><ol>
+<li>身份证</li>
+<li>IPV4地址</li>
+</ol>
+<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><h2 id="平衡法则"><a href="#平衡法则" class="headerlink" title="平衡法则"></a>平衡法则</h2><ol>
+<li>匹配预期的字符串</li>
+<li>不匹配非预期字符串</li>
+<li>可读性和可维护性</li>
+<li>效率</li>
+</ol>
+<h2 id="构建正则的前提"><a href="#构建正则的前提" class="headerlink" title="构建正则的前提"></a>构建正则的前提</h2><ol>
+<li>是否能使用正则</li>
+<li>是否有必要</li>
+<li>是否有必要构建一个复杂的正则</li>
+</ol>
+<h2 id="准确性"><a href="#准确性" class="headerlink" title="准确性"></a>准确性</h2><ol>
+<li>了解各部分模式规则</li>
+<li>明确形式关系</li>
+<li>提取公共部分</li>
+</ol>
+<h2 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.search</span><br><span class="line"><span class="built_in">String</span>.split</span><br><span class="line"><span class="built_in">String</span>.match</span><br><span class="line"><span class="built_in">String</span>.replace</span><br><span class="line"><span class="built_in">RegExp</span>.test</span><br><span class="line"><span class="built_in">RegExp</span>.exec</span><br></pre></td></tr></table></figure>
+<h3 id="search和match"><a href="#search和match" class="headerlink" title="search和match"></a>search和match</h3><p><em>search和match会把字符串转为正则</em><br>match有g的时候返回所有匹配的内容</p>
+<h3 id="exec比match更强大"><a href="#exec比match更强大" class="headerlink" title="exec比match更强大"></a>exec比match更强大</h3><p>match有g就没有index了</p>
+<h3 id="修饰符g对exec和test的影响"><a href="#修饰符g对exec和test的影响" class="headerlink" title="修饰符g对exec和test的影响"></a>修饰符g对exec和test的影响</h3><p>当正则是全局匹配时，lastIndex属性每次会被修改</p>
+<h3 id="test整体匹配需要使用-和"><a href="#test整体匹配需要使用-和" class="headerlink" title="test整体匹配需要使用^和$"></a>test整体匹配需要使用^和$</h3><h3 id="split的第二个参数，数组长度"><a href="#split的第二个参数，数组长度" class="headerlink" title="split的第二个参数，数组长度"></a>split的第二个参数，数组长度</h3><h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><p>$&amp;  匹配的子串文本<br>$` 匹配到的子串左边文本<br>$’ 匹配到的子串右边文本<br>$$ 美元符号</p>
+<h3 id="使用构造函数需要注意的问题"><a href="#使用构造函数需要注意的问题" class="headerlink" title="使用构造函数需要注意的问题"></a>使用构造函数需要注意的问题</h3><p>建议使用字面量，构造函数需要写好多转义符</p>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>g 全局匹配<br>i 忽略字母大小写<br>m 多行，只影响^ $</p>
+<h3 id="构造函数的属性"><a href="#构造函数的属性" class="headerlink" title="构造函数的属性"></a>构造函数的属性</h3><p>$_  最近一次目标字符串<br>$&amp;  最近一次匹配的文本<br>$+  最近一次捕获的文本<br>$`  目标字符串中lastMatch之前的文本<br>$’  目标字符串中lastMatch之后的文本</p>
+<h3 id="正则测试器"><a href="#正则测试器" class="headerlink" title="正则测试器"></a>正则测试器</h3><p>写一个正则测试器。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RegExp/" rel="tag"># RegExp</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/28/ES6入门学习记录（三）/" rel="next" title="ES6入门学习记录（三）">
+                <i class="fa fa-chevron-left"></i> ES6入门学习记录（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/07/Shadow-DOM/" rel="prev" title="Shadow DOM">
+                Shadow DOM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">He</p>
+              <p class="site-description motion-element" itemprop="description">code & origami</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/hex11o" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.flickr.com/photos/hex2" target="_blank" title="Flickr">
+                      
+                        <i class="fa fa-fw fa-flickr"></i>Flickr</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符匹配"><span class="nav-number">2.</span> <span class="nav-text">字符匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两种模糊匹配"><span class="nav-number">2.1.</span> <span class="nav-text">两种模糊匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#横向模糊匹配"><span class="nav-number">2.1.1.</span> <span class="nav-text">横向模糊匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#范围表示法"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">范围表示法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纵向模糊匹配"><span class="nav-number">2.1.2.</span> <span class="nav-text">纵向模糊匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#量词"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">量词</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#贪婪匹配与惰性匹配"><span class="nav-number">2.1.2.1.1.</span> <span class="nav-text">贪婪匹配与惰性匹配</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多选分支"><span class="nav-number">2.1.3.</span> <span class="nav-text">多选分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习"><span class="nav-number">2.1.4.</span> <span class="nav-text">练习</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位置匹配"><span class="nav-number">3.</span> <span class="nav-text">位置匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习-1"><span class="nav-number">3.1.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#括号的作用"><span class="nav-number">4.</span> <span class="nav-text">括号的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分组，分支结构"><span class="nav-number">4.1.</span> <span class="nav-text">分组，分支结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分组引用"><span class="nav-number">4.2.</span> <span class="nav-text">分组引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#提取数据"><span class="nav-number">4.2.1.</span> <span class="nav-text">提取数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换"><span class="nav-number">4.2.2.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向引用"><span class="nav-number">4.2.3.</span> <span class="nav-text">反向引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非捕获括号"><span class="nav-number">4.2.4.</span> <span class="nav-text">非捕获括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习-2"><span class="nav-number">4.2.5.</span> <span class="nav-text">练习</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回溯法原理"><span class="nav-number">5.</span> <span class="nav-text">回溯法原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拆分"><span class="nav-number">6.</span> <span class="nav-text">拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元字符转义问题"><span class="nav-number">6.1.</span> <span class="nav-text">元字符转义问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#练习-3"><span class="nav-number">6.1.1.</span> <span class="nav-text">练习</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建"><span class="nav-number">7.</span> <span class="nav-text">构建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡法则"><span class="nav-number">7.1.</span> <span class="nav-text">平衡法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建正则的前提"><span class="nav-number">7.2.</span> <span class="nav-text">构建正则的前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准确性"><span class="nav-number">7.3.</span> <span class="nav-text">准确性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程"><span class="nav-number">7.4.</span> <span class="nav-text">编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#search和match"><span class="nav-number">7.4.1.</span> <span class="nav-text">search和match</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec比match更强大"><span class="nav-number">7.4.2.</span> <span class="nav-text">exec比match更强大</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰符g对exec和test的影响"><span class="nav-number">7.4.3.</span> <span class="nav-text">修饰符g对exec和test的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test整体匹配需要使用-和"><span class="nav-number">7.4.4.</span> <span class="nav-text">test整体匹配需要使用^和$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#split的第二个参数，数组长度"><span class="nav-number">7.4.5.</span> <span class="nav-text">split的第二个参数，数组长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace"><span class="nav-number">7.4.6.</span> <span class="nav-text">replace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用构造函数需要注意的问题"><span class="nav-number">7.4.7.</span> <span class="nav-text">使用构造函数需要注意的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰符"><span class="nav-number">7.4.8.</span> <span class="nav-text">修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数的属性"><span class="nav-number">7.4.9.</span> <span class="nav-text">构造函数的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则测试器"><span class="nav-number">7.4.10.</span> <span class="nav-text">正则测试器</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">He</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("pdmPqv4t1QXER0EDxCs4jil7-gzGzoHsz", "ezxiAvqw3Bn7PxcvgDJSv8ux");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
